@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 04/07/2025 03:29:44 PM
 -- Design Name: 
--- Module Name: xor_32bit - Behavioral
+-- Module Name: xor_gate - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -21,13 +21,14 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use std.env.stop;
 
-entity tb_xor_32bit is
-end tb_xor_32bit;
+entity tb_xor_gate is
+end tb_xor_gate;
 
-architecture Behavioral of tb_xor_32bit is
-   COMPONENT xor_32bit
-    PORT(
+architecture Behavioral of tb_xor_gate is
+   COMPONENT xor_gate
+       PORT(
          input : IN  std_logic_vector(0 to 31);
          key : IN  std_logic_vector(0 to 31);
          output : OUT  std_logic_vector(0 to 31)
@@ -42,7 +43,7 @@ architecture Behavioral of tb_xor_32bit is
    signal output : std_logic_vector(0 to 31);
 BEGIN
  
-   uut: xor_32bit PORT MAP (
+   uut: xor_gate PORT MAP (
           input => input,
           key => key,
           output => output
@@ -55,10 +56,7 @@ BEGIN
 		wait for 10 ns;	
 		
         assert output = "11000000000000000000000000000000" report "XOR not working correctly" severity failure;
-       
-
-      wait;
+      
+        stop;
    end process;
-
-
 end Behavioral;
