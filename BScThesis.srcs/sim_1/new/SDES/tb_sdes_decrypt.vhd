@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 04/08/2025 01:11:16 PM
 -- Design Name: 
--- Module Name: tb_SDES_encrypt - Behavioral
+-- Module Name: tb_SDES_decrypt - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -21,11 +21,11 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE std.env.stop;
 
-ENTITY tb_SDES_encrypt IS
-END tb_SDES_encrypt;
+ENTITY tb_SDES_decrypt IS
+END tb_SDES_decrypt;
 
-ARCHITECTURE Behavioral OF tb_SDES_encrypt IS
-    COMPONENT SDES_encrypt
+ARCHITECTURE Behavioral OF tb_SDES_decrypt IS
+    COMPONENT SDES_decrypt
         PORT (
             input : IN STD_LOGIC_VECTOR(0 TO 7);
             key : IN STD_LOGIC_VECTOR(0 TO 9);
@@ -40,7 +40,7 @@ ARCHITECTURE Behavioral OF tb_SDES_encrypt IS
     --Outputs
     SIGNAL output : STD_LOGIC_VECTOR(0 TO 7);
 BEGIN
-    ip_instance : SDES_encrypt
+    ip_instance : SDES_decrypt
     PORT MAP(
         input => input,
         key => key,
@@ -49,12 +49,19 @@ BEGIN
 
     stim_proc : PROCESS
     BEGIN
-        -- https://www.uomustansiriyah.edu.iq/media/lectures/6/6_2022_05_15!02_16_49_PM.pdf page 15
-        input <= "10010111";
+        -- Reverse of encrypt, https://www.uomustansiriyah.edu.iq/media/lectures/6/6_2022_05_15!02_16_49_PM.pdf page 15
+        input <= "00111000";
         key <= "1010000010";
 
         WAIT FOR 10 ns;
-        ASSERT output = "00111000" REPORT "Encrypt not working correctly" SEVERITY failure;
+        ASSERT output = "10010111" REPORT "Decrypt not working correctly" SEVERITY failure;
+
+        -- Online calculator
+        input <= "00000000";
+        key <= "1111111111";
+        WAIT FOR 10 ns;
+        ASSERT output = "11101011" REPORT "Decrypt not working correctly" SEVERITY failure;
+
         stop;
     END PROCESS;
 END Behavioral;

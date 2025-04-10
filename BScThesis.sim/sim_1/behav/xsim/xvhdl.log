@@ -1,2 +1,2 @@
-INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/SDES/SDES_encrypt.vhd" into library xil_defaultlib
-INFO: [VRFC 10-3107] analyzing entity 'SDES_encrypt'
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/SDES/tb_sdes_decrypt.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'tb_SDES_decrypt'
