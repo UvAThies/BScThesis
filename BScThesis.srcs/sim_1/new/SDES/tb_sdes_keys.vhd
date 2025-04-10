@@ -52,8 +52,8 @@ BEGIN
         -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab7061eaa3c
         input <= "1010000010";
         WAIT FOR 10 ns;
-        ASSERT key1 = "10100100" REPORT "Initial permutation not working correctly" SEVERITY failure;
-        ASSERT key2 = "01000011" REPORT "Initial permutation not working correctly" SEVERITY failure;
+        ASSERT key1 = "10100100" REPORT "Key gen part 1 not working correctly" SEVERITY failure;
+        ASSERT key2 = "01000011" REPORT "Key gen part 2 not working correctly" SEVERITY failure;
         stop;
     END PROCESS;
 END Behavioral;
