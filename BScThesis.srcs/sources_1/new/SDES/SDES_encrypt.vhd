@@ -29,8 +29,6 @@ ENTITY SDES_encrypt IS
 END SDES_encrypt;
 
 
-
-
 ARCHITECTURE Behavioral OF SDES_encrypt IS
 COMPONENT SDES_initial_permutation
 GENERIC (
@@ -57,6 +55,20 @@ PORT (
 );
 END COMPONENT;
 
+COMPONENT SDES_pi IS
+    PORT (
+        input : IN STD_LOGIC_VECTOR(0 TO 7);
+        key : IN STD_LOGIC_VECTOR(0 TO 7);
+        output : OUT STD_LOGIC_VECTOR(0 TO 7)
+    );
+END COMPONENT;
+
+SIGNAL ip_output : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL key1 : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL key2 : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL pi1_output : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL swap_output : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL pi2_output : STD_LOGIC_VECTOR(0 TO 7);
 
 BEGIN
     -- IP
@@ -64,35 +76,45 @@ BEGIN
     -- SWAP
     -- PI key2
     -- IP inv
+    ip_instance : SDES_initial_permutation
+    GENERIC MAP (IS_INVERSE => FALSE)
+    PORT MAP (
+        input => input,
+        output => ip_output
+    );
 
-    -- temporary
---    SIGNAL temp : STD_LOGIC_VECTOR(0 TO 7);
---    SIGNAL temp2 : STD_LOGIC_VECTOR(0 TO 7);
---    SIGNAL key1 : STD_LOGIC_VECTOR(0 TO 7);
---    siGNAL key2 : STD_LOGIC_VECTOR(0 TO 7);
+    key_gen_instance : SDES_generate_keys
+    PORT MAP (
+        input => key,
+        key1 => key1,
+        key2 => key2
+    );
 
---    KEY_instance : SDES_generate_keys
---    PORT MAP (
---        input => key,
---        key1 => key1,
---        key2 => key2
---    );
-    
---    IP_instance : SDES_initial_permutation
---    GENERIC MAP (
---        IS_INVERSE => FALSE
---    )
---    PORT MAP (
---        input => input,
---        output => temp
---    );
+    pi1_instance : SDES_pi
+    PORT MAP (
+        input => ip_output,
+        key => key1,
+        output => pi1_output
+    );
 
---    SWAP_instance : SDES_swap
---    PORT MAP (
---        input => temp,
---        output => temp2
---    );
+    swap_instance : SDES_swap
+    PORT MAP (
+        input => pi1_output,
+        output => swap_output
+    );
 
+    pi2_instance : SDES_pi
+    PORT MAP (
+        input => swap_output,
+        key => key2,
+        output => pi2_output
+    );
 
+    ip_inv_instance : SDES_initial_permutation
+    GENERIC MAP (IS_INVERSE => TRUE)
+    PORT MAP (
+        input => pi2_output,
+        output => output
+    );
 
 END Behavioral;
