@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_SDES_pi IS
 END tb_SDES_pi;
@@ -55,6 +55,6 @@ BEGIN
 
         WAIT FOR 10 ns;
         ASSERT output = "10101101" REPORT "Swap not working correctly" SEVERITY failure;
-        stop;
+        wait;
     END PROCESS;
 END Behavioral;

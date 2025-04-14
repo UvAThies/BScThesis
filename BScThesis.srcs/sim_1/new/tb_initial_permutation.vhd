@@ -21,7 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use std.env.stop;
+
 
 entity tb_initial_permutation is
 end tb_initial_permutation;
@@ -74,6 +74,6 @@ BEGIN
         assert output_inv = "0000000000000000000000000000000000000000000000000000000001000000" report "Initial permutation inv not working correctly" severity failure;
         
       
-        stop;
+        wait;
    end process;
 end Behavioral;

@@ -19,7 +19,6 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
 
 ENTITY tb_SDES_swap IS
 END tb_SDES_swap;
@@ -49,6 +48,7 @@ BEGIN
         input <= "11110000";
         WAIT FOR 10 ns;
         ASSERT output = "00001111" REPORT "Swap not working correctly" SEVERITY failure;
-        stop;
+        
+        wait;
     END PROCESS;
 END Behavioral;

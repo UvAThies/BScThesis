@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_SDES_initial_permutation IS
 END tb_SDES_initial_permutation;
@@ -70,6 +70,6 @@ BEGIN
         input_inv <= "00101010";
         WAIT FOR 10 ns;
         ASSERT output_inv = "00111000" REPORT "Initial permutation inv not working correctly" SEVERITY failure;
-        stop;
+        wait;
     END PROCESS;
 END Behavioral;

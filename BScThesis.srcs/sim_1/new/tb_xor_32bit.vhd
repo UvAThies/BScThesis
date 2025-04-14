@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_xor_gate IS
 END tb_xor_gate;
@@ -55,6 +55,6 @@ BEGIN
 
         ASSERT output = "11000000000000000000000000000000" REPORT "XOR not working correctly" SEVERITY failure;
 
-        stop;
+        wait;
     END PROCESS;
 END Behavioral;

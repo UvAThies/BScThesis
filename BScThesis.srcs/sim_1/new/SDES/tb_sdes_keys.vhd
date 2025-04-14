@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_SDES_keys IS
 END tb_SDES_keys;
@@ -54,6 +54,6 @@ BEGIN
         WAIT FOR 10 ns;
         ASSERT key1 = "10100100" REPORT "Key gen part 1 not working correctly" SEVERITY failure;
         ASSERT key2 = "01000011" REPORT "Key gen part 2 not working correctly" SEVERITY failure;
-        stop;
+        wait;
     END PROCESS;
 END Behavioral;

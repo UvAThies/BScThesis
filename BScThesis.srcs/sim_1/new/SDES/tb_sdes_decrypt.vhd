@@ -19,7 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-USE std.env.stop;
+
 
 ENTITY tb_SDES_decrypt IS
 END tb_SDES_decrypt;
@@ -62,6 +62,6 @@ BEGIN
         WAIT FOR 10 ns;
         ASSERT output = "11101011" REPORT "Decrypt not working correctly" SEVERITY failure;
 
-        stop;
+        wait;
     END PROCESS;
 END Behavioral;
