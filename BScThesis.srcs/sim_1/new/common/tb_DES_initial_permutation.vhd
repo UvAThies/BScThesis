@@ -1,0 +1,71 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 04/08/2025 01:11:16 PM
+-- Design Name: 
+-- Module Name: tb_DES_initial_permutation - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+
+
+ENTITY tb_DES_initial_permutation IS
+END tb_DES_initial_permutation;
+
+ARCHITECTURE Behavioral OF tb_DES_initial_permutation IS
+    COMPONENT DES_initial_permutation
+        GENERIC (
+            IS_INVERSE : BOOLEAN
+        );
+        PORT (
+            input : IN STD_LOGIC_VECTOR(0 TO 63);
+            output : OUT STD_LOGIC_VECTOR(0 TO 63)
+        );
+    END COMPONENT;
+
+    --Inputs
+    SIGNAL input : STD_LOGIC_VECTOR(0 TO 63);
+    SIGNAL input_inv : STD_LOGIC_VECTOR(0 TO 63);
+
+    --Outputs
+    SIGNAL output : STD_LOGIC_VECTOR(0 TO 63);
+    SIGNAL output_inv : STD_LOGIC_VECTOR(0 TO 63);
+BEGIN
+    ip_instance : DES_initial_permutation
+    GENERIC MAP(
+        IS_INVERSE => false
+    )
+    PORT MAP(
+        input => input,
+        output => output
+    );
+    ip_inv_instance : DES_initial_permutation
+    GENERIC MAP(
+        IS_INVERSE => true
+    )
+    PORT MAP(
+        input => input_inv,
+        output => output_inv
+    );
+    stim_proc : PROCESS
+    BEGIN
+        -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab63061eaa3c
+        input <= "0000000100100011010001010110011110001001101010111100110111101111";
+        WAIT FOR 10 ns;
+        ASSERT output = "1100110000000000110011001111111111110000101010101111000010101010" REPORT "Initial permutation not working correctly" SEVERITY failure;
+
+        wait;
+    END PROCESS;
+END Behavioral;
