@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xCC6CFA53F622E079",
+      "boundary_crc": "0xCC6CFA53B4580162",
       "device": "xc7z020clg400-1",
       "gen_directory": "../../../../BScThesis.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -201,7 +201,7 @@
           "boundary_crc": "0x0"
         },
         "ports": {
-          "input": {
+          "inp": {
             "direction": "I",
             "left": "0",
             "right": "7"
@@ -211,7 +211,7 @@
             "left": "0",
             "right": "9"
           },
-          "output": {
+          "outp": {
             "direction": "O",
             "left": "0",
             "right": "7"
@@ -1850,7 +1850,7 @@
     "nets": {
       "SDES_encrypt_0_output": {
         "ports": [
-          "SDES_encrypt_0/output",
+          "SDES_encrypt_0/outp",
           "xlconcat_0/In1"
         ]
       },
@@ -1876,7 +1876,7 @@
       "xlslice_0_Dout": {
         "ports": [
           "xlslice_0/Dout",
-          "SDES_encrypt_0/input"
+          "SDES_encrypt_0/inp"
         ]
       },
       "xlslice_1_Dout": {

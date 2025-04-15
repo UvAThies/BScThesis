@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-//Date        : Tue Apr 15 22:44:59 2025
+//Date        : Tue Apr 15 22:53:16 2025
 //Host        : DefconeONE running 64-bit major release  (build 9200)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -84,9 +84,9 @@ module design_1
   wire [9:0]xlslice_1_Dout;
 
   design_1_SDES_encrypt_0_0 SDES_encrypt_0
-       (.\input ({xlslice_0_Dout[7],xlslice_0_Dout[6],xlslice_0_Dout[5],xlslice_0_Dout[4],xlslice_0_Dout[3],xlslice_0_Dout[2],xlslice_0_Dout[1],xlslice_0_Dout[0]}),
+       (.inp({xlslice_0_Dout[7],xlslice_0_Dout[6],xlslice_0_Dout[5],xlslice_0_Dout[4],xlslice_0_Dout[3],xlslice_0_Dout[2],xlslice_0_Dout[1],xlslice_0_Dout[0]}),
         .key({xlslice_1_Dout[9],xlslice_1_Dout[8],xlslice_1_Dout[7],xlslice_1_Dout[6],xlslice_1_Dout[5],xlslice_1_Dout[4],xlslice_1_Dout[3],xlslice_1_Dout[2],xlslice_1_Dout[1],xlslice_1_Dout[0]}),
-        .\output (SDES_encrypt_0_output));
+        .outp(SDES_encrypt_0_output));
   assign ilconstant_0_dout = 18'h00000;
   design_1_processing_system7_0_0 processing_system7_0
        (.DDR_Addr(DDR_addr),
