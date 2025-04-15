@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        algo: [SDES] # Add more algorithms here if needed
+        algo: [SDES, DES]
 
     steps:
       - name: Checkout code

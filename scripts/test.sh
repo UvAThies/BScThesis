@@ -22,9 +22,9 @@ cp BScThesis.srcs/**/*.vhd ./workspace
 cd ./workspace
 ls -lah
 SUCCESS=1
-NOT_TB_FILES=$(find -type f -name "$ALGO_*.vhd")
-TB_FILES=$(find -type f -name "tb_$ALGO_*.vhd")
-echo "Compiling files for$ALGO..."
+NOT_TB_FILES=$(find . -type f -name "${ALGO}_*.vhd")
+TB_FILES=$(find . -type f -name "tb_${ALGO}_*.vhd")
+echo "Compiling files for $ALGO..."
 for file in $NOT_TB_FILES; do
     file=${file:2} # Remove ./ from find output
     FILE_WITHOUT_EXT="${file%.*}" # Remove the file extension
