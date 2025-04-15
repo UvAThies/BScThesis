@@ -21,11 +21,11 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 
 
-ENTITY tb_xor_gate IS
-END tb_xor_gate;
+ENTITY tb_xor_32bit IS
+END tb_xor_32bit;
 
-ARCHITECTURE Behavioral OF tb_xor_gate IS
-    COMPONENT xor_gate
+ARCHITECTURE Behavioral OF tb_xor_32bit IS
+    COMPONENT xor_32bit
         PORT (
             input : IN STD_LOGIC_VECTOR(0 TO 31);
             key : IN STD_LOGIC_VECTOR(0 TO 31);
@@ -41,7 +41,7 @@ ARCHITECTURE Behavioral OF tb_xor_gate IS
     SIGNAL output : STD_LOGIC_VECTOR(0 TO 31);
 BEGIN
 
-    uut : xor_gate PORT MAP(
+    uut : xor_32bit PORT MAP(
         input => input,
         key => key,
         output => output
