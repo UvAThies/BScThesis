@@ -25,8 +25,8 @@ ENTITY DES_initial_permutation IS
         IS_INVERSE : BOOLEAN
     );
     PORT (
-        input : IN STD_LOGIC_VECTOR(0 TO 63);
-        output : OUT STD_LOGIC_VECTOR(0 TO 63));
+        inp : IN STD_LOGIC_VECTOR(0 TO 63);
+        outp : OUT STD_LOGIC_VECTOR(0 TO 63));
 END DES_initial_permutation;
 
 ARCHITECTURE Behavioral OF DES_initial_permutation IS
@@ -42,10 +42,10 @@ ARCHITECTURE Behavioral OF DES_initial_permutation IS
 BEGIN
     swapbits : FOR i IN 0 TO 63 GENERATE
         inverse : IF (IS_INVERSE) GENERATE
-                output(i) <= input(ip_inv(i));
+                outp(i) <= inp(ip_inv(i));
         ELSE
             GENERATE
-                output(i) <= input(ip(i));
+                outp(i) <= inp(ip(i));
             END GENERATE inverse;
         END GENERATE swapbits;
     END Behavioral;

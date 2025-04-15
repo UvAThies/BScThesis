@@ -30,41 +30,41 @@ ARCHITECTURE Behavioral OF tb_DES_initial_permutation IS
             IS_INVERSE : BOOLEAN
         );
         PORT (
-            input : IN STD_LOGIC_VECTOR(0 TO 63);
-            output : OUT STD_LOGIC_VECTOR(0 TO 63)
+            inp : IN STD_LOGIC_VECTOR(0 TO 63);
+            outp : OUT STD_LOGIC_VECTOR(0 TO 63)
         );
     END COMPONENT;
 
-    --Inputs
-    SIGNAL input : STD_LOGIC_VECTOR(0 TO 63);
-    SIGNAL input_inv : STD_LOGIC_VECTOR(0 TO 63);
+    --inps
+    SIGNAL inp : STD_LOGIC_VECTOR(0 TO 63);
+    SIGNAL inp_inv : STD_LOGIC_VECTOR(0 TO 63);
 
-    --Outputs
-    SIGNAL output : STD_LOGIC_VECTOR(0 TO 63);
-    SIGNAL output_inv : STD_LOGIC_VECTOR(0 TO 63);
+    --outps
+    SIGNAL outp : STD_LOGIC_VECTOR(0 TO 63);
+    SIGNAL outp_inv : STD_LOGIC_VECTOR(0 TO 63);
 BEGIN
     ip_instance : DES_initial_permutation
     GENERIC MAP(
         IS_INVERSE => false
     )
     PORT MAP(
-        input => input,
-        output => output
+        inp => inp,
+        outp => outp
     );
     ip_inv_instance : DES_initial_permutation
     GENERIC MAP(
         IS_INVERSE => true
     )
     PORT MAP(
-        input => input_inv,
-        output => output_inv
+        inp => inp_inv,
+        outp => outp_inv
     );
     stim_proc : PROCESS
     BEGIN
         -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab63061eaa3c
-        input <= "0000000100100011010001010110011110001001101010111100110111101111";
+        inp <= "0000000100100011010001010110011110001001101010111100110111101111";
         WAIT FOR 10 ns;
-        ASSERT output = "1100110000000000110011001111111111110000101010101111000010101010" REPORT "Initial permutation not working correctly" SEVERITY failure;
+        ASSERT outp = "1100110000000000110011001111111111110000101010101111000010101010" REPORT "Initial permutation not working correctly" SEVERITY failure;
 
         wait;
     END PROCESS;

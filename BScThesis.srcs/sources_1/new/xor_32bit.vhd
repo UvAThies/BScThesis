@@ -36,12 +36,12 @@ entity xor_32bit is
     generic(
         width : integer := 31
     );
-    Port ( input : in std_logic_vector(0 to width);
+    Port ( inp : in std_logic_vector(0 to width);
            key : in std_logic_vector(0 to width);
-           output : out std_logic_vector(0 to width));
+           outp : out std_logic_vector(0 to width));
 end xor_32bit;
 
 architecture Behavioral of xor_32bit is
 begin
-    output <= input xor key;
+    outp <= inp xor key;
 end Behavioral;

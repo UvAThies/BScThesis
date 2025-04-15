@@ -27,34 +27,34 @@ END tb_SDES_encrypt;
 ARCHITECTURE Behavioral OF tb_SDES_encrypt IS
     COMPONENT SDES_encrypt
         PORT (
-            input : IN STD_LOGIC_VECTOR(0 TO 7);
+            inp : IN STD_LOGIC_VECTOR(0 TO 7);
             key : IN STD_LOGIC_VECTOR(0 TO 9);
-            output : OUT STD_LOGIC_VECTOR(0 TO 7)
+            outp : OUT STD_LOGIC_VECTOR(0 TO 7)
         );
     END COMPONENT;
 
-    --Inputs
-    SIGNAL input : STD_LOGIC_VECTOR(0 TO 7);
+    --inps
+    SIGNAL inp : STD_LOGIC_VECTOR(0 TO 7);
     SIGNAL key : STD_LOGIC_VECTOR(0 TO 9);
 
-    --Outputs
-    SIGNAL output : STD_LOGIC_VECTOR(0 TO 7);
+    --outps
+    SIGNAL outp : STD_LOGIC_VECTOR(0 TO 7);
 BEGIN
     ip_instance : SDES_encrypt
     PORT MAP(
-        input => input,
+        inp => inp,
         key => key,
-        output => output
+        outp => outp
     );
 
     stim_proc : PROCESS
     BEGIN
         -- https://www.uomustansiriyah.edu.iq/media/lectures/6/6_2022_05_15!02_16_49_PM.pdf page 15
-        input <= "10010111";
+        inp <= "10010111";
         key <= "1010000010";
 
         WAIT FOR 10 ns;
-        ASSERT output = "00111000" REPORT "Encrypt not working correctly" SEVERITY failure;
+        ASSERT outp = "00111000" REPORT "Encrypt not working correctly" SEVERITY failure;
         wait;
     END PROCESS;
 END Behavioral;

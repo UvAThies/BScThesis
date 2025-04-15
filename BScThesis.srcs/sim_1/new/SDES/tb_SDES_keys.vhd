@@ -27,22 +27,22 @@ END tb_SDES_keys;
 ARCHITECTURE Behavioral OF tb_SDES_keys IS
     COMPONENT SDES_generate_keys
         PORT (
-            input : IN STD_LOGIC_VECTOR(0 TO 9);
+            inp : IN STD_LOGIC_VECTOR(0 TO 9);
             key1 : OUT STD_LOGIC_VECTOR(0 TO 7);
             key2 : OUT STD_LOGIC_VECTOR(0 TO 7)
         );
     END COMPONENT;
 
-    --Inputs
-    SIGNAL input : STD_LOGIC_VECTOR(0 TO 9);
+    --inps
+    SIGNAL inp : STD_LOGIC_VECTOR(0 TO 9);
 
-    --Outputs
+    --outps
     SIGNAL key1 : STD_LOGIC_VECTOR(0 TO 7);
     SIGNAL key2 : STD_LOGIC_VECTOR(0 TO 7);
 BEGIN
     ip_instance : SDES_generate_keys
     PORT MAP(
-        input => input,
+        inp => inp,
         key1 => key1,
         key2 => key2
     );
@@ -50,7 +50,7 @@ BEGIN
     stim_proc : PROCESS
     BEGIN
         -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab7061eaa3c
-        input <= "1010000010";
+        inp <= "1010000010";
         WAIT FOR 10 ns;
         ASSERT key1 = "10100100" REPORT "Key gen part 1 not working correctly" SEVERITY failure;
         ASSERT key2 = "01000011" REPORT "Key gen part 2 not working correctly" SEVERITY failure;

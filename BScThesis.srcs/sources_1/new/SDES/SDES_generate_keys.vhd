@@ -22,7 +22,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY SDES_generate_keys IS
     PORT (
-        input : IN STD_LOGIC_VECTOR(0 TO 9);
+        inp : IN STD_LOGIC_VECTOR(0 TO 9);
         key1 : OUT STD_LOGIC_VECTOR(0 TO 7);
         key2 : OUT STD_LOGIC_VECTOR(0 TO 7)
     );
@@ -31,8 +31,8 @@ END SDES_generate_keys;
 ARCHITECTURE Behavioral OF SDES_generate_keys IS
 
 BEGIN
-    -- The input is a 10-bit key
-    -- The output is two 8-bit keys
+    -- The inp is a 10-bit key
+    -- The outp is two 8-bit keys
     -- Process for this can be found in \cite{Schaefer1996}
 
     -- k2, k4, k1, k6, k3, k9, k0, k8, k7, k5 = s
@@ -46,25 +46,25 @@ BEGIN
     -- key 2 = u5,u2,u6,u3,u7,u4,u9,u8
     -- key 2 = k7,k2,k5,k4,k9,k1,k8,k0
 
-    PROCESS (input)
+    PROCESS (inp)
     BEGIN
-        key1(0) <= input(0);
-        key1(1) <= input(6);
-        key1(2) <= input(8);
-        key1(3) <= input(3);
-        key1(4) <= input(7);
-        key1(5) <= input(2);
-        key1(6) <= input(9);
-        key1(7) <= input(5);
+        key1(0) <= inp(0);
+        key1(1) <= inp(6);
+        key1(2) <= inp(8);
+        key1(3) <= inp(3);
+        key1(4) <= inp(7);
+        key1(5) <= inp(2);
+        key1(6) <= inp(9);
+        key1(7) <= inp(5);
 
-        key2(0) <= input(7);
-        key2(1) <= input(2);
-        key2(2) <= input(5);
-        key2(3) <= input(4);
-        key2(4) <= input(9);
-        key2(5) <= input(1);
-        key2(6) <= input(8);
-        key2(7) <= input(0);
+        key2(0) <= inp(7);
+        key2(1) <= inp(2);
+        key2(2) <= inp(5);
+        key2(3) <= inp(4);
+        key2(4) <= inp(9);
+        key2(5) <= inp(1);
+        key2(6) <= inp(8);
+        key2(7) <= inp(0);
     END PROCESS;
 
 

@@ -27,33 +27,33 @@ END tb_xor_32bit;
 ARCHITECTURE Behavioral OF tb_xor_32bit IS
     COMPONENT xor_32bit
         PORT (
-            input : IN STD_LOGIC_VECTOR(0 TO 31);
+            inp : IN STD_LOGIC_VECTOR(0 TO 31);
             key : IN STD_LOGIC_VECTOR(0 TO 31);
-            output : OUT STD_LOGIC_VECTOR(0 TO 31)
+            outp : OUT STD_LOGIC_VECTOR(0 TO 31)
         );
     END COMPONENT;
 
-    --Inputs
-    SIGNAL input : STD_LOGIC_VECTOR(0 TO 31);
+    --inps
+    SIGNAL inp : STD_LOGIC_VECTOR(0 TO 31);
     SIGNAL key : STD_LOGIC_VECTOR(0 TO 31);
 
-    --Outputs
-    SIGNAL output : STD_LOGIC_VECTOR(0 TO 31);
+    --outps
+    SIGNAL outp : STD_LOGIC_VECTOR(0 TO 31);
 BEGIN
 
     uut : xor_32bit PORT MAP(
-        input => input,
+        inp => inp,
         key => key,
-        output => output
+        outp => outp
     );
 
     stim_proc : PROCESS
     BEGIN
-        input <= "01100000000000000000000000000000";
+        inp <= "01100000000000000000000000000000";
         key <= "10100000000000000000000000000000";
         WAIT FOR 10 ns;
 
-        ASSERT output = "11000000000000000000000000000000" REPORT "XOR not working correctly" SEVERITY failure;
+        ASSERT outp = "11000000000000000000000000000000" REPORT "XOR not working correctly" SEVERITY failure;
 
         wait;
     END PROCESS;

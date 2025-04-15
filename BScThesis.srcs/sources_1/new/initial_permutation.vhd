@@ -35,8 +35,8 @@ entity initial_permutation is
     generic (
         IS_INVERSE: boolean 
     );
-    Port ( input : in std_logic_vector(0 to 63);
-           output: out std_logic_vector(0 to 63));
+    Port ( inp : in std_logic_vector(0 to 63);
+           outp: out std_logic_vector(0 to 63));
 end initial_permutation;
 
 architecture Behavioral of initial_permutation is
@@ -55,9 +55,9 @@ constant ip: t_Permutation_table :=
 begin
         swapbits: for i in 0 to 63 generate
            inverse: if (IS_INVERSE) generate
-                output(ip(i)) <= input(i);
+                outp(ip(i)) <= inp(i);
             else generate
-                output(i) <= input(ip(i));
+                outp(i) <= inp(ip(i));
             end generate inverse;
         end generate swapbits;
 end Behavioral;

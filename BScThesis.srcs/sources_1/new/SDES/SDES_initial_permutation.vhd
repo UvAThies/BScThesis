@@ -34,8 +34,8 @@ ENTITY SDES_initial_permutation IS
         IS_INVERSE : BOOLEAN
     );
     PORT (
-        input : IN STD_LOGIC_VECTOR(0 TO 7);
-        output : OUT STD_LOGIC_VECTOR(0 TO 7));
+        inp : IN STD_LOGIC_VECTOR(0 TO 7);
+        outp : OUT STD_LOGIC_VECTOR(0 TO 7));
 END SDES_initial_permutation;
 
 ARCHITECTURE Behavioral OF SDES_initial_permutation IS
@@ -51,10 +51,10 @@ ARCHITECTURE Behavioral OF SDES_initial_permutation IS
 BEGIN
     swapbits : FOR i IN 0 TO 7 GENERATE
         inverse : IF (IS_INVERSE) GENERATE
-                output(i) <= input(ip_inv(i));
+                outp(i) <= inp(ip_inv(i));
         ELSE
             GENERATE
-                output(i) <= input(ip(i));
+                outp(i) <= inp(ip(i));
             END GENERATE inverse;
         END GENERATE swapbits;
     END Behavioral;

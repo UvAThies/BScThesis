@@ -30,46 +30,46 @@ ARCHITECTURE Behavioral OF tb_SDES_initial_permutation IS
             IS_INVERSE : BOOLEAN
         );
         PORT (
-            input : IN STD_LOGIC_VECTOR(0 TO 7);
-            output : OUT STD_LOGIC_VECTOR(0 TO 7)
+            inp : IN STD_LOGIC_VECTOR(0 TO 7);
+            outp : OUT STD_LOGIC_VECTOR(0 TO 7)
         );
     END COMPONENT;
 
-    --Inputs
-    SIGNAL input : STD_LOGIC_VECTOR(0 TO 7);
-    SIGNAL input_inv : STD_LOGIC_VECTOR(0 TO 7);
+    --inps
+    SIGNAL inp : STD_LOGIC_VECTOR(0 TO 7);
+    SIGNAL inp_inv : STD_LOGIC_VECTOR(0 TO 7);
 
-    --Outputs
-    SIGNAL output : STD_LOGIC_VECTOR(0 TO 7);
-    SIGNAL output_inv : STD_LOGIC_VECTOR(0 TO 7);
+    --outps
+    SIGNAL outp : STD_LOGIC_VECTOR(0 TO 7);
+    SIGNAL outp_inv : STD_LOGIC_VECTOR(0 TO 7);
 BEGIN
     ip_instance : SDES_initial_permutation
     GENERIC MAP(
         IS_INVERSE => false
     )
     PORT MAP(
-        input => input,
-        output => output
+        inp => inp,
+        outp => outp
     );
     ip_inv_instance : SDES_initial_permutation
     GENERIC MAP(
         IS_INVERSE => true
     )
     PORT MAP(
-        input => input_inv,
-        output => output_inv
+        inp => inp_inv,
+        outp => outp_inv
     );
     stim_proc : PROCESS
     BEGIN
         -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab7061eaa3c
-        input <= "01110010";
+        inp <= "01110010";
         WAIT FOR 10 ns;
-        ASSERT output = "10101001" REPORT "Initial permutation not working correctly" SEVERITY failure;
+        ASSERT outp = "10101001" REPORT "Initial permutation not working correctly" SEVERITY failure;
 
         -- Example from https://www.uomustansiriyah.edu.iq/media/lectures/6/6_2022_05_15!02_16_49_PM.pdf, page 18.
-        input_inv <= "00101010";
+        inp_inv <= "00101010";
         WAIT FOR 10 ns;
-        ASSERT output_inv = "00111000" REPORT "Initial permutation inv not working correctly" SEVERITY failure;
+        ASSERT outp_inv = "00111000" REPORT "Initial permutation inv not working correctly" SEVERITY failure;
         wait;
     END PROCESS;
 END Behavioral;

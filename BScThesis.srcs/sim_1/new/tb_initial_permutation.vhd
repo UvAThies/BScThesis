@@ -32,46 +32,46 @@ architecture Behavioral of tb_initial_permutation is
         IS_INVERSE: boolean 
     );
     PORT(
-         input : IN  std_logic_vector(0 to 63);
-         output : OUT  std_logic_vector(0 to 63)
+         inp : IN  std_logic_vector(0 to 63);
+         outp : OUT  std_logic_vector(0 to 63)
         );
     END COMPONENT;
     
-   --Inputs
-   signal input : std_logic_vector(0 to 63);
-   signal input_inv: std_logic_vector(0 to 63);
+   --inps
+   signal inp : std_logic_vector(0 to 63);
+   signal inp_inv: std_logic_vector(0 to 63);
 
- 	--Outputs
-   signal output : std_logic_vector(0 to 63);
-   signal output_inv: std_logic_vector(0 to 63);
+ 	--outps
+   signal outp : std_logic_vector(0 to 63);
+   signal outp_inv: std_logic_vector(0 to 63);
 BEGIN
    ip_instance: initial_permutation 
    GENERIC MAP (
        IS_INVERSE => false
    )
    PORT MAP (
-          input => input,
-          output => output
+          inp => inp,
+          outp => outp
         );
    ip_inv_instance: initial_permutation 
    GENERIC MAP (
        IS_INVERSE => true
    )
    PORT MAP (
-          input => input_inv,
-          output => output_inv
+          inp => inp_inv,
+          outp => outp_inv
         );
 
 
    stim_proc: process
    begin
-        input <= "0000000000000000000000000000000000000000000000000000000001000000";
+        inp <= "0000000000000000000000000000000000000000000000000000000001000000";
 		wait for 10 ns;	
-        assert output = "1000000000000000000000000000000000000000000000000000000000000000" report "Initial permutation not working correctly" severity failure;
+        assert outp = "1000000000000000000000000000000000000000000000000000000000000000" report "Initial permutation not working correctly" severity failure;
         
-        input_inv <= "1000000000000000000000000000000000000000000000000000000000000000";
+        inp_inv <= "1000000000000000000000000000000000000000000000000000000000000000";
         wait for 10 ns;	
-        assert output_inv = "0000000000000000000000000000000000000000000000000000000001000000" report "Initial permutation inv not working correctly" severity failure;
+        assert outp_inv = "0000000000000000000000000000000000000000000000000000000001000000" report "Initial permutation inv not working correctly" severity failure;
         
       
         wait;
