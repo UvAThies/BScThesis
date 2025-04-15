@@ -1,0 +1,48 @@
+name: Run VHDL Testbenches (Matrix)
+
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        algo: [SDES] # Add more algorithms here if needed
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up GHDL
+        uses: ghdl/setup-ghdl@v1
+        with:
+          version: 5.0.1
+
+      - name: Run Testbenches for ${{ matrix.algo }}
+        run: |
+          mkdir ./workspace
+          shopt -s globstar
+          cp BScThesis.srcs/**/*.vhd ./workspace
+          cd ./workspace
+          ls -lah
+          NOT_TB_FILES=$(find -type f -name "${{ matrix.algo }}_*.vhd")
+          TB_FILES=$(find -type f -name "tb_${{ matrix.algo }}_*.vhd")
+          echo "Compiling files for ${{ matrix.algo }}..."
+          for file in $NOT_TB_FILES; do
+            file=${file:2} #remove ./ from find output
+            FILE_WITHOUT_EXT="${file%.*}"
+            echo "Compiling  ${file}..."
+            ghdl -a --std=08 "${file}"
+            ghdl -e --std=08 "$FILE_WITHOUT_EXT"
+          done
+          echo "Running test bench for ${{ matrix.algo }}..."
+          for tb_file in $TB_FILES; do
+            tb_file=${tb_file:2} #remove ./ from find output
+            TB_FILE_WITHOUT_EXT="${tb_file%.*}"
+            echo "Compiling  ${tb_file}..."
+            ghdl -a --std=08 "${tb_file}" && \
+            ghdl -e --std=08 "$TB_FILE_WITHOUT_EXT" && \
+            echo "Running $TB_FILE_WITHOUT_EXT..." && \
+            ghdl -r --std=08 "$TB_FILE_WITHOUT_EXT" && \
+            echo "Done running $tb_file"
+          done
