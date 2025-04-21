@@ -21,14 +21,13 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 
 ENTITY DES_left_rotate IS
-    GENERIC
-    (
+    GENERIC (
         amount : INTEGER := 1 -- Amount to rotate left
     );
     PORT (
         inp : IN STD_LOGIC_VECTOR(0 TO 27);
         outp : OUT STD_LOGIC_VECTOR(0 TO 27)
-        );
+    );
 END DES_left_rotate;
 
 ARCHITECTURE Behavioral OF DES_left_rotate IS

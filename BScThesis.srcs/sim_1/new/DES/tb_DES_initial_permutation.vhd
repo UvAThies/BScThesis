@@ -19,8 +19,6 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
-
 ENTITY tb_DES_initial_permutation IS
 END tb_DES_initial_permutation;
 
@@ -69,6 +67,6 @@ BEGIN
         inp <= "1101111010101101101111101110111111001010111111101011101010111110";
         WAIT FOR 10 ns;
         ASSERT outp = "0011100111100101101011110000101011111111111011101111111111111101" REPORT "DES Initial permutation not working correctly" SEVERITY failure;
-        wait;
+        WAIT;
     END PROCESS;
 END Behavioral;

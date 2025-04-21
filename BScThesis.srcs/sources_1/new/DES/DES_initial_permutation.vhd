@@ -42,7 +42,7 @@ ARCHITECTURE Behavioral OF DES_initial_permutation IS
 BEGIN
     swapbits : FOR i IN 0 TO 63 GENERATE
         inverse : IF (IS_INVERSE) GENERATE
-                outp(i) <= inp(ip_inv(i));
+            outp(i) <= inp(ip_inv(i));
         ELSE
             GENERATE
                 outp(i) <= inp(ip(i));

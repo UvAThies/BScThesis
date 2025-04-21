@@ -19,8 +19,6 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
-
 ENTITY tb_DES_key_pc2 IS
 END tb_DES_key_pc2;
 
@@ -50,6 +48,6 @@ BEGIN
         inp <= "11110000110011001010101000001010101011001100111100000000";
         WAIT FOR 10 ns;
         ASSERT outp = "110010100011110100000011101110000111000000110010" REPORT "DES pc2 not working correctly" SEVERITY failure;
-        wait;
+        WAIT;
     END PROCESS;
 END Behavioral;

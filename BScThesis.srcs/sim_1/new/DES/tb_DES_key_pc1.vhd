@@ -19,8 +19,6 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
-
 ENTITY tb_DES_key_pc1 IS
 END tb_DES_key_pc1;
 
@@ -54,13 +52,11 @@ BEGIN
         WAIT FOR 10 ns;
         ASSERT outp_left = "1111000011001100101010100000" REPORT "DES PC1left not working correctly" SEVERITY failure;
         ASSERT outp_right = "1010101011001100111100000000" REPORT "DES PC1right not working correctly" SEVERITY failure;
-
-
         inp <= "1011101011011101110111011101110111011101110111011101110111011101";
         WAIT FOR 10 ns;
         ASSERT outp_left = "1111111111111110000000011111" REPORT "DES PC1left not working correctly" SEVERITY failure;
         ASSERT outp_right = "0000000111111110111111111111" REPORT "DES PC1right not working correctly" SEVERITY failure;
 
-        wait;
+        WAIT;
     END PROCESS;
 END Behavioral;

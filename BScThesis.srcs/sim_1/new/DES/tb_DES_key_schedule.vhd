@@ -19,9 +19,7 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-use work.pkg.all;
-
-
+USE work.pkg.ALL;
 ENTITY tb_DES_key_schedule IS
 END tb_DES_key_schedule;
 
@@ -51,7 +49,7 @@ BEGIN
         inp <= "0000000100100011010001010110011110001001101010111100110111101111";
         WAIT FOR 10 ns;
         ASSERT outp(0) = "110010100011110100000011101110000111000000110010" REPORT "DES keyschedule not working correctly" SEVERITY failure;
-        
+
         ASSERT outp(1) = "000010110000001001100111100110110100100110100101" REPORT "DES keyschedule not working correctly" SEVERITY failure;
         ASSERT outp(2) = "011010011010011001011001001001010110101000100110" REPORT "DES keyschedule not working correctly" SEVERITY failure;
         ASSERT outp(3) = "010001011101010010001010101101000010100011010010" REPORT "DES keyschedule not working correctly" SEVERITY failure;
@@ -67,7 +65,7 @@ BEGIN
         ASSERT outp(13) = "100100011100010011010000010010011000000011111100" REPORT "DES keyschedule not working correctly" SEVERITY failure;
         ASSERT outp(14) = "010101000100001110110110100000011101110010001101" REPORT "DES keyschedule not working correctly" SEVERITY failure;
         ASSERT outp(15) = "101101101001000100000101000010100001011010110101" REPORT "DES keyschedule not working correctly" SEVERITY failure;
-        
-        wait;
+
+        WAIT;
     END PROCESS;
 END Behavioral;

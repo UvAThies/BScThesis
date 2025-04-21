@@ -26,18 +26,18 @@ ENTITY DES_sbox1 IS
     PORT (
         inp : IN STD_LOGIC_VECTOR(0 TO 5);
         outp : OUT STD_LOGIC_VECTOR(0 TO 3)
-        );
+    );
 END DES_sbox1;
 
 ARCHITECTURE Behavioral OF DES_sbox1 IS
     CONSTANT sbox : t_Sbox_table := (
-        (14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7),
+    (14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7),
         (0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8),
         (4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0),
         (15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13)
     );
 BEGIN
-    PROCESS(inp)
+    PROCESS (inp)
         VARIABLE row, col : INTEGER;
         VARIABLE row_vec : STD_LOGIC_VECTOR(0 TO 1);
         VARIABLE col_vec : STD_LOGIC_VECTOR(0 TO 3);
@@ -48,4 +48,4 @@ BEGIN
         col := TO_INTEGER(UNSIGNED(col_vec));
         outp <= STD_LOGIC_VECTOR(TO_UNSIGNED(sbox(row)(col), 4));
     END PROCESS;
-END Behavioral; 
+END Behavioral;

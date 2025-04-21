@@ -19,15 +19,12 @@
 ----------------------------------------------------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
-
 ENTITY tb_DES_left_rotate IS
 END tb_DES_left_rotate;
 
 ARCHITECTURE Behavioral OF tb_DES_left_rotate IS
     COMPONENT DES_left_rotate
-        GENERIC
-        (
+        GENERIC (
             amount : INTEGER := 1 -- Amount to rotate left
         );
         PORT (
@@ -81,6 +78,6 @@ BEGIN
         WAIT FOR 10 ns;
         ASSERT outp2 = "0000000000000000000000000010" REPORT "DES leftrotate not working correctly" SEVERITY failure;
 
-        wait;
+        WAIT;
     END PROCESS;
 END Behavioral;

@@ -20,49 +20,46 @@
 
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-use work.pkg.all;
-
-
+USE work.pkg.ALL;
 ENTITY DES_key_schedule IS
     PORT (
         inp : IN STD_LOGIC_VECTOR(0 TO 63);
         outp : OUT t_keys
-        );
+    );
 END DES_key_schedule;
 
 ARCHITECTURE Behavioral OF DES_key_schedule IS
-COMPONENT DES_key_pc1
-PORT (
-    inp : IN STD_LOGIC_VECTOR(0 TO 63);
-    outp_left : OUT STD_LOGIC_VECTOR(0 TO 27);
-    outp_right : OUT STD_LOGIC_VECTOR(0 TO 27)
-);
-END COMPONENT;
-COMPONENT DES_key_pc2 IS
-    PORT (
-        inp : IN STD_LOGIC_VECTOR(0 TO 55);
-        outp : OUT STD_LOGIC_VECTOR(0 TO 47)
+    COMPONENT DES_key_pc1
+        PORT (
+            inp : IN STD_LOGIC_VECTOR(0 TO 63);
+            outp_left : OUT STD_LOGIC_VECTOR(0 TO 27);
+            outp_right : OUT STD_LOGIC_VECTOR(0 TO 27)
         );
-END COMPONENT;
-COMPONENT DES_left_rotate IS
-    GENERIC
-    (
-        amount : INTEGER := 1 -- Amount to rotate left
-    );
-    PORT (
-        inp : IN STD_LOGIC_VECTOR(0 TO 27);
-        outp : OUT STD_LOGIC_VECTOR(0 TO 27)
+    END COMPONENT;
+    COMPONENT DES_key_pc2 IS
+        PORT (
+            inp : IN STD_LOGIC_VECTOR(0 TO 55);
+            outp : OUT STD_LOGIC_VECTOR(0 TO 47)
         );
-END COMPONENT;
+    END COMPONENT;
+    COMPONENT DES_left_rotate IS
+        GENERIC (
+            amount : INTEGER := 1 -- Amount to rotate left
+        );
+        PORT (
+            inp : IN STD_LOGIC_VECTOR(0 TO 27);
+            outp : OUT STD_LOGIC_VECTOR(0 TO 27)
+        );
+    END COMPONENT;
 
-type cd_sub_results is array (0 to 15) of std_logic_vector(0 TO 27);
+    TYPE cd_sub_results IS ARRAY (0 TO 15) OF STD_LOGIC_VECTOR(0 TO 27);
 
-SIGNAL c : cd_sub_results;
-SIGNAL d : cd_sub_results;
+    SIGNAL c : cd_sub_results;
+    SIGNAL d : cd_sub_results;
 
-type t_rotate_amount is array (0 to 15) of integer range 1 to 2;
+    TYPE t_rotate_amount IS ARRAY (0 TO 15) OF INTEGER RANGE 1 TO 2;
 
-CONSTANT rotate_amount : t_rotate_amount := (1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1);
+    CONSTANT rotate_amount : t_rotate_amount := (1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1);
 
 BEGIN
     pc1_instance : DES_key_pc1
@@ -72,33 +69,31 @@ BEGIN
         outp_right => d(0)
     );
 
-    u0: FOR i in 0 to 14 GENERATE
-        x0: DES_left_rotate
+    u0 : FOR i IN 0 TO 14 GENERATE
+        x0 : DES_left_rotate
         GENERIC MAP(
             amount => rotate_amount(i)
         )
         PORT MAP(
             inp => c(i),
-            outp => c(i+1)
+            outp => c(i + 1)
         );
 
-        y0: DES_left_rotate
+        y0 : DES_left_rotate
         GENERIC MAP(
             amount => rotate_amount(i)
         )
         PORT MAP(
             inp => d(i),
-            outp => d(i+1)
+            outp => d(i + 1)
         );
     END GENERATE u0;
 
-    u1: FOR i in 0 to 15 GENERATE
-        z0: DES_key_pc2
+    u1 : FOR i IN 0 TO 15 GENERATE
+        z0 : DES_key_pc2
         PORT MAP(
             inp => c(i) & d(i),
             outp => outp(i)
         );
     END GENERATE u1;
-
-
 END Behavioral;
