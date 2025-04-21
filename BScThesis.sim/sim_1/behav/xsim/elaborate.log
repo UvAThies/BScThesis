@@ -1,7 +1,7 @@
 Vivado Simulator v2024.2.0
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xilinx_vip -L secureip -L xpm --snapshot tb_DES_key_pc1_behav xil_defaultlib.tb_DES_key_pc1 -log elaborate.log 
+Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xilinx_vip -L secureip -L xpm --snapshot tb_DES_sbox_behav xil_defaultlib.tb_DES_sbox -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -11,6 +11,16 @@ Time Resolution for simulation is 1ps
 Compiling package std.standard
 Compiling package std.textio
 Compiling package ieee.std_logic_1164
-Compiling architecture behavioral of entity xil_defaultlib.DES_key_pc1 [des_key_pc1_default]
-Compiling architecture behavioral of entity xil_defaultlib.tb_des_key_pc1
-Built simulation snapshot tb_DES_key_pc1_behav
+Compiling package ieee.numeric_std
+Compiling package xil_defaultlib.pkg
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox1 [des_sbox1_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox2 [des_sbox2_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox3 [des_sbox3_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox4 [des_sbox4_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox5 [des_sbox5_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox6 [des_sbox6_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox7 [des_sbox7_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox8 [des_sbox8_default]
+Compiling architecture behavioral of entity xil_defaultlib.DES_sbox [des_sbox_default]
+Compiling architecture behavioral of entity xil_defaultlib.tb_des_sbox
+Built simulation snapshot tb_DES_sbox_behav

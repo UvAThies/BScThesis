@@ -2,5 +2,14 @@
 2020.2
 Nov  8 2024
 22:36:57
-C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/common/tb_DES_key_pc1.vhd,1745228675,vhdl,,,,tb_des_key_pc1,,,,,,,,
-C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/common/DES_key_pc1.vhd,1745229054,vhdl,,,,des_key_pc1,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/DES/tb_DES_sbox.vhd,1745243241,vhdl,,,,tb_des_sbox,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox.vhd,1745243245,vhdl,,,,des_sbox,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox1.vhd,1745240672,vhdl,,,,des_sbox1,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox2.vhd,1745240597,vhdl,,,,des_sbox2,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox3.vhd,1745240597,vhdl,,,,des_sbox3,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox4.vhd,1745240597,vhdl,,,,des_sbox4,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox5.vhd,1745240597,vhdl,,,,des_sbox5,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox6.vhd,1745240597,vhdl,,,,des_sbox6,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox7.vhd,1745240597,vhdl,,,,des_sbox7,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox8.vhd,1745240597,vhdl,,,,des_sbox8,,,,,,,,
+C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/common/TYPES_pkg.vhd,1745240597,vhdl,C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox.vhd,,,pkg,,,,,,,,

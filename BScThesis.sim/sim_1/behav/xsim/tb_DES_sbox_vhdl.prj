@@ -1,0 +1,16 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../BScThesis.srcs/sources_1/new/common/TYPES_pkg.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox1.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox2.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox3.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox4.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox5.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox6.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox7.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/SBOX/DES_sbox8.vhd" \
+"../../../../BScThesis.srcs/sim_1/new/DES/tb_DES_sbox.vhd" \
+
+# Do not sort compile order
+nosort
