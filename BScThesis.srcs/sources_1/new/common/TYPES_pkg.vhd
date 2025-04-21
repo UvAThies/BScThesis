@@ -22,12 +22,14 @@ USE IEEE.STD_LOGIC_1164.ALL;
 
 PACKAGE pkg IS
 
--- Array of 16 keys, all of which are 48 bits long
-  type t_keys is array (0 to 15) of std_logic_vector(0 TO 47);
+    -- Array of 16 keys, all of which are 48 bits long
+    TYPE t_keys IS ARRAY (0 TO 15) OF STD_LOGIC_VECTOR(0 TO 47);
 
+    -- Array of 16 rounds, all with 2 parts of 32 bits each
+    TYPE t_rounds IS ARRAY (0 TO 16) OF STD_LOGIC_VECTOR(0 TO 31);
     TYPE t_Sbox_row IS ARRAY (0 TO 15) OF INTEGER RANGE 0 TO 15;
     TYPE t_Sbox_table IS ARRAY (0 TO 3) OF t_Sbox_row;
 END PACKAGE pkg;
 
-package body pkg is
-end package body;
+PACKAGE BODY pkg IS
+END PACKAGE BODY;

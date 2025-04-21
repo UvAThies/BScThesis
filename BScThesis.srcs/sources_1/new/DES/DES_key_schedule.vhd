@@ -52,7 +52,7 @@ ARCHITECTURE Behavioral OF DES_key_schedule IS
         );
     END COMPONENT;
 
-    TYPE cd_sub_results IS ARRAY (0 TO 15) OF STD_LOGIC_VECTOR(0 TO 27);
+    TYPE cd_sub_results IS ARRAY (0 TO 16) OF STD_LOGIC_VECTOR(0 TO 27);
 
     SIGNAL c : cd_sub_results;
     SIGNAL d : cd_sub_results;
@@ -69,7 +69,7 @@ BEGIN
         outp_right => d(0)
     );
 
-    u0 : FOR i IN 0 TO 14 GENERATE
+    u0 : FOR i IN 0 TO 15 GENERATE
         x0 : DES_left_rotate
         GENERIC MAP(
             amount => rotate_amount(i)
@@ -92,7 +92,7 @@ BEGIN
     u1 : FOR i IN 0 TO 15 GENERATE
         z0 : DES_key_pc2
         PORT MAP(
-            inp => c(i) & d(i),
+            inp => c(i + 1) & d(i + 1),
             outp => outp(i)
         );
     END GENERATE u1;
