@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+Failure: DES PC1left not working correctly
+Time: 10 ns  Iteration: 0  Process: /tb_DES_key_pc1/stim_proc  File: C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/common/tb_DES_key_pc1.vhd
+$finish called at time : 10 ns : File "C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/common/tb_DES_key_pc1.vhd" Line 55
