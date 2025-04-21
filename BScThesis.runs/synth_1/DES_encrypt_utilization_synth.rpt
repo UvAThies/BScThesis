@@ -1,10 +1,10 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date         : Tue Apr 15 22:56:11 2025
+| Date         : Mon Apr 21 16:56:46 2025
 | Host         : DefconeONE running 64-bit major release  (build 9200)
-| Command      : report_utilization -file design_1_wrapper_utilization_synth.rpt -pb design_1_wrapper_utilization_synth.pb
-| Design       : design_1_wrapper
+| Command      : report_utilization -file DES_encrypt_utilization_synth.rpt -pb DES_encrypt_utilization_synth.pb
+| Design       : DES_encrypt
 | Device       : xc7z020clg400-1
 | Speed File   : -1
 | Design State : Synthesized
@@ -31,8 +31,8 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*             |    0 |     0 |          0 |     53200 |  0.00 |
-|   LUT as Logic          |    0 |     0 |          0 |     53200 |  0.00 |
+| Slice LUTs*             | 1200 |     0 |          0 |     53200 |  2.26 |
+|   LUT as Logic          | 1200 |     0 |          0 |     53200 |  2.26 |
 |   LUT as Memory         |    0 |     0 |          0 |     17400 |  0.00 |
 | Slice Registers         |    0 |     0 |          0 |    106400 |  0.00 |
 |   Register as Flip Flop |    0 |     0 |          0 |    106400 |  0.00 |
@@ -90,24 +90,24 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 4. IO and GT Specific
 ---------------------
 
-+-----------------------------+------+-------+------------+-----------+-------+
-|          Site Type          | Used | Fixed | Prohibited | Available | Util% |
-+-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |    0 |     0 |          0 |       125 |  0.00 |
-| Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
-| Bonded IOPADs               |    0 |     0 |          0 |       130 |  0.00 |
-| PHY_CONTROL                 |    0 |     0 |          0 |         4 |  0.00 |
-| PHASER_REF                  |    0 |     0 |          0 |         4 |  0.00 |
-| OUT_FIFO                    |    0 |     0 |          0 |        16 |  0.00 |
-| IN_FIFO                     |    0 |     0 |          0 |        16 |  0.00 |
-| IDELAYCTRL                  |    0 |     0 |          0 |         4 |  0.00 |
-| IBUFDS                      |    0 |     0 |          0 |       121 |  0.00 |
-| PHASER_OUT/PHASER_OUT_PHY   |    0 |     0 |          0 |        16 |  0.00 |
-| PHASER_IN/PHASER_IN_PHY     |    0 |     0 |          0 |        16 |  0.00 |
-| IDELAYE2/IDELAYE2_FINEDELAY |    0 |     0 |          0 |       200 |  0.00 |
-| ILOGIC                      |    0 |     0 |          0 |       125 |  0.00 |
-| OLOGIC                      |    0 |     0 |          0 |       125 |  0.00 |
-+-----------------------------+------+-------+------------+-----------+-------+
++-----------------------------+------+-------+------------+-----------+--------+
+|          Site Type          | Used | Fixed | Prohibited | Available |  Util% |
++-----------------------------+------+-------+------------+-----------+--------+
+| Bonded IOB                  |  184 |     0 |          0 |       125 | 147.20 |
+| Bonded IPADs                |    0 |     0 |          0 |         2 |   0.00 |
+| Bonded IOPADs               |    0 |     0 |          0 |       130 |   0.00 |
+| PHY_CONTROL                 |    0 |     0 |          0 |         4 |   0.00 |
+| PHASER_REF                  |    0 |     0 |          0 |         4 |   0.00 |
+| OUT_FIFO                    |    0 |     0 |          0 |        16 |   0.00 |
+| IN_FIFO                     |    0 |     0 |          0 |        16 |   0.00 |
+| IDELAYCTRL                  |    0 |     0 |          0 |         4 |   0.00 |
+| IBUFDS                      |    0 |     0 |          0 |       121 |   0.00 |
+| PHASER_OUT/PHASER_OUT_PHY   |    0 |     0 |          0 |        16 |   0.00 |
+| PHASER_IN/PHASER_IN_PHY     |    0 |     0 |          0 |        16 |   0.00 |
+| IDELAYE2/IDELAYE2_FINEDELAY |    0 |     0 |          0 |       200 |   0.00 |
+| ILOGIC                      |    0 |     0 |          0 |       125 |   0.00 |
+| OLOGIC                      |    0 |     0 |          0 |       125 |   0.00 |
++-----------------------------+------+-------+------------+-----------+--------+
 
 
 5. Clocking
@@ -149,17 +149,22 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
+| LUT6     |  656 |                 LUT |
+| LUT5     |  320 |                 LUT |
+| LUT4     |  192 |                 LUT |
+| LUT3     |  192 |                 LUT |
+| IBUF     |  120 |                  IO |
+| OBUF     |   64 |                  IO |
+| LUT2     |   48 |                 LUT |
++----------+------+---------------------+
 
 
 8. Black Boxes
 --------------
 
-+---------------------------------+------+
-|             Ref Name            | Used |
-+---------------------------------+------+
-| design_1_processing_system7_0_0 |    1 |
-| design_1_SDES_encrypt_0_0       |    1 |
-+---------------------------------+------+
++----------+------+
+| Ref Name | Used |
++----------+------+
 
 
 9. Instantiated Netlists
