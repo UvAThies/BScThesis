@@ -61,11 +61,14 @@ BEGIN
     );
     stim_proc : PROCESS
     BEGIN
-        -- Example from: https://medium.com/@np01nt4s220042/simplified-data-encryption-standard-8ab63061eaa3c
+        -- Example from: https://simewu.com/des/
         inp <= "0000000100100011010001010110011110001001101010111100110111101111";
         WAIT FOR 10 ns;
-        ASSERT outp = "1100110000000000110011001111111111110000101010101111000010101010" REPORT "Initial permutation not working correctly" SEVERITY failure;
+        ASSERT outp = "1100110000000000110011001111111111110000101010101111000010101010" REPORT "DES Initial permutation not working correctly" SEVERITY failure;
 
+        inp <= "1101111010101101101111101110111111001010111111101011101010111110";
+        WAIT FOR 10 ns;
+        ASSERT outp = "0011100111100101101011110000101011111111111011101111111111111101" REPORT "DES Initial permutation not working correctly" SEVERITY failure;
         wait;
     END PROCESS;
 END Behavioral;

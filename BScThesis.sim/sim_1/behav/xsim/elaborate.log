@@ -1,7 +1,7 @@
 Vivado Simulator v2024.2.0
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot tb_SDES_decrypt_behav xil_defaultlib.tb_SDES_decrypt -log elaborate.log 
+Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xilinx_vip -L secureip -L xpm --snapshot tb_DES_key_pc1_behav xil_defaultlib.tb_DES_key_pc1 -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -11,13 +11,6 @@ Time Resolution for simulation is 1ps
 Compiling package std.standard
 Compiling package std.textio
 Compiling package ieee.std_logic_1164
-Compiling package std.env
-Compiling package ieee.numeric_std
-Compiling architecture behavioral of entity xil_defaultlib.SDES_initial_permutation [\SDES_initial_permutation(is_inv...]
-Compiling architecture behavioral of entity xil_defaultlib.SDES_generate_keys [sdes_generate_keys_default]
-Compiling architecture behavioral of entity xil_defaultlib.SDES_pi [sdes_pi_default]
-Compiling architecture behavioral of entity xil_defaultlib.SDES_swap [sdes_swap_default]
-Compiling architecture behavioral of entity xil_defaultlib.SDES_initial_permutation [\SDES_initial_permutation(is_inv...]
-Compiling architecture behavioral of entity xil_defaultlib.SDES_decrypt [sdes_decrypt_default]
-Compiling architecture behavioral of entity xil_defaultlib.tb_sdes_decrypt
-Built simulation snapshot tb_SDES_decrypt_behav
+Compiling architecture behavioral of entity xil_defaultlib.DES_key_pc1 [des_key_pc1_default]
+Compiling architecture behavioral of entity xil_defaultlib.tb_des_key_pc1
+Built simulation snapshot tb_DES_key_pc1_behav

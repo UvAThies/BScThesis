@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../BScThesis.srcs/sources_1/new/common/DES_key_pc1.vhd" \
+"../../../../BScThesis.srcs/sim_1/new/common/tb_DES_key_pc1.vhd" \
+
+# Do not sort compile order
+nosort
