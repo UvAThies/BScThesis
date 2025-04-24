@@ -6,7 +6,7 @@ module axis_pe
         input wire         en,
         // *** AXIS slave port ***
         output wire        s_axis_tready,
-        input wire [63:0]  s_axis_tdata,
+        input wire [127:0]  s_axis_tdata,
         input wire         s_axis_tvalid,
         input wire         s_axis_tlast,
         // *** AXIS master port ***
@@ -16,7 +16,7 @@ module axis_pe
         output wire        m_axis_tlast
     );
     
-    wire [7:0] y_out;
+    wire [63:0] y_out;
     
     // AXI-Stream control
     assign s_axis_tready = m_axis_tready;
@@ -25,12 +25,11 @@ module axis_pe
     assign m_axis_tlast = s_axis_tlast;
     
     // PE
-    pe #(8) pe_0
+    DES_encrypt pe_0
     (
-        .a_in(s_axis_tdata[7:0]),
-        .b_in(s_axis_tdata[15:8]),
-        .y_in(s_axis_tdata[23:16]),
-        .y_out(y_out)
+        .inp(s_axis_tdata[63:0]),
+        .key(s_axis_tdata[127:64]),
+        .outp(y_out)
     );
     
 endmodule
