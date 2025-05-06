@@ -1,14 +1,14 @@
 {
   "schema": "xilinx.com:schema:json_instance:1.0",
   "ip_inst": {
-    "xci_name": "DES_axi_axis_pe_0_0",
-    "cell_name": "axis_pe_0",
-    "component_reference": "xilinx.com:module_ref:axis_pe:1.0",
+    "xci_name": "DES_axi_axi_interface_des_en_0_0",
+    "cell_name": "axi_interface_des_en_0",
+    "component_reference": "xilinx.com:module_ref:axi_interface_des_encrypt:1.0",
     "ip_revision": "1",
-    "gen_directory": "../../../../../../BScThesis.gen/sources_1/bd/DES_axi/ip/DES_axi_axis_pe_0_0",
+    "gen_directory": "../../../../../../BScThesis.gen/sources_1/bd/DES_axi/ip/DES_axi_axi_interface_des_en_0_0",
     "parameters": {
       "component_parameters": {
-        "Component_Name": [ { "value": "DES_axi_axis_pe_0_0", "resolve_type": "user", "usage": "all" } ]
+        "Component_Name": [ { "value": "DES_axi_axi_interface_des_en_0_0", "resolve_type": "user", "usage": "all" } ]
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynq" } ],
@@ -27,7 +27,7 @@
         "IPCONTEXT": [ { "value": "IP_Integrator" } ],
         "IPREVISION": [ { "value": "1" } ],
         "MANAGED": [ { "value": "TRUE" } ],
-        "OUTPUTDIR": [ { "value": "../../../../../../BScThesis.gen/sources_1/bd/DES_axi/ip/DES_axi_axis_pe_0_0" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../BScThesis.gen/sources_1/bd/DES_axi/ip/DES_axi_axi_interface_des_en_0_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
         "SWVERSION": [ { "value": "2024.2" } ],
@@ -38,13 +38,12 @@
       "ports": {
         "aclk": [ { "direction": "in" } ],
         "aresetn": [ { "direction": "in" } ],
-        "en": [ { "direction": "in" } ],
         "s_axis_tready": [ { "direction": "out" } ],
-        "s_axis_tdata": [ { "direction": "in", "size_left": "127", "size_right": "0", "driver_value": "0" } ],
+        "s_axis_tdata": [ { "direction": "in", "size_left": "0", "size_right": "127", "driver_value": "0" } ],
         "s_axis_tvalid": [ { "direction": "in" } ],
         "s_axis_tlast": [ { "direction": "in", "driver_value": "0" } ],
         "m_axis_tready": [ { "direction": "in", "driver_value": "1" } ],
-        "m_axis_tdata": [ { "direction": "out", "size_left": "63", "size_right": "0" } ],
+        "m_axis_tdata": [ { "direction": "out", "size_left": "0", "size_right": "63" } ],
         "m_axis_tvalid": [ { "direction": "out" } ],
         "m_axis_tlast": [ { "direction": "out" } ]
       },

@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-//Date        : Thu Apr 24 14:44:44 2025
+//Date        : Tue May  6 19:24:32 2025
 //Host        : DefconeONE running 64-bit major release  (build 9200)
 //Command     : generate_target DES_axi.bd
 //Design      : DES_axi
@@ -10,7 +10,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "DES_axi,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=DES_axi,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=13,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=15,da_board_cnt=1,da_clkrst_cnt=1,da_ps7_cnt=2,synth_mode=None}" *) (* HW_HANDOFF = "DES_axi.hwdef" *) 
+(* CORE_GENERATION_INFO = "DES_axi,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=DES_axi,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=12,numReposBlks=8,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,da_axi4_cnt=15,da_board_cnt=1,da_clkrst_cnt=2,da_ps7_cnt=2,synth_mode=None}" *) (* HW_HANDOFF = "DES_axi.hwdef" *) 
 module DES_axi
    (DDR_0_addr,
     DDR_0_ba,
@@ -109,6 +109,10 @@ module DES_axi
   wire axi_dma_0_M_AXI_S2MM_WREADY;
   wire [7:0]axi_dma_0_M_AXI_S2MM_WSTRB;
   wire axi_dma_0_M_AXI_S2MM_WVALID;
+  wire [0:63]axi_interface_des_en_0_m_axis_TDATA;
+  wire axi_interface_des_en_0_m_axis_TLAST;
+  wire axi_interface_des_en_0_m_axis_TREADY;
+  wire axi_interface_des_en_0_m_axis_TVALID;
   wire [63:0]axi_mem_intercon_1_M00_AXI_AWADDR;
   wire [1:0]axi_mem_intercon_1_M00_AXI_AWBURST;
   wire [3:0]axi_mem_intercon_1_M00_AXI_AWCACHE;
@@ -158,10 +162,6 @@ module DES_axi
   wire [31:0]axi_smc_M00_AXI_WDATA;
   wire axi_smc_M00_AXI_WREADY;
   wire axi_smc_M00_AXI_WVALID;
-  wire [63:0]axis_pe_0_m_axis_TDATA;
-  wire axis_pe_0_m_axis_TLAST;
-  wire axis_pe_0_m_axis_TREADY;
-  wire axis_pe_0_m_axis_TVALID;
   wire processing_system7_0_FCLK_CLK0;
   wire processing_system7_0_FCLK_RESET0_N;
   wire [31:0]processing_system7_0_M_AXI_GP0_ARADDR;
@@ -203,7 +203,6 @@ module DES_axi
   wire [3:0]processing_system7_0_M_AXI_GP0_WSTRB;
   wire processing_system7_0_M_AXI_GP0_WVALID;
   wire [0:0]rst_ps7_0_50M_peripheral_aresetn;
-  wire [0:0]xlconstant_0_dout;
 
   DES_axi_axi_dma_0_1 axi_dma_0
        (.axi_resetn(rst_ps7_0_50M_peripheral_aresetn),
@@ -259,11 +258,22 @@ module DES_axi
         .s_axi_lite_wdata(axi_smc_M00_AXI_WDATA),
         .s_axi_lite_wready(axi_smc_M00_AXI_WREADY),
         .s_axi_lite_wvalid(axi_smc_M00_AXI_WVALID),
-        .s_axis_s2mm_tdata(axis_pe_0_m_axis_TDATA),
+        .s_axis_s2mm_tdata({axi_interface_des_en_0_m_axis_TDATA[0],axi_interface_des_en_0_m_axis_TDATA[1],axi_interface_des_en_0_m_axis_TDATA[2],axi_interface_des_en_0_m_axis_TDATA[3],axi_interface_des_en_0_m_axis_TDATA[4],axi_interface_des_en_0_m_axis_TDATA[5],axi_interface_des_en_0_m_axis_TDATA[6],axi_interface_des_en_0_m_axis_TDATA[7],axi_interface_des_en_0_m_axis_TDATA[8],axi_interface_des_en_0_m_axis_TDATA[9],axi_interface_des_en_0_m_axis_TDATA[10],axi_interface_des_en_0_m_axis_TDATA[11],axi_interface_des_en_0_m_axis_TDATA[12],axi_interface_des_en_0_m_axis_TDATA[13],axi_interface_des_en_0_m_axis_TDATA[14],axi_interface_des_en_0_m_axis_TDATA[15],axi_interface_des_en_0_m_axis_TDATA[16],axi_interface_des_en_0_m_axis_TDATA[17],axi_interface_des_en_0_m_axis_TDATA[18],axi_interface_des_en_0_m_axis_TDATA[19],axi_interface_des_en_0_m_axis_TDATA[20],axi_interface_des_en_0_m_axis_TDATA[21],axi_interface_des_en_0_m_axis_TDATA[22],axi_interface_des_en_0_m_axis_TDATA[23],axi_interface_des_en_0_m_axis_TDATA[24],axi_interface_des_en_0_m_axis_TDATA[25],axi_interface_des_en_0_m_axis_TDATA[26],axi_interface_des_en_0_m_axis_TDATA[27],axi_interface_des_en_0_m_axis_TDATA[28],axi_interface_des_en_0_m_axis_TDATA[29],axi_interface_des_en_0_m_axis_TDATA[30],axi_interface_des_en_0_m_axis_TDATA[31],axi_interface_des_en_0_m_axis_TDATA[32],axi_interface_des_en_0_m_axis_TDATA[33],axi_interface_des_en_0_m_axis_TDATA[34],axi_interface_des_en_0_m_axis_TDATA[35],axi_interface_des_en_0_m_axis_TDATA[36],axi_interface_des_en_0_m_axis_TDATA[37],axi_interface_des_en_0_m_axis_TDATA[38],axi_interface_des_en_0_m_axis_TDATA[39],axi_interface_des_en_0_m_axis_TDATA[40],axi_interface_des_en_0_m_axis_TDATA[41],axi_interface_des_en_0_m_axis_TDATA[42],axi_interface_des_en_0_m_axis_TDATA[43],axi_interface_des_en_0_m_axis_TDATA[44],axi_interface_des_en_0_m_axis_TDATA[45],axi_interface_des_en_0_m_axis_TDATA[46],axi_interface_des_en_0_m_axis_TDATA[47],axi_interface_des_en_0_m_axis_TDATA[48],axi_interface_des_en_0_m_axis_TDATA[49],axi_interface_des_en_0_m_axis_TDATA[50],axi_interface_des_en_0_m_axis_TDATA[51],axi_interface_des_en_0_m_axis_TDATA[52],axi_interface_des_en_0_m_axis_TDATA[53],axi_interface_des_en_0_m_axis_TDATA[54],axi_interface_des_en_0_m_axis_TDATA[55],axi_interface_des_en_0_m_axis_TDATA[56],axi_interface_des_en_0_m_axis_TDATA[57],axi_interface_des_en_0_m_axis_TDATA[58],axi_interface_des_en_0_m_axis_TDATA[59],axi_interface_des_en_0_m_axis_TDATA[60],axi_interface_des_en_0_m_axis_TDATA[61],axi_interface_des_en_0_m_axis_TDATA[62],axi_interface_des_en_0_m_axis_TDATA[63]}),
         .s_axis_s2mm_tkeep({1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
-        .s_axis_s2mm_tlast(axis_pe_0_m_axis_TLAST),
-        .s_axis_s2mm_tready(axis_pe_0_m_axis_TREADY),
-        .s_axis_s2mm_tvalid(axis_pe_0_m_axis_TVALID));
+        .s_axis_s2mm_tlast(axi_interface_des_en_0_m_axis_TLAST),
+        .s_axis_s2mm_tready(axi_interface_des_en_0_m_axis_TREADY),
+        .s_axis_s2mm_tvalid(axi_interface_des_en_0_m_axis_TVALID));
+  DES_axi_axi_interface_des_en_0_0 axi_interface_des_en_0
+       (.aclk(processing_system7_0_FCLK_CLK0),
+        .aresetn(rst_ps7_0_50M_peripheral_aresetn),
+        .m_axis_tdata(axi_interface_des_en_0_m_axis_TDATA),
+        .m_axis_tlast(axi_interface_des_en_0_m_axis_TLAST),
+        .m_axis_tready(axi_interface_des_en_0_m_axis_TREADY),
+        .m_axis_tvalid(axi_interface_des_en_0_m_axis_TVALID),
+        .s_axis_tdata({axi_dma_0_M_AXIS_MM2S_TDATA[127],axi_dma_0_M_AXIS_MM2S_TDATA[126],axi_dma_0_M_AXIS_MM2S_TDATA[125],axi_dma_0_M_AXIS_MM2S_TDATA[124],axi_dma_0_M_AXIS_MM2S_TDATA[123],axi_dma_0_M_AXIS_MM2S_TDATA[122],axi_dma_0_M_AXIS_MM2S_TDATA[121],axi_dma_0_M_AXIS_MM2S_TDATA[120],axi_dma_0_M_AXIS_MM2S_TDATA[119],axi_dma_0_M_AXIS_MM2S_TDATA[118],axi_dma_0_M_AXIS_MM2S_TDATA[117],axi_dma_0_M_AXIS_MM2S_TDATA[116],axi_dma_0_M_AXIS_MM2S_TDATA[115],axi_dma_0_M_AXIS_MM2S_TDATA[114],axi_dma_0_M_AXIS_MM2S_TDATA[113],axi_dma_0_M_AXIS_MM2S_TDATA[112],axi_dma_0_M_AXIS_MM2S_TDATA[111],axi_dma_0_M_AXIS_MM2S_TDATA[110],axi_dma_0_M_AXIS_MM2S_TDATA[109],axi_dma_0_M_AXIS_MM2S_TDATA[108],axi_dma_0_M_AXIS_MM2S_TDATA[107],axi_dma_0_M_AXIS_MM2S_TDATA[106],axi_dma_0_M_AXIS_MM2S_TDATA[105],axi_dma_0_M_AXIS_MM2S_TDATA[104],axi_dma_0_M_AXIS_MM2S_TDATA[103],axi_dma_0_M_AXIS_MM2S_TDATA[102],axi_dma_0_M_AXIS_MM2S_TDATA[101],axi_dma_0_M_AXIS_MM2S_TDATA[100],axi_dma_0_M_AXIS_MM2S_TDATA[99],axi_dma_0_M_AXIS_MM2S_TDATA[98],axi_dma_0_M_AXIS_MM2S_TDATA[97],axi_dma_0_M_AXIS_MM2S_TDATA[96],axi_dma_0_M_AXIS_MM2S_TDATA[95],axi_dma_0_M_AXIS_MM2S_TDATA[94],axi_dma_0_M_AXIS_MM2S_TDATA[93],axi_dma_0_M_AXIS_MM2S_TDATA[92],axi_dma_0_M_AXIS_MM2S_TDATA[91],axi_dma_0_M_AXIS_MM2S_TDATA[90],axi_dma_0_M_AXIS_MM2S_TDATA[89],axi_dma_0_M_AXIS_MM2S_TDATA[88],axi_dma_0_M_AXIS_MM2S_TDATA[87],axi_dma_0_M_AXIS_MM2S_TDATA[86],axi_dma_0_M_AXIS_MM2S_TDATA[85],axi_dma_0_M_AXIS_MM2S_TDATA[84],axi_dma_0_M_AXIS_MM2S_TDATA[83],axi_dma_0_M_AXIS_MM2S_TDATA[82],axi_dma_0_M_AXIS_MM2S_TDATA[81],axi_dma_0_M_AXIS_MM2S_TDATA[80],axi_dma_0_M_AXIS_MM2S_TDATA[79],axi_dma_0_M_AXIS_MM2S_TDATA[78],axi_dma_0_M_AXIS_MM2S_TDATA[77],axi_dma_0_M_AXIS_MM2S_TDATA[76],axi_dma_0_M_AXIS_MM2S_TDATA[75],axi_dma_0_M_AXIS_MM2S_TDATA[74],axi_dma_0_M_AXIS_MM2S_TDATA[73],axi_dma_0_M_AXIS_MM2S_TDATA[72],axi_dma_0_M_AXIS_MM2S_TDATA[71],axi_dma_0_M_AXIS_MM2S_TDATA[70],axi_dma_0_M_AXIS_MM2S_TDATA[69],axi_dma_0_M_AXIS_MM2S_TDATA[68],axi_dma_0_M_AXIS_MM2S_TDATA[67],axi_dma_0_M_AXIS_MM2S_TDATA[66],axi_dma_0_M_AXIS_MM2S_TDATA[65],axi_dma_0_M_AXIS_MM2S_TDATA[64],axi_dma_0_M_AXIS_MM2S_TDATA[63],axi_dma_0_M_AXIS_MM2S_TDATA[62],axi_dma_0_M_AXIS_MM2S_TDATA[61],axi_dma_0_M_AXIS_MM2S_TDATA[60],axi_dma_0_M_AXIS_MM2S_TDATA[59],axi_dma_0_M_AXIS_MM2S_TDATA[58],axi_dma_0_M_AXIS_MM2S_TDATA[57],axi_dma_0_M_AXIS_MM2S_TDATA[56],axi_dma_0_M_AXIS_MM2S_TDATA[55],axi_dma_0_M_AXIS_MM2S_TDATA[54],axi_dma_0_M_AXIS_MM2S_TDATA[53],axi_dma_0_M_AXIS_MM2S_TDATA[52],axi_dma_0_M_AXIS_MM2S_TDATA[51],axi_dma_0_M_AXIS_MM2S_TDATA[50],axi_dma_0_M_AXIS_MM2S_TDATA[49],axi_dma_0_M_AXIS_MM2S_TDATA[48],axi_dma_0_M_AXIS_MM2S_TDATA[47],axi_dma_0_M_AXIS_MM2S_TDATA[46],axi_dma_0_M_AXIS_MM2S_TDATA[45],axi_dma_0_M_AXIS_MM2S_TDATA[44],axi_dma_0_M_AXIS_MM2S_TDATA[43],axi_dma_0_M_AXIS_MM2S_TDATA[42],axi_dma_0_M_AXIS_MM2S_TDATA[41],axi_dma_0_M_AXIS_MM2S_TDATA[40],axi_dma_0_M_AXIS_MM2S_TDATA[39],axi_dma_0_M_AXIS_MM2S_TDATA[38],axi_dma_0_M_AXIS_MM2S_TDATA[37],axi_dma_0_M_AXIS_MM2S_TDATA[36],axi_dma_0_M_AXIS_MM2S_TDATA[35],axi_dma_0_M_AXIS_MM2S_TDATA[34],axi_dma_0_M_AXIS_MM2S_TDATA[33],axi_dma_0_M_AXIS_MM2S_TDATA[32],axi_dma_0_M_AXIS_MM2S_TDATA[31],axi_dma_0_M_AXIS_MM2S_TDATA[30],axi_dma_0_M_AXIS_MM2S_TDATA[29],axi_dma_0_M_AXIS_MM2S_TDATA[28],axi_dma_0_M_AXIS_MM2S_TDATA[27],axi_dma_0_M_AXIS_MM2S_TDATA[26],axi_dma_0_M_AXIS_MM2S_TDATA[25],axi_dma_0_M_AXIS_MM2S_TDATA[24],axi_dma_0_M_AXIS_MM2S_TDATA[23],axi_dma_0_M_AXIS_MM2S_TDATA[22],axi_dma_0_M_AXIS_MM2S_TDATA[21],axi_dma_0_M_AXIS_MM2S_TDATA[20],axi_dma_0_M_AXIS_MM2S_TDATA[19],axi_dma_0_M_AXIS_MM2S_TDATA[18],axi_dma_0_M_AXIS_MM2S_TDATA[17],axi_dma_0_M_AXIS_MM2S_TDATA[16],axi_dma_0_M_AXIS_MM2S_TDATA[15],axi_dma_0_M_AXIS_MM2S_TDATA[14],axi_dma_0_M_AXIS_MM2S_TDATA[13],axi_dma_0_M_AXIS_MM2S_TDATA[12],axi_dma_0_M_AXIS_MM2S_TDATA[11],axi_dma_0_M_AXIS_MM2S_TDATA[10],axi_dma_0_M_AXIS_MM2S_TDATA[9],axi_dma_0_M_AXIS_MM2S_TDATA[8],axi_dma_0_M_AXIS_MM2S_TDATA[7],axi_dma_0_M_AXIS_MM2S_TDATA[6],axi_dma_0_M_AXIS_MM2S_TDATA[5],axi_dma_0_M_AXIS_MM2S_TDATA[4],axi_dma_0_M_AXIS_MM2S_TDATA[3],axi_dma_0_M_AXIS_MM2S_TDATA[2],axi_dma_0_M_AXIS_MM2S_TDATA[1],axi_dma_0_M_AXIS_MM2S_TDATA[0]}),
+        .s_axis_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
+        .s_axis_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
+        .s_axis_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID));
   DES_axi_axi_mem_intercon_3 axi_mem_intercon
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(rst_ps7_0_50M_peripheral_aresetn),
@@ -397,18 +407,6 @@ module DES_axi
         .S00_AXI_wvalid(processing_system7_0_M_AXI_GP0_WVALID),
         .aclk(processing_system7_0_FCLK_CLK0),
         .aresetn(rst_ps7_0_50M_peripheral_aresetn));
-  DES_axi_axis_pe_0_0 axis_pe_0
-       (.aclk(processing_system7_0_FCLK_CLK0),
-        .aresetn(rst_ps7_0_50M_peripheral_aresetn),
-        .en(xlconstant_0_dout),
-        .m_axis_tdata(axis_pe_0_m_axis_TDATA),
-        .m_axis_tlast(axis_pe_0_m_axis_TLAST),
-        .m_axis_tready(axis_pe_0_m_axis_TREADY),
-        .m_axis_tvalid(axis_pe_0_m_axis_TVALID),
-        .s_axis_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),
-        .s_axis_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
-        .s_axis_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
-        .s_axis_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID));
   DES_axi_rst_ps7_0_50M_3 rst_ps7_0_50M
        (.aux_reset_in(1'b1),
         .dcm_locked(1'b1),
@@ -416,8 +414,6 @@ module DES_axi
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_ps7_0_50M_peripheral_aresetn),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
-  DES_axi_xlconstant_0_0 xlconstant_0
-       (.dout(xlconstant_0_dout));
   DES_axi_processing_system7_0_1 zynqcore
        (.DDR_Addr(DDR_0_addr),
         .DDR_BankAddr(DDR_0_ba),

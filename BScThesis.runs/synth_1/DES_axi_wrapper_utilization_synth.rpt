@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date         : Thu Apr 24 14:49:11 2025
+| Date         : Tue May  6 19:28:55 2025
 | Host         : DefconeONE running 64-bit major release  (build 9200)
 | Command      : report_utilization -file DES_axi_wrapper_utilization_synth.rpt -pb DES_axi_wrapper_utilization_synth.pb
 | Design       : DES_axi_wrapper
@@ -154,9 +154,9 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | Ref Name | Used |  Functional Category |
 +----------+------+----------------------+
 | FDRE     | 3645 |         Flop & Latch |
-| LUT6     | 1316 |                  LUT |
+| LUT6     | 1315 |                  LUT |
 | LUT3     | 1047 |                  LUT |
-| LUT5     |  887 |                  LUT |
+| LUT5     |  889 |                  LUT |
 | LUT4     |  776 |                  LUT |
 | LUT2     |  350 |                  LUT |
 | LUT1     |  239 |                  LUT |

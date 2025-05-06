@@ -61,6 +61,7 @@ END COMPONENT;
 
 
 SIGNAL ip_outp : STD_LOGIC_VECTOR(0 TO 63);
+SIGNAL ip_inv_inp : STD_LOGIC_VECTOR(0 TO 63);
 SIGNAL keys_outp : t_keys;
 SIGNAL left : t_rounds;
 SIGNAL right : t_rounds;
@@ -94,12 +95,13 @@ BEGIN
         );
     END GENERATE u0;
 
+    ip_inv_inp <= right(16) & left(16);
 
     ip_inv_instance : DES_initial_permutation
     GENERIC MAP (IS_INVERSE => TRUE)
     PORT MAP (
         -- Concatenate them backwards ?!? Stuck on this for a while
-        inp => right(16) & left(16),
+        inp => ip_inv_inp,
         outp => outp
     );
 END Behavioral;
