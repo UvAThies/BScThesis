@@ -49,8 +49,8 @@ BEGIN
 
     stim_proc : PROCESS
     BEGIN
-        -- TODO: I found no reference implementations on the interwebs, this is a self fulfilling test.
-        inp <= "1101111010101101101111101110111111001010111111101011101010111110";
+    -- TODO: These values have no source
+    inp <= "1101111010101101101111101110111111001010111111101011101010111110";
         key <= "0000000100100011010001010110011110001001101010111100110111101111";
 
         WAIT FOR 10 ns;
