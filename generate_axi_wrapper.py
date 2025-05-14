@@ -5,7 +5,7 @@ def get_algorithm_config(algorithm_name):
     # Define input/output bit widths and key configuration based on algorithm
     configs = {
         "SDES": {
-            "input_width": 31,  # 8 bits data + 10 bits key
+            "input_width": 32,  # 8 bits data + 10 bits key
             "output_width": 8,
             "key_bits": [10]
         },
