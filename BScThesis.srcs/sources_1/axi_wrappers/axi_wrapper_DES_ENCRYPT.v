@@ -5,7 +5,7 @@ module axi_interface_des_encrypt
         
         // *** AXIS slave port ***
         output wire        s_axis_tready,
-        input wire [126:0]  s_axis_tdata,
+        input wire [127:0]  s_axis_tdata,
         input wire         s_axis_tvalid,
         input wire         s_axis_tlast,
         // *** AXIS master port ***

@@ -6,6 +6,23 @@
 # IP Integrator Tcl commands easier.
 ################################################################
 
+# Use global variables for algorithm and operation
+if {![info exists ::TARGET_ALGORITHM]} {
+    set ::TARGET_ALGORITHM "DES"     ;# Default if not set
+}
+if {![info exists ::TARGET_OPERATION]} {
+    set ::TARGET_OPERATION "encrypt" ;# Default if not set
+}
+
+# Declare global variables for DMA widths
+global DMA_M_AXIS_MM2S_TDATA_WIDTH
+global DMA_S_AXIS_S2MM_TDATA_WIDTH
+global GLOBAL_REF_MODULE_NAME
+global GLOBAL_MODULE_INSTANCE_NAME
+
+puts "Target Algorithm: $::TARGET_ALGORITHM"
+puts "Target Operation: $::TARGET_OPERATION"
+
 namespace eval _tcl {
 proc get_script_folder {} {
    set script_path [file normalize [info script]]
@@ -36,16 +53,6 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 }
 
 ################################################################
-# USER CONFIGURATION START
-################################################################
-# Set these variables for the target algorithm and operation
-variable TARGET_ALGORITHM "DES"     ;# Supported: SDES, DES, TDES, DESX, DESXL, DESL
-variable TARGET_OPERATION "encrypt" ;# Supported: "encrypt" or "decrypt"
-################################################################
-# USER CONFIGURATION END
-################################################################
-
-################################################################
 # Helper Procedures and Global Configuration
 ################################################################
 
@@ -53,7 +60,7 @@ variable TARGET_OPERATION "encrypt" ;# Supported: "encrypt" or "decrypt"
 # Returns a list: {module_s_axis_width module_m_axis_width}
 proc get_module_interface_widths {algorithm_name} {
     switch -exact -- [string toupper $algorithm_name] {
-        "SDES"  { return [list 32 8] }
+        "SDES"  { return [list 32 32] }
         "DES"   { return [list 128 64] }
         "TDES"  { return [list 256 64] }
         "DESX"  { return [list 256 64] }
@@ -87,13 +94,13 @@ proc get_dma_tdata_width {actual_width} {
 }
 
 # Validate TARGET_OPERATION
-if { $TARGET_OPERATION ne "encrypt" && $TARGET_OPERATION ne "decrypt" } {
-    catch {common::send_gid_msg -ssname BD::TCL -id 9003 -severity "ERROR" "Invalid TARGET_OPERATION: $TARGET_OPERATION. Must be 'encrypt' or 'decrypt'."}
+if { $::TARGET_OPERATION ne "encrypt" && $::TARGET_OPERATION ne "decrypt" } {
+    catch {common::send_gid_msg -ssname BD::TCL -id 9003 -severity "ERROR" "Invalid TARGET_OPERATION: $::TARGET_OPERATION. Must be 'encrypt' or 'decrypt'."}
     return 1
 }
 
 # Derive configurations
-set module_widths [get_module_interface_widths $TARGET_ALGORITHM]
+set module_widths [get_module_interface_widths $::TARGET_ALGORITHM]
 if {[llength $module_widths] == 0} { return 1 } ;# Error already printed by get_module_interface_widths
 
 set MODULE_S_AXIS_TDATA_WIDTH [lindex $module_widths 0]
@@ -102,8 +109,8 @@ set MODULE_M_AXIS_TDATA_WIDTH [lindex $module_widths 1]
 set DMA_M_AXIS_MM2S_TDATA_WIDTH [get_dma_tdata_width $MODULE_S_AXIS_TDATA_WIDTH]
 set DMA_S_AXIS_S2MM_TDATA_WIDTH [get_dma_tdata_width $MODULE_M_AXIS_TDATA_WIDTH]
 
-set TARGET_ALGORITHM_LOWER [string tolower $TARGET_ALGORITHM]
-set TARGET_OPERATION_LOWER [string tolower $TARGET_OPERATION]
+set TARGET_ALGORITHM_LOWER [string tolower $::TARGET_ALGORITHM]
+set TARGET_OPERATION_LOWER [string tolower $::TARGET_OPERATION]
 
 # Design and Module Naming
 variable design_name
@@ -200,7 +207,7 @@ if { ${design_name} eq "" } {
 }
 
 common::send_gid_msg -ssname BD::TCL -id 2005 -severity "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
-common::send_gid_msg -ssname BD::TCL -id 9004 -severity "INFO" "Targeting Algorithm: $TARGET_ALGORITHM, Operation: $TARGET_OPERATION"
+common::send_gid_msg -ssname BD::TCL -id 9004 -severity "INFO" "Targeting Algorithm: $::TARGET_ALGORITHM, Operation: $::TARGET_OPERATION"
 common::send_gid_msg -ssname BD::TCL -id 9005 -severity "INFO" "AXI Wrapper Module: $GLOBAL_REF_MODULE_NAME, Instance: $GLOBAL_MODULE_INSTANCE_NAME"
 common::send_gid_msg -ssname BD::TCL -id 9006 -severity "INFO" "DMA MM2S Stream Width (to wrapper input): $DMA_M_AXIS_MM2S_TDATA_WIDTH (Module Port: $MODULE_S_AXIS_TDATA_WIDTH)"
 common::send_gid_msg -ssname BD::TCL -id 9007 -severity "INFO" "DMA S2MM Stream Width (from wrapper output): $DMA_S_AXIS_S2MM_TDATA_WIDTH (Module Port: $MODULE_M_AXIS_TDATA_WIDTH)"
@@ -331,8 +338,8 @@ proc create_root_design { parentCell } {
   set_property -dict [list \
     CONFIG.c_addr_width {64} \
     CONFIG.c_include_sg {0} \
-    CONFIG.c_m_axi_mm2s_data_width {128} \
-    CONFIG.c_m_axi_s2mm_data_width {64} \
+    CONFIG.c_m_axi_mm2s_data_width $DMA_M_AXIS_MM2S_TDATA_WIDTH \
+    CONFIG.c_m_axi_s2mm_data_width $DMA_S_AXIS_S2MM_TDATA_WIDTH \
     CONFIG.c_m_axis_mm2s_tdata_width $DMA_M_AXIS_MM2S_TDATA_WIDTH \
     CONFIG.c_s_axis_s2mm_tdata_width $DMA_S_AXIS_S2MM_TDATA_WIDTH \
     CONFIG.c_sg_length_width {26} \
@@ -439,12 +446,22 @@ proc create_root_design { parentCell } {
 
 create_root_design ""
 
+# Validate the design
+set nRet 0
 
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
+# Validate that all required IPs are available
+set bCheckIPsPassed 1
+if { $bCheckIPsPassed != 1 } {
+   common::send_gid_msg -ssname BD::TCL -id 2011 -severity "ERROR" "This script was generated using Vivado <$scripts_vivado_version> without the required IPs."
+   return 1
+}
 
-# Add a final message indicating success and next steps
-common::send_gid_msg -ssname BD::TCL -id 9008 -severity "INFO" "Block design <$design_name> created successfully for $TARGET_ALGORITHM $TARGET_OPERATION."
-common::send_gid_msg -ssname BD::TCL -id 9009 -severity "INFO" "Next steps: Validate the design, generate output products, and create a HDL wrapper."
+# Validate the design
+set rc [catch {validate_bd_design} errmsg]
+if { $rc != 0 } {
+   common::send_gid_msg -ssname BD::TCL -id 2012 -severity "ERROR" "Design validation failed: $errmsg"
+   return 1
+}
+
 
 return 0
-

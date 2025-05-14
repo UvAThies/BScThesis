@@ -6,7 +6,7 @@ def get_algorithm_config(algorithm_name):
     configs = {
         "SDES": {
             "input_width": 32,  # 8 bits data + 10 bits key
-            "output_width": 8,
+            "output_width": 32, # Min axi width is 32
             "key_bits": [10]
         },
         "DES": {

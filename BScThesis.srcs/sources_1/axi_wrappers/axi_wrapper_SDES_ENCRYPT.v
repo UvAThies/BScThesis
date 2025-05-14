@@ -5,17 +5,17 @@ module axi_interface_sdes_encrypt
         
         // *** AXIS slave port ***
         output wire        s_axis_tready,
-        input wire [30:0]  s_axis_tdata,
+        input wire [31:0]  s_axis_tdata,
         input wire         s_axis_tvalid,
         input wire         s_axis_tlast,
         // *** AXIS master port ***
         input wire         m_axis_tready,
-        output wire [7:0] m_axis_tdata,
+        output wire [31:0] m_axis_tdata,
         output wire        m_axis_tvalid,
         output wire        m_axis_tlast
     );
     
-    wire [7:0] y_out;
+    wire [31:0] y_out;
     
     // AXI-Stream control
     assign s_axis_tready = m_axis_tready;
@@ -26,8 +26,8 @@ module axi_interface_sdes_encrypt
     // PE
     SDES_encrypt sdes_encrypt_instance
     (
-        .inp(s_axis_tdata[7:0]),
-        .key(s_axis_tdata[17:8]),
+        .inp(s_axis_tdata[31:0]),
+        .key(s_axis_tdata[41:32]),
         .outp(y_out)
     );
     

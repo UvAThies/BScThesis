@@ -1,25 +1,38 @@
-#!/usr/bin/env tclsh
-
 ################################################################
 # This script generates block designs for all supported algorithms
 # and operations (encrypt/decrypt).
 ################################################################
 
 # List of supported algorithms and operations
-set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES" "DESX" "DESXL" "DESL"]
-set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
+set SUPPORTED_ALGORITHMS [list "SDES"]
+set SUPPORTED_OPERATIONS [list "decrypt"]
 
 # Function to generate a single design
 proc generate_design {algorithm operation} {
-    # Set the target algorithm and operation
-    set ::TARGET_ALGORITHM $algorithm
-    set ::TARGET_OPERATION $operation
+    # Get the path to create_generic_design.tcl
+    set script_path [file join [file dirname [info script]] "create_generic_design.tcl"]
     
-    # Source the original design creation script
-    source [file join [file dirname [info script]] "create_generic_design.tcl"]
+    # Check if the file exists
+    if {![file exists $script_path]} {
+        puts "ERROR: Could not find create_generic_design.tcl at: $script_path"
+        return 1
+    }
     
-    # Return success/failure
-    return $::nRet
+    puts "Setting variables:"
+    puts "TARGET_ALGORITHM = $algorithm"
+    puts "TARGET_OPERATION = $operation"
+    
+    set argv0 $script_path
+    set argv [list $algorithm $operation]
+
+    # Source the original design creation script with arguments
+    if {[catch {source "$script_path"} result]} {
+        puts "ERROR: Failed to source create_generic_design.tcl: $result"
+        return 1
+    }
+    
+    # Return the result from the sourced script
+    return $result
 }
 
 # Main execution
@@ -63,8 +76,8 @@ puts "=========================================="
 
 if {$failed_designs > 0} {
     puts "\nWARNING: Some designs failed to generate. Please check the error messages above."
-    exit 1
+    return 1
 } else {
     puts "\nAll designs generated successfully!"
-    exit 0
+    return 0
 } 
