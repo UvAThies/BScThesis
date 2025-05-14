@@ -2,8 +2,7 @@ module axi_interface_des_encrypt
     (
         input wire         aclk,
         input wire         aresetn,
-        // *** Control ***
-//        input wire         en,
+        
         // *** AXIS slave port ***
         output wire        s_axis_tready,
         input wire [127:0]  s_axis_tdata,
@@ -20,7 +19,6 @@ module axi_interface_des_encrypt
     
     // AXI-Stream control
     assign s_axis_tready = m_axis_tready;
-//    assign m_axis_tdata = en ? {56'h000000, y_out} : 64'd0;
     assign m_axis_tdata = y_out;
     assign m_axis_tvalid = s_axis_tvalid;
     assign m_axis_tlast = s_axis_tlast;
