@@ -1,30 +1,9 @@
 Vivado Simulator v2024.2.0
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
-Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xilinx_vip -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_DESL_encrypt_behav xil_defaultlib.tb_DESL_encrypt xil_defaultlib.glbl -log elaborate.log 
+Running: C:/Xilinx/Vivado/2024.2/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L xilinx_vip -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_DESX_encrypt_behav xil_defaultlib.tb_DESX_encrypt xil_defaultlib.glbl -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
 Completed static elaboration
-Starting simulation data flow analysis
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling package std.standard
-Compiling package std.textio
-Compiling package ieee.std_logic_1164
-Compiling package xil_defaultlib.pkg
-Compiling package ieee.numeric_std
-Compiling module xil_defaultlib.glbl
-Compiling architecture behavioral of entity xil_defaultlib.DES_expand [des_expand_default]
-Compiling architecture behavioral of entity xil_defaultlib.DESL_sbox1 [desl_sbox1_default]
-Compiling architecture behavioral of entity xil_defaultlib.DESL_sbox [desl_sbox_default]
-Compiling architecture behavioral of entity xil_defaultlib.DES_permutate [des_permutate_default]
-Compiling architecture behavioral of entity xil_defaultlib.DESL_round [desl_round_default]
-Compiling architecture behavioral of entity xil_defaultlib.DES_left_rotate [des_left_rotate_default]
-Compiling architecture behavioral of entity xil_defaultlib.DES_left_rotate [\DES_left_rotate(amount=2)\]
-Compiling architecture behavioral of entity xil_defaultlib.DES_key_pc2 [des_key_pc2_default]
-Compiling architecture behavioral of entity xil_defaultlib.DES_key_pc1 [des_key_pc1_default]
-Compiling architecture behavioral of entity xil_defaultlib.DES_key_schedule [des_key_schedule_default]
-Compiling architecture behavioral of entity xil_defaultlib.DESL_encrypt [desl_encrypt_default]
-Compiling architecture behavioral of entity xil_defaultlib.tb_desl_encrypt
-Built simulation snapshot tb_DESL_encrypt_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
