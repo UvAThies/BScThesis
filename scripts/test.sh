@@ -23,9 +23,19 @@ cd ./workspace
 ls -lah
 SUCCESS=1
 
+
 TYPES=$(find . -type f -name "TYPES_*.vhd")
 echo "Compiling types files..."
 for file in $TYPES; do
+    file=${file:2} # Remove ./ from find output
+    FILE_WITHOUT_EXT="${file%.*}" # Remove the file extension
+    echo "Compiling ${file}..."
+    ghdl -a --std=08 "${file}"
+done
+
+COMMON_FILES=$(find . -type f -name "DES_*.vhd")
+echo "Compiling common files..."
+for file in $COMMON_FILES; do
     file=${file:2} # Remove ./ from find output
     FILE_WITHOUT_EXT="${file%.*}" # Remove the file extension
     echo "Compiling ${file}..."
