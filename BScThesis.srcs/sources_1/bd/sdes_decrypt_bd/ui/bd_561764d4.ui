@@ -1,0 +1,38 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"1.01866",
+   "Default View_TopLeft":"-1020,-28",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
+#  -string -flagsOSRD
+preplace port DDR_0 -pg 1 -lvl 3 -x 880 -y 20 -defaultsOSRD
+preplace port FIXED_IO_0 -pg 1 -lvl 3 -x 880 -y 50 -defaultsOSRD
+preplace port S_AXI_HP0_FIFO_CTRL_0 -pg 1 -lvl 0 -x 0 -y 20 -defaultsOSRD
+preplace port S_AXI_HP2_FIFO_CTRL_0 -pg 1 -lvl 0 -x 0 -y 50 -defaultsOSRD
+preplace inst axi_dma_0 -pg 1 -lvl 1 -x 340 -y 120 -defaultsOSRD
+preplace inst axi_smc -pg 1 -lvl 1 -x 340 -y 740 -defaultsOSRD
+preplace inst rst_ps7_0_50M -pg 1 -lvl 1 -x 340 -y 900 -defaultsOSRD
+preplace inst axi_mem_intercon -pg 1 -lvl 1 -x 340 -y 340 -defaultsOSRD
+preplace inst axi_mem_intercon_1 -pg 1 -lvl 1 -x 340 -y 560 -defaultsOSRD
+preplace inst zynqcore -pg 1 -lvl 1 -x 340 -y 1100 -defaultsOSRD
+preplace inst sdes_decrypt_0 -pg 1 -lvl 2 -x 750 -y 120 -defaultsOSRD
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 2 60 1290 630
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 40 1310 610
+preplace netloc rst_ps7_0_50M_peripheral_aresetn 1 0 2 50 1300 640
+preplace netloc S_AXI_HP0_FIFO_CTRL_0_1 1 0 1 30 20n
+preplace netloc S_AXI_HP2_FIFO_CTRL_0_1 1 0 1 20 50n
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 1 1 N 100
+preplace netloc axi_dma_0_M_AXI_MM2S 1 0 2 130 1220 590
+preplace netloc axi_dma_0_M_AXI_S2MM 1 0 2 90 1260 600
+preplace netloc custom_module_m_axis 1 0 3 70 1280 NJ 1280 860
+preplace netloc axi_mem_intercon_1_M00_AXI 1 0 2 110 1240 560
+preplace netloc axi_mem_intercon_M00_AXI 1 0 2 120 1230 570
+preplace netloc axi_smc_M00_AXI 1 0 2 80 1270 580
+preplace netloc processing_system7_0_DDR 1 1 2 610J 30 860
+preplace netloc processing_system7_0_FIXED_IO 1 1 2 620J 40 860
+preplace netloc processing_system7_0_M_AXI_GP0 1 0 2 100 1250 550
+levelinfo -pg 1 0 340 750 880
+pagesize -pg 1 -db -bbox -sgen -210 0 1000 1320
+"
+}
+

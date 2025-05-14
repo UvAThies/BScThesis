@@ -182,15 +182,20 @@ if { ${design_name} eq "" } {
    # USE CASES:
    #    5) Current design opened AND has components AND same names.
 
-   set errMsg "Design <$design_name> already exists in your project, please set the variable <design_name> to another value or modify TARGET_ALGORITHM/TARGET_OPERATION."
-   set nRet 1
+   common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Design <$design_name> already exists. Deleting it..."
+   delete_bd_design $design_name
+   create_bd_design $design_name
+   current_bd_design $design_name
+
 } elseif { [get_files -quiet ${design_name}.bd] ne "" } {
    # USE CASES: 
    #    6) Current opened design, has components, but diff names, design_name exists in project.
    #    7) No opened design, design_name exists in project.
 
-   set errMsg "Design <$design_name> already exists in your project, please set the variable <design_name> to another value or modify TARGET_ALGORITHM/TARGET_OPERATION."
-   set nRet 2
+   common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Design <$design_name> exists in project. Deleting it..."
+   delete_bd_design $design_name
+   create_bd_design $design_name
+   current_bd_design $design_name
 
 } else {
    # USE CASES:

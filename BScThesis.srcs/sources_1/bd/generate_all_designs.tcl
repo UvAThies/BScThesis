@@ -4,8 +4,8 @@
 ################################################################
 
 # List of supported algorithms and operations
-set SUPPORTED_ALGORITHMS [list "SDES"]
-set SUPPORTED_OPERATIONS [list "decrypt"]
+set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES" "DESX" "DESXL" "DESL"]
+set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
 
 # Function to generate a single design
 proc generate_design {algorithm operation} {
