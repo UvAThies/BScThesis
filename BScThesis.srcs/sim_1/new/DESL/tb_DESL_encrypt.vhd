@@ -55,5 +55,6 @@ BEGIN
 
         WAIT FOR 10 ns;
         ASSERT outp = "1010010100011010100011000001001000110011111001010001010100101110" REPORT "Encrypt not working correctly" SEVERITY failure;
+        wait;
     END PROCESS;
 END Behavioral;
