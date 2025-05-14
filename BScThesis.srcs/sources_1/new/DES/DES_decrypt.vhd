@@ -95,7 +95,6 @@ BEGIN
         );
     END GENERATE u0;
 
-
     ip_inv_instance : DES_initial_permutation
     GENERIC MAP (IS_INVERSE => TRUE)
     PORT MAP (
