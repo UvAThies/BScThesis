@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        algo: [SDES, DES, DESL, DESX, TDES]
+        algo: [SDES, DES, DESL, DESX, TDES, DESXL]
 
     steps:
       - name: Checkout code

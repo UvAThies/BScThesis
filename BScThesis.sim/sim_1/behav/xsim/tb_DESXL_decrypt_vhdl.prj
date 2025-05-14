@@ -1,0 +1,22 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../BScThesis.srcs/sources_1/new/common/TYPES_pkg.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DESL/DESL_round.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DESL/DESL_sbox.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DESL/DESL_sbox1.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DESXL/DESXL_decrypt.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_expand.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_key_pc1.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_key_pc2.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_key_schedule.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_left_rotate.vhd" \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_permutate.vhd" \
+
+vhdl2008 xil_defaultlib  \
+"../../../../BScThesis.srcs/sources_1/new/DES/DES_initial_permutation.vhd" \
+
+vhdl xil_defaultlib  \
+"../../../../BScThesis.srcs/sim_1/new/DESXL/tb_DESXL_decrypt.vhd" \
+
+# Do not sort compile order
+nosort
