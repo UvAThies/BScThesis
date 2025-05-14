@@ -33,27 +33,18 @@ for file in $TYPES; do
     ghdl -a --std=08 "${file}"
 done
 
-COMMON_FILES=$(find . -type f -name "DES_*.vhd")
-echo "Compiling common files..."
-for file in $COMMON_FILES; do
-    file=${file:2} # Remove ./ from find output
-    FILE_WITHOUT_EXT="${file%.*}" # Remove the file extension
-    echo "Compiling ${file}..."
-    ghdl -a --std=08 "${file}"
-done
 
-NOT_TB_FILES=$(find . -type f -name "${ALGO}_*.vhd")
-TB_FILES=$(find . -type f -name "tb_${ALGO}_*.vhd")
-echo "Compiling files for $ALGO..."
-for file in $NOT_TB_FILES; do
-    file=${file:2} # Remove ./ from find output
-    FILE_WITHOUT_EXT="${file%.*}" # Remove the file extension
+echo "Compiling all vhd files"
+NON_TB_FILES=$(find . -type f -name "*.vhd" -not -name "tb_*.vhd" -not -name "TYPES_*.vhd")
+for file in $NON_TB_FILES; do
+    file=${file:2}
+    FILE_WITHOUT_EXT="${file%.*}"
     echo "Compiling ${file}..."
     ghdl -a --std=08 "${file}"
-    # ghdl -e --std=08 "$FILE_WITHOUT_EXT"
 done
 
 echo "Running test bench for $ALGO..."
+TB_FILES=$(find . -type f -name "tb_${ALGO}_*.vhd")
 for tb_file in $TB_FILES; do
     tb_file=${tb_file:2}
     TB_FILE_WITHOUT_EXT="${tb_file%.*}"

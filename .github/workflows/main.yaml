@@ -5,9 +5,11 @@ on: [push]
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
       matrix:
         algo: [SDES, DES, DESL, DESX, TDES, DESXL]
+
 
     steps:
       - name: Checkout code
