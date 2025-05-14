@@ -1,0 +1,37 @@
+name: Check AXI Wrappers
+
+on:
+  push:
+    paths:
+      - 'BScThesis.srcs/sources_1/axi_wrappers/**'
+      - 'generate_axi_wrapper.py'
+  pull_request:
+    paths:
+      - 'BScThesis.srcs/sources_1/axi_wrappers/**'
+      - 'generate_axi_wrapper.py'
+
+jobs:
+  check-wrappers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          
+      - name: Generate wrappers
+        run: python generate_axi_wrapper.py
+        
+      - name: Check for differences
+        run: |
+          # Check if any files are different
+          if git diff --quiet BScThesis.srcs/sources_1/axi_wrappers/; then
+            echo "All AXI wrappers are up to date!"
+          else
+            echo "::error::AXI wrappers are out of date! Please run generate_axi_wrapper.py and commit the changes."
+            echo "Changed files:"
+            git diff --name-only BScThesis.srcs/sources_1/axi_wrappers/
+            exit 1
+          fi 
