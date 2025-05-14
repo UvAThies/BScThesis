@@ -6,12 +6,12 @@ module axi_interface_des_encrypt
 //        input wire         en,
         // *** AXIS slave port ***
         output wire        s_axis_tready,
-        input wire [0:127]  s_axis_tdata,
+        input wire [127:0]  s_axis_tdata,
         input wire         s_axis_tvalid,
         input wire         s_axis_tlast,
         // *** AXIS master port ***
         input wire         m_axis_tready,
-        output wire [0:63] m_axis_tdata,
+        output wire [63:0] m_axis_tdata,
         output wire        m_axis_tvalid,
         output wire        m_axis_tlast
     );
@@ -28,8 +28,8 @@ module axi_interface_des_encrypt
     // PE
     DES_encrypt des_encryption
     (
-        .inp(s_axis_tdata[0:63]),
-        .key(s_axis_tdata[64:127]),
+        .inp(s_axis_tdata[63:0]),
+        .key(s_axis_tdata[127:64]),
         .outp(y_out)
     );
     

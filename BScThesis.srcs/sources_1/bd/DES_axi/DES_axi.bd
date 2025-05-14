@@ -1011,8 +1011,8 @@
               "TDATA": {
                 "physical_name": "m_axis_tdata",
                 "direction": "O",
-                "left": "0",
-                "right": "63"
+                "left": "63",
+                "right": "0"
               },
               "TLAST": {
                 "physical_name": "m_axis_tlast",
@@ -1078,8 +1078,8 @@
               "TDATA": {
                 "physical_name": "s_axis_tdata",
                 "direction": "I",
-                "left": "0",
-                "right": "127"
+                "left": "127",
+                "right": "0"
               },
               "TLAST": {
                 "physical_name": "s_axis_tlast",

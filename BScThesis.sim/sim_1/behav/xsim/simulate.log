@@ -1,4 +1,0 @@
-Time resolution is 1 ps
-Failure: Encrypt not working correctly
-Time: 10 ns  Iteration: 0  Process: /tb_DES_encrypt/stim_proc  File: C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/DES/tb_DES_encrypt.vhd
-$finish called at time : 10 ns : File "C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/DES/tb_DES_encrypt.vhd" Line 59
