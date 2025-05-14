@@ -7,37 +7,31 @@ def get_algorithm_config(algorithm_name):
         "SDES": {
             "input_width": 31,  # 8 bits data + 10 bits key
             "output_width": 8,
-            "num_keys": 1,
             "key_bits": [10]
         },
         "DES": {
-            "input_width": 127,  # 64 bits data + 64 bits key
+            "input_width": 128,  # 64 bits data + 64 bits key
             "output_width": 64,
-            "num_keys": 1,
             "key_bits": [64]
         },
         "TDES": {
-            "input_width": 255,  # 64 bits data + 3*64 bits key
+            "input_width": 256,  # 64 bits data + 3*64 bits key
             "output_width": 64,
-            "num_keys": 3,
             "key_bits": [64, 64, 64]
         },
         "DESX": {
-            "input_width": 255,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
+            "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
             "output_width": 64,
-            "num_keys": 3,
             "key_bits": [64, 64, 64]
         },
         "DESXL": {
-            "input_width": 255,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
+            "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
             "output_width": 64,
-            "num_keys": 3,
             "key_bits": [64, 64, 64]
         },
         "DESL": {
-            "input_width": 127,  # 64 bits data + 64 bits key
+            "input_width": 128,  # 64 bits data + 64 bits key
             "output_width": 64,
-            "num_keys": 1,
             "key_bits": [64]
         }
     }
@@ -86,8 +80,7 @@ def generate_axi_wrapper(algorithm_name, operation="encrypt"):
     
     # Add key connections based on algorithm configuration
     current_bit = config['output_width']
-    for i in range(config['num_keys']):
-        key_width = config['key_bits'][i]
+    for i, key_width in enumerate(config['key_bits']):
         code += f",\n        .key{'1' if i > 0 else ''}(s_axis_tdata[{current_bit + key_width - 1}:{current_bit}])"
         current_bit += key_width
     
