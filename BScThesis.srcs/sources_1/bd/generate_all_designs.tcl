@@ -22,8 +22,9 @@ proc generate_design {algorithm operation} {
     puts "TARGET_ALGORITHM = $algorithm"
     puts "TARGET_OPERATION = $operation"
     
-    set argv0 $script_path
-    set argv [list $algorithm $operation]
+    # Set the algorithm and operation
+    set ::TARGET_ALGORITHM $algorithm
+    set ::TARGET_OPERATION $operation
 
     # Source the original design creation script with arguments
     if {[catch {source "$script_path"} result]} {
