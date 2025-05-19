@@ -9,7 +9,7 @@ set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
 
 # set SUPPORTED_ALGORITHMS [list "DES"]
 
-set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES"]
+set SUPPORTED_ALGORITHMS [list "TDES"]
 
 # --- Configuration ---
 # Path to the script that creates/configures a single design
