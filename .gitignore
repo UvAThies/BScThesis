@@ -1,7 +1,6 @@
 # gitignore template for Xilinx Vivado Design Suite
 # website: https://www.xilinx.com/support/download.html
 workspace/ 
-results/
 
 # [home]
 *.jou

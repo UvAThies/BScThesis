@@ -9,7 +9,7 @@ set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
 
 # set SUPPORTED_ALGORITHMS [list "DES"]
 
-set SUPPORTED_ALGORITHMS [list "DESX"]
+set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES"]
 
 # --- Configuration ---
 # Path to the script that creates/configures a single design
@@ -20,20 +20,8 @@ open_project ../../../BScThesis.xpr
 
 # --- Helper Procedures ---
 
-proc parse_report_value {report_file pattern {default_val "N/A"}} {
-    set fh [open $report_file r]
-    set value $default_val
-    while {[gets $fh line] >= 0} {
-        if {[regexp -- $pattern $line match value]} {
-            break
-        }
-    }
-    close $fh
-    return $value
-}
-
 # Procedure to set up, compile, and report for a single design
-proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_file_handle create_script_full_path} {
+proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH create_script_full_path} {
     puts "INFO: Processing design: Algorithm=$algorithm, Operation=$operation"
 
     # --- 1. Design Setup Phase ---
@@ -43,7 +31,6 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_fi
 
     if {[catch {source $create_script_full_path} result]} {
         puts "ERROR: Failed to source $CREATE_GENERIC_DESIGN_SCRIPT_NAME for $algorithm $operation: $result"
-        puts $stats_file_handle "$algorithm,$operation,FAIL (setup),,,,,,"
         return 1 ;# Indicate failure
     }
 
@@ -57,8 +44,9 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_fi
     update_compile_order -fileset sources_1
 
     # Create algorithm-specific run names
-    set synth_run_name "synth_${algorithm_lower}"
-    set impl_run_name "impl_${algorithm_lower}"
+    set synth_run_name "synth_${algorithm_lower}_${operation_lower}"
+    set impl_run_name "impl_${algorithm_lower}_${operation_lower}"
+    set unique_design_name "${algorithm_lower}_${operation_lower}"
 
     # --- 2. Compilation Phase ---
     
@@ -74,31 +62,27 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_fi
     reset_runs $impl_run_name
 
     puts "INFO: Starting Synthesis for $proj_name..."
-    if {[catch {launch_runs $synth_run_name -jobs 8} synth_msg]} {
+    if {[catch {launch_runs $synth_run_name -jobs 12} synth_msg]} {
         puts "ERROR: Synthesis launch failed for $proj_name: $synth_msg"
-        puts $stats_file_handle "$algorithm,$operation,FAIL (synth launch),,,,,,"
         return 1
     }
     wait_on_run $synth_run_name
     
     if {[get_property PROGRESS [get_runs $synth_run_name]] != "100%"} {
         puts "ERROR: Synthesis failed for $proj_name. Status: [get_property STATUS [get_runs $synth_run_name]]"
-        puts $stats_file_handle "$algorithm,$operation,FAIL (synthesis),,,,,,"
         return 1
     }
     puts "INFO: Synthesis completed for $proj_name."
 
     puts "INFO: Starting Implementation and Bitstream Generation for $proj_name..."
-    if {[catch {launch_runs $impl_run_name -to_step write_bitstream -jobs 8} impl_msg]} {
+    if {[catch {launch_runs $impl_run_name -to_step write_bitstream -jobs 12} impl_msg]} {
         puts "ERROR: Implementation launch failed for $proj_name: $impl_msg"
-        puts $stats_file_handle "$algorithm,$operation,FAIL (impl launch),,,,,,"
         return 1
     }
     wait_on_run $impl_run_name
 
     if {[get_property PROGRESS [get_runs $impl_run_name]] != "100%" || [string is true [get_property NEEDS_REFRESH [get_runs $impl_run_name]]]} {
         puts "ERROR: Implementation/Bitstream failed for $proj_name. Status: [get_property STATUS [get_runs $impl_run_name]]"
-        puts $stats_file_handle "$algorithm,$operation,FAIL (implementation),,,,,,"
         return 1
     }
     puts "INFO: Implementation and Bitstream Generation completed for $proj_name."
@@ -106,7 +90,6 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_fi
     # --- 3. Statistics Extraction Phase ---
     open_run $impl_run_name ;# Ensure post-implementation design is open for reporting
     
-    set unique_design_name "${algorithm}_${operation}"
     set utilization_report_file [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}_utilization.rpt"]
     set timing_report_file [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}_timing.rpt"]
 
@@ -118,42 +101,8 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH stats_fi
          puts "WARNING: Failed to generate timing summary report: $time_rpt_err"
     }
     
-    # Parse reports for statistics
-    # Regex for parsing "Used" column from tables like: | Resource Name | Available | Used | Utilization (%) |
-    set luts    [parse_report_value $utilization_report_file {^\|\s*Slice LUTs\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}]
-    set ffs     [parse_report_value $utilization_report_file {^\|\s*Slice Registers\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}] ;# Note: "Slice Registers" is more common than "Total Registers" in some report versions
-    if {$ffs == "N/A"} { set ffs [parse_report_value $utilization_report_file {^\|\s*Total Registers\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}] }
-    set bram_tile [parse_report_value $utilization_report_file {^\|\s*Block RAM Tile\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}]
-    set dsps    [parse_report_value $utilization_report_file {^\|\s*DSP Blocks\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}]
-    if {$dsps == "N/A"} { set dsps [parse_report_value $utilization_report_file {^\|\s*DSPs\s*\|\s*[\d\.]+\s*\|\s*(\d+)\s*\|}] }
-
-
-    # # Regex for WNS/TNS (e.g., "WNS (ns) : -0.123" or "WNS : N/A")
-    set wns [parse_report_value $timing_report_file {^\s*Worst Negative Slack \(WNS\)\s*\(ns\)?\s*:\s*([-\d\.]+|N\/A|[iI]nfinity)}]
-    set tns [parse_report_value $timing_report_file {^\s*Total Negative Slack \(TNS\)\s*\(ns\)?\s*:\s*([-\d\.]+|N\/A|[0\.000]+)}]
-    if {$wns == "N/A"} {set wns [parse_report_value $timing_report_file {^\s*WNS\s*:\s*([-\d\.]+|N\/A|[iI]nfinity)}] }
-    if {$tns == "N/A"} {set tns [parse_report_value $timing_report_file {^\s*TNS\s*:\s*([-\d\.]+|N\/A|[0\.000]+)}] }
-
-
-    puts $stats_file_handle "$algorithm,$operation,$luts,$ffs,$bram_tile,$dsps,$wns,$tns"
-    puts "SUCCESS, $algorithm, $operation, $luts, $ffs, $bram_tile, $dsps, $wns, $tns"
     puts "INFO: Statistics recorded for $unique_design_name."
 
-    # --- 4. Output Management Phase ---
-    set bit_files [get_property BITSTREAM.FILES [get_runs impl_1]]
-    if {[llength $bit_files] > 0} {
-        set bit_file_source_path [lindex $bit_files 0]
-        set bit_file_dest_path [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}.bit"]
-        if {[catch {file copy -force $bit_file_source_path $bit_file_dest_path} copy_msg]} {
-            puts "ERROR: Failed to copy bitstream for $unique_design_name: $copy_msg"
-            # Continue, as stats might still be valuable
-        } else {
-            puts "INFO: Bitstream for $unique_design_name copied to $bit_file_dest_path"
-        }
-    } else {
-        puts "WARNING: No bitstream file found for $unique_design_name."
-    }
-    
     return 0 ;# Indicate success
 }
 
@@ -178,16 +127,6 @@ if {![file exists $create_script_full_path]} {
     return 1
 }
 
-# Open statistics file
-set stats_file_path [file join $RESULTS_DIR_ABS_PATH "compilation_stats.txt"]
-if {[catch {set stats_file_handle [open $stats_file_path "w"]} stats_open_err]} {
-    puts "ERROR: Could not open statistics file for writing at $stats_file_path: $stats_open_err"
-    return 1
-}
-
-# Write header to stats file
-puts $stats_file_handle "Algorithm,Operation,LUTs,FFs,BRAM_Tiles,DSPs,WNS,TNS,Status_Details"
-# Status_Details column added for any specific failure messages if stats are N/A
 
 set total_designs_to_compile [expr [llength $SUPPORTED_ALGORITHMS] * [llength $SUPPORTED_OPERATIONS]]
 set current_design_count 0
@@ -199,7 +138,7 @@ foreach algorithm $SUPPORTED_ALGORITHMS {
         incr current_design_count
         puts "\nProcessing design $current_design_count of $total_designs_to_compile: $algorithm - $operation"
         
-        if {[setup_and_compile_design $algorithm $operation $RESULTS_DIR_ABS_PATH $stats_file_handle $create_script_full_path] == 0} {
+        if {[setup_and_compile_design $algorithm $operation $RESULTS_DIR_ABS_PATH $create_script_full_path] == 0} {
             incr successful_compilations
             puts "SUCCESS: Successfully compiled and processed $algorithm $operation"
         } else {
@@ -215,6 +154,7 @@ close $stats_file_handle
 
 puts "\n=========================================="
 puts "All Design Compilations Complete!"
+puts "Manually copy the bitstreams and hwh files to the results directory."
 puts "Total designs attempted: $total_designs_to_compile"
 puts "Successful compilations: $successful_compilations"
 puts "Failed compilations: $failed_compilations"
