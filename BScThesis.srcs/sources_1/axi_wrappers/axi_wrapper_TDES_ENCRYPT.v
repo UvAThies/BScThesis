@@ -29,7 +29,7 @@ module axi_interface_tdes_encrypt
         .inp(s_axis_tdata[63:0]),
         .key(s_axis_tdata[127:64]),
         .key1(s_axis_tdata[191:128]),
-        .key1(s_axis_tdata[255:192]),
+        .key2(s_axis_tdata[255:192]),
         .outp(y_out)
     );
     

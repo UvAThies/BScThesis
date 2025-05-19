@@ -87,7 +87,7 @@ def generate_axi_wrapper(algorithm_name, operation="encrypt"):
     # Add key connections based on algorithm configuration
     current_bit = config['message_width']
     for i, key_width in enumerate(config['key_bits']):
-        code += f",\n        .key{'1' if i > 0 else ''}(s_axis_tdata[{current_bit + key_width - 1}:{current_bit}])"
+        code += f",\n        .key{str(i) if i > 0 else ''}(s_axis_tdata[{current_bit + key_width - 1}:{current_bit}])"
         current_bit += key_width
     
     code += f""",
