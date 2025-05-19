@@ -34,25 +34,6 @@ variable script_folder
 set script_folder [_tcl::get_script_folder]
 
 ################################################################
-# Check if script is running in correct Vivado version.
-################################################################
-set scripts_vivado_version 2024.2
-set current_vivado_version [version -short]
-
-if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
-   puts ""
-   if { [string compare $scripts_vivado_version $current_vivado_version] > 0 } {
-      catch {common::send_gid_msg -ssname BD::TCL -id 2042 -severity "ERROR" " This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Sourcing the script failed since it was created with a future version of Vivado."}
-
-   } else {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2041 -severity "ERROR" "This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Please run the script in Vivado <$scripts_vivado_version> then open the design in Vivado <$current_vivado_version>. Upgrade the design by running \"Tools => Report => Report IP Status...\", then run write_bd_tcl to create an updated script."}
-
-   }
-
-   return 1
-}
-
-################################################################
 # Helper Procedures and Global Configuration
 ################################################################
 
@@ -125,7 +106,6 @@ set GLOBAL_MODULE_INSTANCE_NAME "${TARGET_ALGORITHM_LOWER}_${TARGET_OPERATION_LO
 # To test this script, run the following commands from Vivado Tcl console:
 # source <this_script_name>.tcl
 
-
 # The design that will be created by this Tcl script contains a
 # module reference derived from TARGET_ALGORITHM and TARGET_OPERATION.
 # Example: axi_interface_des_encrypt
@@ -141,11 +121,6 @@ if { $list_projs eq "" } {
    create_project project_1 myproj -part xc7z020clg400-1
    set_property BOARD_PART www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
 }
-
-
-# If you do not already have an existing IP Integrator design open,
-# you can create a design using the following command:
-#    create_bd_design $design_name
 
 # Creating design if needed
 set errMsg ""
@@ -174,7 +149,6 @@ if { ${design_name} eq "" } {
       set TARGET_OPERATION_LOWER [lindex [split $design_name "_"] 1]
       set GLOBAL_REF_MODULE_NAME "axi_interface_${TARGET_ALGORITHM_LOWER}_${TARGET_OPERATION_LOWER}"
       set GLOBAL_MODULE_INSTANCE_NAME "${TARGET_ALGORITHM_LOWER}_${TARGET_OPERATION_LOWER}_0"
-
    }
    common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Constructing design in IPI design <$cur_design>..."
 
@@ -183,7 +157,7 @@ if { ${design_name} eq "" } {
    #    5) Current design opened AND has components AND same names.
 
    common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Design <$design_name> already exists. Deleting it..."
-   delete_bd_design $design_name
+   remove_files [get_files ${design_name}.bd]
    create_bd_design $design_name
    current_bd_design $design_name
 
@@ -193,7 +167,7 @@ if { ${design_name} eq "" } {
    #    7) No opened design, design_name exists in project.
 
    common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Design <$design_name> exists in project. Deleting it..."
-   delete_bd_design $design_name
+   remove_files [get_files ${design_name}.bd]
    create_bd_design $design_name
    current_bd_design $design_name
 
@@ -208,7 +182,6 @@ if { ${design_name} eq "" } {
 
    common::send_gid_msg -ssname BD::TCL -id 2004 -severity "INFO" "Making design <$design_name> as current_bd_design."
    current_bd_design $design_name
-
 }
 
 common::send_gid_msg -ssname BD::TCL -id 2005 -severity "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
@@ -216,7 +189,6 @@ common::send_gid_msg -ssname BD::TCL -id 9004 -severity "INFO" "Targeting Algori
 common::send_gid_msg -ssname BD::TCL -id 9005 -severity "INFO" "AXI Wrapper Module: $GLOBAL_REF_MODULE_NAME, Instance: $GLOBAL_MODULE_INSTANCE_NAME"
 common::send_gid_msg -ssname BD::TCL -id 9006 -severity "INFO" "DMA MM2S Stream Width (to wrapper input): $DMA_M_AXIS_MM2S_TDATA_WIDTH (Module Port: $MODULE_S_AXIS_TDATA_WIDTH)"
 common::send_gid_msg -ssname BD::TCL -id 9007 -severity "INFO" "DMA S2MM Stream Width (from wrapper output): $DMA_S_AXIS_S2MM_TDATA_WIDTH (Module Port: $MODULE_M_AXIS_TDATA_WIDTH)"
-
 
 if { $nRet != 0 } {
    catch {common::send_gid_msg -ssname BD::TCL -id 2006 -severity "ERROR" $errMsg}
@@ -331,11 +303,6 @@ proc create_root_design { parentCell } {
 
   set FIXED_IO_0 [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO_0 ]
 
-  set S_AXI_HP0_FIFO_CTRL_0 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:display_processing_system7:hpstatusctrl_rtl:1.0 S_AXI_HP0_FIFO_CTRL_0 ]
-
-  set S_AXI_HP2_FIFO_CTRL_0 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:display_processing_system7:hpstatusctrl_rtl:1.0 S_AXI_HP2_FIFO_CTRL_0 ]
-
-
   # Create ports
 
   # Create instance: axi_dma_0, and set properties
@@ -388,8 +355,6 @@ proc create_root_design { parentCell } {
    }
   
   # Create interface connections
-  connect_bd_intf_net -intf_net S_AXI_HP0_FIFO_CTRL_0_1 [get_bd_intf_ports S_AXI_HP0_FIFO_CTRL_0] [get_bd_intf_pins zynqcore/S_AXI_HP0_FIFO_CTRL]
-  connect_bd_intf_net -intf_net S_AXI_HP2_FIFO_CTRL_0_1 [get_bd_intf_ports S_AXI_HP2_FIFO_CTRL_0] [get_bd_intf_pins zynqcore/S_AXI_HP2_FIFO_CTRL]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXIS_MM2S [get_bd_intf_pins $GLOBAL_MODULE_INSTANCE_NAME/s_axis] [get_bd_intf_pins axi_dma_0/M_AXIS_MM2S]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXI_MM2S [get_bd_intf_pins axi_dma_0/M_AXI_MM2S] [get_bd_intf_pins axi_mem_intercon/S00_AXI]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXI_S2MM [get_bd_intf_pins axi_dma_0/M_AXI_S2MM] [get_bd_intf_pins axi_mem_intercon_1/S00_AXI]
@@ -468,5 +433,11 @@ if { $rc != 0 } {
    return 1
 }
 
+# Save the design one final time
+save_bd_design
+
+# Create HDL wrapper for the design, so we can compile it to bitstream
+make_wrapper -files [get_files ${design_name}.bd] -top
+add_files -norecurse ../../../BScThesis.gen/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.v
 
 return 0

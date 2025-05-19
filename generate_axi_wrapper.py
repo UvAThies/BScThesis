@@ -6,31 +6,37 @@ def get_algorithm_config(algorithm_name):
     configs = {
         "SDES": {
             "input_width": 32,  # 8 bits data + 10 bits key
+            "message_width": 8,
             "output_width": 32, # Min axi width is 32
             "key_bits": [10]
         },
         "DES": {
             "input_width": 128,  # 64 bits data + 64 bits key
+            "message_width": 64,
             "output_width": 64,
             "key_bits": [64]
         },
         "TDES": {
             "input_width": 256,  # 64 bits data + 3*64 bits key
+            "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64]
         },
         "DESX": {
             "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
+            "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64]
         },
         "DESXL": {
             "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
+            "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64]
         },
         "DESL": {
             "input_width": 128,  # 64 bits data + 64 bits key
+            "message_width": 64,
             "output_width": 64,
             "key_bits": [64]
         }
@@ -76,10 +82,10 @@ def generate_axi_wrapper(algorithm_name, operation="encrypt"):
     // PE
     {algorithm_name}_{operation} {algorithm_name.lower()}_{operation}_instance
     (
-        .inp(s_axis_tdata[{config['output_width']-1}:0])"""
+        .inp(s_axis_tdata[{config['message_width']-1}:0])"""
     
     # Add key connections based on algorithm configuration
-    current_bit = config['output_width']
+    current_bit = config['message_width']
     for i, key_width in enumerate(config['key_bits']):
         code += f",\n        .key{'1' if i > 0 else ''}(s_axis_tdata[{current_bit + key_width - 1}:{current_bit}])"
         current_bit += key_width

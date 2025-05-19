@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root MajorVersion="0" MinorVersion="43">
+  <CompositeFile CompositeFileTopName="sdes_encrypt_bd" CanBeSetAsTop="false" CanDisplayChildGraph="true">
+    <Description>Composite Fileset</Description>
+    <Generation Name="SYNTHESIS" State="RESET" Timestamp="1747658938"/>
+    <Generation Name="SIMULATION" State="RESET" Timestamp="1747658938"/>
+    <Generation Name="IMPLEMENTATION" State="RESET" Timestamp="1747658938"/>
+    <Generation Name="HW_HANDOFF" State="RESET" Timestamp="1747658938"/>
+    <FileCollection Name="SOURCES" Type="SOURCES"/>
+  </CompositeFile>
+</Root>

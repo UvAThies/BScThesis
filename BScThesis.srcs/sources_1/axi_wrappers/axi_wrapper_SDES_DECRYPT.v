@@ -26,8 +26,8 @@ module axi_interface_sdes_decrypt
     // PE
     SDES_decrypt sdes_decrypt_instance
     (
-        .inp(s_axis_tdata[31:0]),
-        .key(s_axis_tdata[41:32]),
+        .inp(s_axis_tdata[7:0]),
+        .key(s_axis_tdata[17:8]),
         .outp(y_out)
     );
     
