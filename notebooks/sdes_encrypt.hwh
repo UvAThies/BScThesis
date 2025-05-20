@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 19 17:35:27 2025" VIVADOVERSION="2024.2">
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 19 16:58:19 2025" VIVADOVERSION="2024.2">
 
-  <SYSTEMINFO ARCH="zynq" BOARD="www.digilentinc.com:pynq-z1:part0:1.0" DEVICE="7z020" NAME="tdes_encrypt_bd" PACKAGE="clg400" SPEEDGRADE="-1"/>
+  <SYSTEMINFO ARCH="zynq" BOARD="www.digilentinc.com:pynq-z1:part0:1.0" DEVICE="7z020" NAME="sdes_encrypt_bd" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
   <EXTERNALPORTS>
     <PORT DIR="IO" LEFT="14" NAME="DDR_0_addr" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_Addr">
@@ -992,13 +992,13 @@
         <PARAMETER NAME="C_INCLUDE_SG" VALUE="0"/>
         <PARAMETER NAME="C_INCREASE_THROUGHPUT" VALUE="0"/>
         <PARAMETER NAME="C_MICRO_DMA" VALUE="0"/>
-        <PARAMETER NAME="C_MM2S_BURST_SIZE" VALUE="2"/>
+        <PARAMETER NAME="C_MM2S_BURST_SIZE" VALUE="16"/>
         <PARAMETER NAME="C_M_AXIS_MM2S_CNTRL_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_M_AXIS_MM2S_TDATA_WIDTH" VALUE="256"/>
+        <PARAMETER NAME="C_M_AXIS_MM2S_TDATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_AXI_MM2S_ADDR_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_M_AXI_MM2S_DATA_WIDTH" VALUE="256"/>
+        <PARAMETER NAME="C_M_AXI_MM2S_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_AXI_S2MM_ADDR_WIDTH" VALUE="64"/>
-        <PARAMETER NAME="C_M_AXI_S2MM_DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_M_AXI_S2MM_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_AXI_SG_ADDR_WIDTH" VALUE="64"/>
         <PARAMETER NAME="C_M_AXI_SG_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_NUM_MM2S_CHANNELS" VALUE="1"/>
@@ -1009,10 +1009,10 @@
         <PARAMETER NAME="C_SG_LENGTH_WIDTH" VALUE="26"/>
         <PARAMETER NAME="C_SG_USE_STSAPP_LENGTH" VALUE="0"/>
         <PARAMETER NAME="C_S_AXIS_S2MM_STS_TDATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_S_AXIS_S2MM_TDATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_S_AXIS_S2MM_TDATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_S_AXI_LITE_ADDR_WIDTH" VALUE="10"/>
         <PARAMETER NAME="C_S_AXI_LITE_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_axi_dma_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_axi_dma_0_0"/>
         <PARAMETER NAME="c_addr_width" VALUE="64"/>
         <PARAMETER NAME="c_dlytmr_resolution" VALUE="125"/>
         <PARAMETER NAME="c_enable_multi_channel" VALUE="0"/>
@@ -1024,16 +1024,16 @@
         <PARAMETER NAME="c_include_s2mm_sf" VALUE="1"/>
         <PARAMETER NAME="c_include_sg" VALUE="0"/>
         <PARAMETER NAME="c_increase_throughput" VALUE="0"/>
-        <PARAMETER NAME="c_m_axi_mm2s_data_width" VALUE="256"/>
-        <PARAMETER NAME="c_m_axi_s2mm_data_width" VALUE="64"/>
-        <PARAMETER NAME="c_m_axis_mm2s_tdata_width" VALUE="256"/>
+        <PARAMETER NAME="c_m_axi_mm2s_data_width" VALUE="32"/>
+        <PARAMETER NAME="c_m_axi_s2mm_data_width" VALUE="32"/>
+        <PARAMETER NAME="c_m_axis_mm2s_tdata_width" VALUE="32"/>
         <PARAMETER NAME="c_micro_dma" VALUE="0"/>
-        <PARAMETER NAME="c_mm2s_burst_size" VALUE="2"/>
+        <PARAMETER NAME="c_mm2s_burst_size" VALUE="16"/>
         <PARAMETER NAME="c_num_mm2s_channels" VALUE="1"/>
         <PARAMETER NAME="c_num_s2mm_channels" VALUE="1"/>
         <PARAMETER NAME="c_prmry_is_aclk_async" VALUE="0"/>
         <PARAMETER NAME="c_s2mm_burst_size" VALUE="16"/>
-        <PARAMETER NAME="c_s_axis_s2mm_tdata_width" VALUE="64"/>
+        <PARAMETER NAME="c_s_axis_s2mm_tdata_width" VALUE="32"/>
         <PARAMETER NAME="c_sg_include_stscntrl_strm" VALUE="0"/>
         <PARAMETER NAME="c_sg_length_width" VALUE="26"/>
         <PARAMETER NAME="c_sg_use_stsapp_length" VALUE="0"/>
@@ -1093,7 +1093,7 @@
             <CONNECTION INSTANCE="axi_mem_intercon" PORT="S00_AXI_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="255" NAME="m_axi_mm2s_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
+        <PORT DIR="I" LEFT="31" NAME="m_axi_mm2s_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_mem_intercon" PORT="S00_AXI_rdata"/>
           </CONNECTIONS>
@@ -1178,7 +1178,7 @@
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="m_axi_s2mm_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
+        <PORT DIR="O" LEFT="31" NAME="m_axi_s2mm_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_AXI_wdata"/>
           </CONNECTIONS>
@@ -1193,7 +1193,7 @@
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_AXI_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="7" NAME="m_axi_s2mm_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
+        <PORT DIR="O" LEFT="3" NAME="m_axi_s2mm_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_AXI_wstrb"/>
           </CONNECTIONS>
@@ -1203,24 +1203,24 @@
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="255" NAME="m_axis_mm2s_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
+        <PORT DIR="O" LEFT="31" NAME="m_axis_mm2s_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="s_axis_tdata"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="s_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="m_axis_mm2s_tlast" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tlast">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="s_axis_tlast"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="s_axis_tlast"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="m_axis_mm2s_tready" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="s_axis_tready"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="s_axis_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="m_axis_mm2s_tvalid" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="s_axis_tvalid"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="s_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="mm2s_introut" SENSITIVITY="LEVEL_HIGH" SIGIS="INTERRUPT"/>
@@ -1312,24 +1312,24 @@
             <CONNECTION INSTANCE="axi_smc" PORT="M00_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="s_axis_s2mm_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
+        <PORT DIR="I" LEFT="31" NAME="s_axis_s2mm_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="m_axis_tdata"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="m_axis_tdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_s2mm_tlast" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tlast">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="m_axis_tlast"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="m_axis_tlast"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="s_axis_s2mm_tready" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="m_axis_tready"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="m_axis_tready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_axis_s2mm_tvalid" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="m_axis_tvalid"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="m_axis_tvalid"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -1339,7 +1339,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -1385,13 +1385,13 @@
             <PORTMAP LOGICAL="WVALID" PHYSICAL="s_axi_lite_wvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="256" NAME="M_AXI_MM2S" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="32" NAME="M_AXI_MM2S" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="256"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -1404,7 +1404,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="0"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="2"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="16"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="8"/>
@@ -1433,13 +1433,13 @@
             <PORTMAP LOGICAL="RVALID" PHYSICAL="m_axi_mm2s_rvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="64" NAME="M_AXI_S2MM" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="32" NAME="M_AXI_S2MM" TYPE="MASTER" VLNV="xilinx.com:interface:aximm:1.0">
           <PARAMETER NAME="ADDR_WIDTH" VALUE="64"/>
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
-          <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
           <PARAMETER NAME="HAS_BURST" VALUE="0"/>
@@ -1485,7 +1485,7 @@
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="axi_dma_0_M_AXIS_MM2S" NAME="M_AXIS_MM2S" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="1"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
@@ -1494,7 +1494,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="32"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -1505,8 +1505,8 @@
             <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_mm2s_tvalid"/>
           </PORTMAPS>
         </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="tdes_encrypt_0_m_axis" NAME="S_AXIS_S2MM" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+        <BUSINTERFACE BUSNAME="sdes_encrypt_0_m_axis" NAME="S_AXIS_S2MM" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
@@ -1515,7 +1515,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -1533,7 +1533,7 @@
       </MEMORYMAP>
       <PERIPHERALS>
         <PERIPHERAL INSTANCE="zynqcore"/>
-        <PERIPHERAL INSTANCE="tdes_encrypt_0"/>
+        <PERIPHERAL INSTANCE="sdes_encrypt_0"/>
       </PERIPHERALS>
     </MODULE>
     <MODULE COREREVISION="34" FULLNAME="/axi_mem_intercon" HWVERSION="2.1" INSTANCE="axi_mem_intercon" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="axi_interconnect" VLNV="xilinx.com:ip:axi_interconnect:2.1">
@@ -1541,7 +1541,7 @@
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_interconnect;v=v2_1;d=pg059-axi-interconnect.pdf"/>
       </DOCUMENTS>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_axi_mem_intercon_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_axi_mem_intercon_0"/>
         <PARAMETER NAME="ENABLE_ADVANCED_OPTIONS" VALUE="0"/>
         <PARAMETER NAME="ENABLE_PROTOCOL_CHECKERS" VALUE="0"/>
         <PARAMETER NAME="M00_HAS_DATA_FIFO" VALUE="0"/>
@@ -2094,7 +2094,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_arvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="255" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
+        <PORT DIR="O" LEFT="31" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_mm2s_rdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_mm2s_rdata"/>
           </CONNECTIONS>
@@ -2121,7 +2121,7 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="256" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_MM2S" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="ARADDR" PHYSICAL="S00_AXI_araddr"/>
             <PORTMAP LOGICAL="ARBURST" PHYSICAL="S00_AXI_arburst"/>
@@ -2182,7 +2182,7 @@
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi_interconnect;v=v2_1;d=pg059-axi-interconnect.pdf"/>
       </DOCUMENTS>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_axi_mem_intercon_1_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_axi_mem_intercon_1_0"/>
         <PARAMETER NAME="ENABLE_ADVANCED_OPTIONS" VALUE="0"/>
         <PARAMETER NAME="ENABLE_PROTOCOL_CHECKERS" VALUE="0"/>
         <PARAMETER NAME="M00_HAS_DATA_FIFO" VALUE="0"/>
@@ -2750,7 +2750,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_bvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="63" NAME="S00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
+        <PORT DIR="I" LEFT="31" NAME="S00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wdata"/>
           </CONNECTIONS>
@@ -2765,7 +2765,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="7" NAME="S00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
+        <PORT DIR="I" LEFT="3" NAME="S00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axi_s2mm_wstrb">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axi_s2mm_wstrb"/>
           </CONNECTIONS>
@@ -2777,7 +2777,7 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="64" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
+        <BUSINTERFACE BUSNAME="axi_dma_0_M_AXI_S2MM" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="AWADDR" PHYSICAL="S00_AXI_awaddr"/>
             <PORTMAP LOGICAL="AWBURST" PHYSICAL="S00_AXI_awburst"/>
@@ -2836,15 +2836,15 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE BD="tdes_encrypt_bd_axi_smc_0" BDTYPE="SBD" COREREVISION="25" DRIVERMODE="CORE" FULLNAME="/axi_smc" HWVERSION="1.0" INSTANCE="axi_smc" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="smartconnect" SIM_BD="tdes_encrypt_bd_axi_smc_0" VLNV="xilinx.com:ip:smartconnect:1.0">
+    <MODULE BD="sdes_encrypt_bd_axi_smc_0" BDTYPE="SBD" COREREVISION="25" DRIVERMODE="CORE" FULLNAME="/axi_smc" HWVERSION="1.0" INSTANCE="axi_smc" IPTYPE="BUS" IS_ENABLE="1" MODCLASS="BUS" MODTYPE="smartconnect" SIM_BD="sdes_encrypt_bd_axi_smc_0" VLNV="xilinx.com:ip:smartconnect:1.0">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=smartconnect;v=v1_0;d=pg247-smartconnect.pdf"/>
       </DOCUMENTS>
       <PARAMETERS>
         <PARAMETER NAME="HAS_RESET" VALUE="1"/>
-        <PARAMETER NAME="TLM_COMPONENT_NAME" VALUE="tdes_encrypt_bd_axi_smc_0"/>
+        <PARAMETER NAME="TLM_COMPONENT_NAME" VALUE="sdes_encrypt_bd_axi_smc_0"/>
         <PARAMETER NAME="ADVANCED_PROPERTIES" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_axi_smc_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_axi_smc_0"/>
         <PARAMETER NAME="HAS_ARESETN" VALUE="1"/>
         <PARAMETER NAME="NUM_CLKS" VALUE="1"/>
         <PARAMETER NAME="NUM_MI" VALUE="1"/>
@@ -3139,7 +3139,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -3212,7 +3212,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -3274,7 +3274,7 @@
         <PARAMETER NAME="C_NUM_INTERCONNECT_ARESETN" VALUE="1"/>
         <PARAMETER NAME="C_NUM_PERP_ARESETN" VALUE="1"/>
         <PARAMETER NAME="C_NUM_PERP_RST" VALUE="1"/>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_rst_ps7_0_50M_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_rst_ps7_0_50M_0"/>
         <PARAMETER NAME="RESET_BOARD_INTERFACE" VALUE="Custom"/>
         <PARAMETER NAME="USE_BOARD_FLOW" VALUE="false"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
@@ -3301,7 +3301,7 @@
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="M00_ARESETN"/>
             <CONNECTION INSTANCE="axi_mem_intercon_1" PORT="ARESETN"/>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="aresetn"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="aresetn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
@@ -3313,10 +3313,10 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="1" FULLNAME="/tdes_encrypt_0" HWVERSION="1.0" INSTANCE="tdes_encrypt_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_interface_tdes_encrypt" VLNV="xilinx.com:module_ref:axi_interface_tdes_encrypt:1.0">
+    <MODULE COREREVISION="1" FULLNAME="/sdes_encrypt_0" HWVERSION="1.0" INSTANCE="sdes_encrypt_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_interface_sdes_encrypt" VLNV="xilinx.com:module_ref:axi_interface_sdes_encrypt:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_tdes_encrypt_0_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_sdes_encrypt_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
@@ -3330,7 +3330,7 @@
             <CONNECTION INSTANCE="rst_ps7_0_50M" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="63" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
+        <PORT DIR="O" LEFT="31" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_s_axis_s2mm_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="s_axis_s2mm_tdata"/>
           </CONNECTIONS>
@@ -3350,7 +3350,7 @@
             <CONNECTION INSTANCE="axi_dma_0" PORT="s_axis_s2mm_tvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="255" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
+        <PORT DIR="I" LEFT="31" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi_dma_0_m_axis_mm2s_tdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_dma_0" PORT="m_axis_mm2s_tdata"/>
           </CONNECTIONS>
@@ -3372,8 +3372,8 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="tdes_encrypt_0_m_axis" NAME="m_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+        <BUSINTERFACE BUSNAME="sdes_encrypt_0_m_axis" NAME="m_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
@@ -3382,7 +3382,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -3394,7 +3394,7 @@
           </PORTMAPS>
         </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="axi_dma_0_M_AXIS_MM2S" NAME="s_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
           <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
@@ -3403,7 +3403,7 @@
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
           <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
           <PARAMETER NAME="PHASE" VALUE="0.0"/>
-          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="32"/>
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="4"/>
           <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
@@ -3477,7 +3477,7 @@
         <PARAMETER NAME="C_USE_S_AXI_HP2" VALUE="1"/>
         <PARAMETER NAME="C_USE_S_AXI_HP3" VALUE="0"/>
         <PARAMETER NAME="USE_TRACE_DATA_EDGE_DETECTOR" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="tdes_encrypt_bd_zynqcore_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="sdes_encrypt_bd_zynqcore_0"/>
         <PARAMETER NAME="PCW_ACT_APU_PERIPHERAL_FREQMHZ" VALUE="666.666687"/>
         <PARAMETER NAME="PCW_ACT_CAN0_PERIPHERAL_FREQMHZ" VALUE="23.8095"/>
         <PARAMETER NAME="PCW_ACT_CAN1_PERIPHERAL_FREQMHZ" VALUE="23.8095"/>
@@ -4362,87 +4362,87 @@
       <PORTS>
         <PORT DIR="IO" LEFT="14" NAME="DDR_Addr" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_Addr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_addr"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_addr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="2" NAME="DDR_BankAddr" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_BankAddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_ba"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_ba"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_CAS_n" SIGIS="undef" SIGNAME="zynqcore_DDR_CAS_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_cas_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_cas_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_CKE" SIGIS="undef" SIGNAME="zynqcore_DDR_CKE">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_cke"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_cke"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_CS_n" SIGIS="undef" SIGNAME="zynqcore_DDR_CS_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_cs_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_cs_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_Clk" SIGIS="clk" SIGNAME="zynqcore_DDR_Clk">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_ck_p"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_ck_p"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_Clk_n" SIGIS="clk" SIGNAME="zynqcore_DDR_Clk_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_ck_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_ck_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="3" NAME="DDR_DM" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_DM">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_dm"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_dm"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="31" NAME="DDR_DQ" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_DQ">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_dq"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_dq"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="3" NAME="DDR_DQS" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_DQS">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_dqs_p"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_dqs_p"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="3" NAME="DDR_DQS_n" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_DDR_DQS_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_dqs_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_dqs_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_DRSTB" SIGIS="rst" SIGNAME="zynqcore_DDR_DRSTB">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_reset_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_reset_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_ODT" SIGIS="undef" SIGNAME="zynqcore_DDR_ODT">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_odt"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_odt"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_RAS_n" SIGIS="undef" SIGNAME="zynqcore_DDR_RAS_n">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_ras_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_ras_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_VRN" SIGIS="undef" SIGNAME="zynqcore_DDR_VRN">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_ddr_vrn"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_ddr_vrn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_VRP" SIGIS="undef" SIGNAME="zynqcore_DDR_VRP">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_ddr_vrp"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_ddr_vrp"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="DDR_WEB" SIGIS="undef" SIGNAME="zynqcore_DDR_WEB">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="DDR_0_we_n"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="DDR_0_we_n"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="50000000" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="zynqcore_FCLK_CLK0">
@@ -4461,7 +4461,7 @@
             <CONNECTION INSTANCE="zynqcore" PORT="M_AXI_GP0_ACLK"/>
             <CONNECTION INSTANCE="zynqcore" PORT="S_AXI_HP0_ACLK"/>
             <CONNECTION INSTANCE="zynqcore" PORT="S_AXI_HP2_ACLK"/>
-            <CONNECTION INSTANCE="tdes_encrypt_0" PORT="aclk"/>
+            <CONNECTION INSTANCE="sdes_encrypt_0" PORT="aclk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="FCLK_RESET0_N" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="zynqcore_FCLK_RESET0_N">
@@ -4471,7 +4471,7 @@
         </PORT>
         <PORT DIR="IO" LEFT="53" NAME="MIO" RIGHT="0" SIGIS="undef" SIGNAME="zynqcore_MIO">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_mio"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_mio"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="50000000" DIR="I" NAME="M_AXI_GP0_ACLK" SIGIS="clk" SIGNAME="zynqcore_FCLK_CLK0">
@@ -4671,17 +4671,17 @@
         </PORT>
         <PORT DIR="IO" NAME="PS_CLK" SIGIS="undef" SIGNAME="zynqcore_PS_CLK">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_clk"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="PS_PORB" SIGIS="undef" SIGNAME="zynqcore_PS_PORB">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_porb"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_porb"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" NAME="PS_SRSTB" SIGIS="undef" SIGNAME="zynqcore_PS_SRSTB">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="tdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_srstb"/>
+            <CONNECTION INSTANCE="sdes_encrypt_bd_imp" PORT="FIXED_IO_0_ps_srstb"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="50000000" DIR="I" NAME="S_AXI_HP0_ACLK" SIGIS="clk" SIGNAME="zynqcore_FCLK_CLK0">
@@ -5107,7 +5107,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -5180,7 +5180,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -5194,7 +5194,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="6"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="8"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="8"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="8"/>
@@ -5248,7 +5248,7 @@
           <PARAMETER NAME="ARUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
           <PARAMETER NAME="BUSER_WIDTH" VALUE="0"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="tdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="sdes_encrypt_bd_zynqcore_0_FCLK_CLK0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
           <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
@@ -5262,7 +5262,7 @@
           <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="6"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
-          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="16"/>
+          <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="8"/>
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="8"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="8"/>

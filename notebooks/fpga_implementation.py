@@ -25,6 +25,10 @@ class BaseFPGAEncryptor(Encryptor):
         # Check if another instance is active
         if BaseFPGAEncryptor._active_instance is not None and BaseFPGAEncryptor._active_instance is not self:
             raise RuntimeError("Another FPGA encryptor instance is already active. Please delete the existing instance before creating a new one.")
+
+        self.bitstream_encryptor = bitstream_encryptor
+        self.bitstream_decryptor = bitstream_decryptor
+        self._init_overlay(bitstream_encryptor)
         
         # Program bitstream to FPGA
         self.logging = logging
@@ -39,9 +43,7 @@ class BaseFPGAEncryptor(Encryptor):
         self.input_buffer = allocate(shape=(self.max_parallel_send,), dtype=self.INPUT_TYPE)
         self.output_buffer = allocate(shape=(self.max_parallel_send,), dtype=self.OUTPUT_TYPE)
 
-        self.bitstream_encryptor = bitstream_encryptor
-        self.bitstream_decryptor = bitstream_decryptor
-        self._init_overlay(bitstream_encryptor)
+
 
         # Set this instance as the active instance
         BaseFPGAEncryptor._active_instance = self
@@ -87,7 +89,6 @@ class BaseFPGAEncryptor(Encryptor):
         self.dma_send.wait()
         self.dma_recv.wait()
 
-
         return bytes([self.output_buffer[i].tobytes()[::-1] for i in range(iterations)])
 
 
@@ -104,11 +105,13 @@ class BaseFPGAEncryptor(Encryptor):
         """
 
         self._check_correct_overlay(True)
-        message = self._pad_string(message)
+        
+        message_bytes = bytes(message, "ascii")
+        
+        message_bytes = self._pad_string(message_bytes)
         if len(key) != self.SIZE_OF_ALGO:
             raise ValueError(f"Key must be {self.SIZE_OF_ALGO} bytes, got {len(key)}")
         
-        message_bytes = bytes(message, "ascii")
         key_bytes = bytes(key, "ascii")
 
         return self._send_data(message_bytes, key_bytes)
@@ -125,13 +128,14 @@ class BaseFPGAEncryptor(Encryptor):
             str: The decrypted message.
         """
 
-        self._check_correct_overlay(False)  
-        encrypted_message = self._pad_string(encrypted_message)
+        self._check_correct_overlay(False)
+        encrypted_message_bytes = bytes(encrypted_message, 'ascii')
+        encrypted_message_bytes = self._pad_string(encrypted_message_bytes)
 
         if len(key) != self.SIZE_OF_ALGO:
             raise ValueError(f"Key must be {self.SIZE_OF_ALGO} bytes, got {len(key)}")
 
-        return self._send_data(encrypted_message, key)
+        return self._send_data(encrypted_message_bytes, key)
     
     def __del__(self):
         """
@@ -151,7 +155,7 @@ class SDESEncryptor(BaseFPGAEncryptor):
     Implementation of Simplified DES (SDES) encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./bitfiles/sdes_encrypt.bit", "./bitfiles/sdes_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, "./sdes_encrypt.bit", "./sdes_decrypt.bit", logging, max_parallel_send)
 
 
 
@@ -160,7 +164,7 @@ class DESEncryptor(BaseFPGAEncryptor):
     Implementation of DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./bitfiles/des_encrypt.bit", "./bitfiles/des_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, "./des_encrypt.bit", "./des_decrypt.bit", logging, max_parallel_send)
 
 
 class TDESEncryptor(BaseFPGAEncryptor):
@@ -168,6 +172,6 @@ class TDESEncryptor(BaseFPGAEncryptor):
     Implementation of Triple DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./bitfiles/tdes_encrypt.bit", "./bitfiles/tdes_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, "./tdes_encrypt.bit", "./tdes_decrypt.bit", logging, max_parallel_send)
 
 
