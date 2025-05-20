@@ -12,7 +12,7 @@ class BaseFPGAEncryptor(Encryptor):
     IS_ENCRYPTOR = True
     _active_instance = None  # Class variable to track active instance
 
-    def __init__(self, size_of_algo, bitstream_encryptor, bitstream_decryptor, logging=True, max_parallel_send=2**4):
+    def __init__(self, size_of_message, size_of_key, size_of_return, bitstream_encryptor, bitstream_decryptor, logging=True, max_parallel_send=2**4):
         """
         Initializes the FPGA Encryptor with the provided bitstream.
 
@@ -29,9 +29,12 @@ class BaseFPGAEncryptor(Encryptor):
         # Program bitstream to FPGA
         self.logging = logging
         
-        self.SIZE_OF_ALGO = size_of_algo
-        self.INPUT_TYPE = np.dtype([("message", np.bytes_, self.SIZE_OF_ALGO), ("key", np.bytes_, self.SIZE_OF_ALGO)])
-        self.OUTPUT_TYPE = np.dtype([("result", np.bytes_, self.SIZE_OF_ALGO)])
+        self.size_of_message = size_of_message
+        self.size_of_key = size_of_key
+        self.size_of_return = size_of_return
+        
+        self.INPUT_TYPE = np.dtype([("message", np.bytes_, self.size_of_message), ("key", np.bytes_, self.size_of_key)])
+        self.OUTPUT_TYPE = np.dtype([("result", np.bytes_, self.size_of_return)])
 
         self.max_parallel_send = max_parallel_send
 
@@ -64,7 +67,7 @@ class BaseFPGAEncryptor(Encryptor):
         self.dma_recv = self.dma.recvchannel
 
     def _pad_string(self, message):
-        padding_needed = self.SIZE_OF_ALGO - (len(message) % self.SIZE_OF_ALGO) if len(message) % self.SIZE_OF_ALGO != 0 else 0
+        padding_needed = self.size_of_message - (len(message) % self.size_of_message) if len(message) % self.size_of_message != 0 else 0
         message += b'\0' * padding_needed
         return message
     
@@ -73,12 +76,12 @@ class BaseFPGAEncryptor(Encryptor):
 
 
     def _send_data(self, message_bytes, key_bytes):
-        iterations = math.ceil(len(message_bytes) / self.SIZE_OF_ALGO)
+        iterations = math.ceil(len(message_bytes) / self.size_of_message)
 
         for i in range(iterations):
-            part = message_bytes[self.SIZE_OF_ALGO * i : self.SIZE_OF_ALGO * (i + 1)]
+            part = message_bytes[self.size_of_message * i : self.size_of_message * (i + 1)]
             if self.logging:
-                print(f"Now sending part({i}, {self.SIZE_OF_ALGO * i}): {part}, {part.hex()}, with key: {key_bytes}, {key_bytes.hex()}")
+                print(f"Now sending part({i}, {self.size_of_message * i}): {part}, {part.hex()}, with key: {key_bytes}, {key_bytes.hex()}")
             self.input_buffer[i] = (part[::-1], key_bytes[::-1])
 
         # Do AXI DMA MM2S transfer
@@ -91,6 +94,13 @@ class BaseFPGAEncryptor(Encryptor):
 
         output_hex = "".join([self.output_buffer[i].tobytes()[::-1].hex() for i in range(iterations)])
         return output_hex
+       
+    def encrypt_bytes(self, message_bytes, key_bytes):
+        assert len(message_bytes) == self.size_of_message
+        assert len(key_bytes) == self.size_of_key
+        self._check_correct_overlay(True)
+        return self._send_data(message_bytes, key_bytes)
+        
 
     def encrypt(self, message, key):
         """
@@ -109,8 +119,8 @@ class BaseFPGAEncryptor(Encryptor):
         message_bytes = bytes(message, "ascii")
         
         message_bytes = self._pad_string(message_bytes)
-        if len(key) != self.SIZE_OF_ALGO:
-            raise ValueError(f"Key must be {self.SIZE_OF_ALGO} bytes, got {len(key)}")
+        if len(key) != self.size_of_key:
+            raise ValueError(f"Key must be {self.size_of_key} bytes, got {len(key)}")
         
         key_bytes = bytes(key, "ascii")
 
@@ -132,8 +142,8 @@ class BaseFPGAEncryptor(Encryptor):
         encrypted_message_bytes = bytes(encrypted_message, 'ascii')
         encrypted_message_bytes = self._pad_string(encrypted_message_bytes)
 
-        if len(key) != self.SIZE_OF_ALGO:
-            raise ValueError(f"Key must be {self.SIZE_OF_ALGO} bytes, got {len(key)}")
+        if len(key) != self.size_of_key:
+            raise ValueError(f"Key must be {self.size_of_key} bytes, got {len(key)}")
 
         key_bytes = bytes(key, "ascii")
             
@@ -158,9 +168,13 @@ class BaseFPGAEncryptor(Encryptor):
 class SDESEncryptor(BaseFPGAEncryptor):
     """
     Implementation of Simplified DES (SDES) encryption using FPGA.
+    
+    The message should contain 8 bits.
+    The key should contain 3 zeros, and then a value from 0x000 to 0x3FF. This is because the key should be 10 bits, but the AXI interface only supports transfers of a total of 32 bits).
+    Your result will be in the last 2 bytes of the returned hex (Also a 32 bit value, because of axi limitations)
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./sdes_encrypt.bit", "./sdes_decrypt.bit", logging, max_parallel_send)
+        super().__init__(1, 3, 4, "./sdes_encrypt.bit", "./sdes_decrypt.bit", logging, max_parallel_send)
 
 
 
@@ -169,7 +183,7 @@ class DESEncryptor(BaseFPGAEncryptor):
     Implementation of DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./des_encrypt.bit", "./des_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, 8, 8, "./des_encrypt.bit", "./des_decrypt.bit", logging, max_parallel_send)
 
 
 class TDESEncryptor(BaseFPGAEncryptor):
@@ -177,6 +191,6 @@ class TDESEncryptor(BaseFPGAEncryptor):
     Implementation of Triple DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, "./tdes_encrypt.bit", "./tdes_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, 24, 8, "./tdes_encrypt.bit", "./tdes_decrypt.bit", logging, max_parallel_send)
 
 
