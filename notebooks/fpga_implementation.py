@@ -22,10 +22,6 @@ class BaseFPGAEncryptor(Encryptor):
             logging (boolean, default = True): Extra logging to debug message sending.
             max_parallel_send (int, default = 2**4): The maximal amount of memory to send at once.
         """
-        # Check if another instance is active
-        if BaseFPGAEncryptor._active_instance is not None and BaseFPGAEncryptor._active_instance is not self:
-            raise RuntimeError("Another FPGA encryptor instance is already active. Please delete the existing instance before creating a new one.")
-
         self.bitstream_encryptor = bitstream_encryptor
         self.bitstream_decryptor = bitstream_decryptor
         self._init_overlay(bitstream_encryptor)
@@ -43,25 +39,29 @@ class BaseFPGAEncryptor(Encryptor):
         self.input_buffer = allocate(shape=(self.max_parallel_send,), dtype=self.INPUT_TYPE)
         self.output_buffer = allocate(shape=(self.max_parallel_send,), dtype=self.OUTPUT_TYPE)
 
-
-
-        # Set this instance as the active instance
-        BaseFPGAEncryptor._active_instance = self
-
         print(f"Using {self.max_parallel_send}x type with input: {self.INPUT_TYPE.itemsize * 8} bits, and output: {self.OUTPUT_TYPE.itemsize * 8} bits")
 
     def _check_correct_overlay(self, encrypt):
-        if encrypt and not self.IS_ENCRYPTOR:
-            self._init_overlay(self.bitstream_encryptor)
-        elif not encrypt and not self.IS_ENCRYPTOR:
-            self._init_overlay(self.bitstream_decryptor)
+        if encrypt:
+            if self.IS_ENCRYPTOR:
+                pass
+            else:
+                self._init_overlay(self.bitstream_encryptor)
+                self.IS_ENCRYPTOR = True
+        else:
+            if self.IS_ENCRYPTOR:
+                self._init_overlay(self.bitstream_decryptor)
+                self.IS_ENCRYPTOR = False
+            else:
+                pass
 
     def _init_overlay(self, bitstream_path):
+        if hasattr(self, "overlay"):
+            del self.overlay
         self.overlay = Overlay(bitstream_path)
         self.dma = self.overlay.axi_dma_0
         self.dma_send = self.dma.sendchannel
         self.dma_recv = self.dma.recvchannel
-
 
     def _pad_string(self, message):
         padding_needed = self.SIZE_OF_ALGO - (len(message) % self.SIZE_OF_ALGO) if len(message) % self.SIZE_OF_ALGO != 0 else 0
@@ -89,8 +89,8 @@ class BaseFPGAEncryptor(Encryptor):
         self.dma_send.wait()
         self.dma_recv.wait()
 
-        return bytes([self.output_buffer[i].tobytes()[::-1] for i in range(iterations)])
-
+        output_hex = "".join([self.output_buffer[i].tobytes()[::-1].hex() for i in range(iterations)])
+        return output_hex
 
     def encrypt(self, message, key):
         """
@@ -135,7 +135,9 @@ class BaseFPGAEncryptor(Encryptor):
         if len(key) != self.SIZE_OF_ALGO:
             raise ValueError(f"Key must be {self.SIZE_OF_ALGO} bytes, got {len(key)}")
 
-        return self._send_data(encrypted_message_bytes, key)
+        key_bytes = bytes(key, "ascii")
+            
+        return self._send_data(encrypted_message_bytes, key_bytes)
     
     def __del__(self):
         """
@@ -146,10 +148,13 @@ class BaseFPGAEncryptor(Encryptor):
             del self.input_buffer
         if hasattr(self, 'output_buffer'):
             del self.output_buffer
-        if BaseFPGAEncryptor._active_instance is self:
-            BaseFPGAEncryptor._active_instance = None
-
-
+            
+    def __enter__(self):
+        return self
+    
+    def __exit__(self, type, value, traceback):
+        del self
+            
 class SDESEncryptor(BaseFPGAEncryptor):
     """
     Implementation of Simplified DES (SDES) encryption using FPGA.
