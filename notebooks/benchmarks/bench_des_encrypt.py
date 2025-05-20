@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath("/home/xilinx/jupyter_notebooks/thies/notebooks"
 from fpga_implementation import DESEncryptor, BaseFPGAEncryptor
 from pydes_implementation import PyDES
 
-test_vectors = [
+global_test_vectors = [
     {"message": "ABCDEFGH", "key": "12345678"},
     {"message": "ABCDEFGHabcdefgh", "key": "12345678"},
     {"message": "ABCDEFG", "key": "12345678"},
@@ -24,14 +24,14 @@ def setup(max_parallel_send):
     pyDes_encryptor = PyDES()
 
     
-def pydes():
+def pydes(test_vectors):
     for _ in range(1):
         for test_vector in test_vectors:
             message = test_vector["message"]
             key = test_vector["key"]
             pyDes_encryptor.encrypt(message, key)
 
-def fpga():
+def fpga(test_vectors):
     for _ in range(1):
          for test_vector in test_vectors:
             message = test_vector["message"]
@@ -39,16 +39,14 @@ def fpga():
             fpga_encryptor.encrypt(message, key)
 
 
+# For richbench
 # setup(2**4)
-            
 # __benchmarks__ = [
 #     (pydes, fpga, "des-encrypt - Using FPGA instead of PyDES")
 # ]
 
 __benchmarks_thies__ = [
-    (setup, (2**4), test_vectors, pydes, fpga, "des-encrypt")
-    (setup, (2**8), test_vectors, pydes, fpga, "des-encrypt")
-    (setup, (2**16), test_vectors, pydes, fpga, "des-encrypt")
-    (setup, (2**32), test_vectors, pydes, fpga, "des-encrypt")
-    (setup, (2**64), test_vectors, pydes, fpga, "des-encrypt")
+    (setup, (2**4, ), pydes, fpga, global_test_vectors, "des-encrypt"),
+    (setup, (2**8, ), pydes, fpga, global_test_vectors, "des-encrypt"),
+    (setup, (2**16, ), pydes, fpga, global_test_vectors,"des-encrypt"),
 ]
