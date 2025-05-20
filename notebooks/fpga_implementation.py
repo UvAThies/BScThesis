@@ -10,6 +10,7 @@ class BaseFPGAEncryptor(Encryptor):
     """
 
     IS_ENCRYPTOR = True
+    _active_instance = None  # Class variable to track active instance
 
     def __init__(self, size_of_algo, bitstream_encryptor, bitstream_decryptor, logging=True, max_parallel_send=2**4):
         """
@@ -21,6 +22,10 @@ class BaseFPGAEncryptor(Encryptor):
             logging (boolean, default = True): Extra logging to debug message sending.
             max_parallel_send (int, default = 2**4): The maximal amount of memory to send at once.
         """
+        # Check if another instance is active
+        if BaseFPGAEncryptor._active_instance is not None and BaseFPGAEncryptor._active_instance is not self:
+            raise RuntimeError("Another FPGA encryptor instance is already active. Please delete the existing instance before creating a new one.")
+        
         # Program bitstream to FPGA
         self.logging = logging
         
@@ -37,6 +42,9 @@ class BaseFPGAEncryptor(Encryptor):
         self.bitstream_encryptor = bitstream_encryptor
         self.bitstream_decryptor = bitstream_decryptor
         self._init_overlay(bitstream_encryptor)
+
+        # Set this instance as the active instance
+        BaseFPGAEncryptor._active_instance = self
 
         print(f"Using {self.max_parallel_send}x type with input: {self.INPUT_TYPE.itemsize * 8} bits, and output: {self.OUTPUT_TYPE.itemsize * 8} bits")
 
@@ -128,11 +136,14 @@ class BaseFPGAEncryptor(Encryptor):
     def __del__(self):
         """
         Destructor to deallocate buffers and prevent memory leaks.
+        Also clears the active instance if this instance was active.
         """
         if hasattr(self, 'input_buffer'):
             del self.input_buffer
         if hasattr(self, 'output_buffer'):
             del self.output_buffer
+        if BaseFPGAEncryptor._active_instance is self:
+            BaseFPGAEncryptor._active_instance = None
 
 
 class SDESEncryptor(BaseFPGAEncryptor):
