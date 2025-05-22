@@ -149,8 +149,6 @@ foreach algorithm $SUPPORTED_ALGORITHMS {
     }
 }
 
-# Close statistics file
-close $stats_file_handle
 
 puts "\n=========================================="
 puts "All Design Compilations Complete!"
