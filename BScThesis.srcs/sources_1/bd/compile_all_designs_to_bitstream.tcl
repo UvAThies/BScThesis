@@ -92,6 +92,7 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH create_s
     
     set utilization_report_file [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}_utilization.rpt"]
     set timing_report_file [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}_timing.rpt"]
+    set power_report_file [file join $RESULTS_DIR_ABS_PATH "${unique_design_name}_power.rpt"]
 
     puts "INFO: Generating reports for $unique_design_name..."
     if {[catch {report_utilization -file $utilization_report_file -quiet} util_rpt_err]} {
@@ -99,6 +100,9 @@ proc setup_and_compile_design {algorithm operation RESULTS_DIR_ABS_PATH create_s
     }
     if {[catch {report_timing_summary -file $timing_report_file -quiet} time_rpt_err]} {
          puts "WARNING: Failed to generate timing summary report: $time_rpt_err"
+    }
+    if {[catch {report_power -file $power_report_file -quiet} power_rpt_err]} {
+         puts "WARNING: Failed to generate power report: $power_rpt_err"
     }
     
     puts "INFO: Statistics recorded for $unique_design_name."
@@ -157,7 +161,6 @@ puts "Total designs attempted: $total_designs_to_compile"
 puts "Successful compilations: $successful_compilations"
 puts "Failed compilations: $failed_compilations"
 puts "Results, reports, and bitstreams are in: $RESULTS_DIR_ABS_PATH"
-puts "Detailed statistics are in: $stats_file_path"
 puts "=========================================="
 
 if {$failed_compilations > 0} {

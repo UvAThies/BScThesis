@@ -37,6 +37,8 @@ END TDES_encrypt;
 ARCHITECTURE Behavioral OF TDES_encrypt IS
 COMPONENT DES_encrypt
 PORT (
+    clk : IN STD_LOGIC;
+    rst : IN STD_LOGIC;
     inp : IN STD_LOGIC_VECTOR(0 TO 63);
     key : IN STD_LOGIC_VECTOR(0 TO 63);
     outp : OUT STD_LOGIC_VECTOR(0 TO 63)
@@ -45,6 +47,8 @@ END COMPONENT;
 
 COMPONENT DES_decrypt
 PORT (
+    clk : IN STD_LOGIC;
+    rst : IN STD_LOGIC;
     inp : IN STD_LOGIC_VECTOR(0 TO 63);
     key : IN STD_LOGIC_VECTOR(0 TO 63);
     outp : OUT STD_LOGIC_VECTOR(0 TO 63)
@@ -52,51 +56,35 @@ PORT (
 END COMPONENT;
 
 SIGNAL first_enc_out : STD_LOGIC_VECTOR(0 TO 63);
-SIGNAL first_enc_out_reg : STD_LOGIC_VECTOR(0 TO 63);
 SIGNAL dec_out : STD_LOGIC_VECTOR(0 TO 63);
-SIGNAL dec_out_reg : STD_LOGIC_VECTOR(0 TO 63);
 
 BEGIN
     -- First encryption with key1
     first_enc : DES_encrypt
     PORT MAP (
+        clk => clk,
+        rst => rst,
         inp => inp,
         key => key,
         outp => first_enc_out
     );
 
-    -- Register first encryption output
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            first_enc_out_reg <= (others => '0');
-        elsif rising_edge(clk) then
-            first_enc_out_reg <= first_enc_out;
-        end if;
-    end process;
-
     -- Decryption with key2
     dec : DES_decrypt
     PORT MAP (
-        inp => first_enc_out_reg,
+        clk => clk,
+        rst => rst,
+        inp => first_enc_out,
         key => key1,
         outp => dec_out
     );
 
-    -- Register decryption output
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            dec_out_reg <= (others => '0');
-        elsif rising_edge(clk) then
-            dec_out_reg <= dec_out;
-        end if;
-    end process;
-
     -- Final encryption with key3
     final_enc : DES_encrypt
     PORT MAP (
-        inp => dec_out_reg,
+        clk => clk,
+        rst => rst,
+        inp => dec_out,
         key => key2,
         outp => outp
     );

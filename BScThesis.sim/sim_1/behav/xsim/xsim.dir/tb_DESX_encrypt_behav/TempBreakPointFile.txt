@@ -1,2 +1,0 @@
-Breakpoint File Version 1.0
-79,true,"C:/Users/Thies/xillinx/BScThesis/BScThesis.srcs/sim_1/new/DESX/tb_DESX_encrypt.vhd"

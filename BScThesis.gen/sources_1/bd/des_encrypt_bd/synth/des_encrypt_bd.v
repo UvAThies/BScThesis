@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-//Date        : Mon May 19 17:08:04 2025
+//Date        : Thu May 22 15:44:07 2025
 //Host        : DefconeONE running 64-bit major release  (build 9200)
 //Command     : generate_target des_encrypt_bd.bd
 //Design      : des_encrypt_bd
@@ -10,7 +10,7 @@
 //--------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CORE_GENERATION_INFO = "des_encrypt_bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=des_encrypt_bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=12,numReposBlks=8,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "des_encrypt_bd.hwdef" *) 
+(* CORE_GENERATION_INFO = "des_encrypt_bd,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=des_encrypt_bd,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=13,numReposBlks=9,numNonXlnxBlks=0,numHierBlks=4,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=1,numPkgbdBlks=0,bdsource=USER,synth_mode=Hierarchical}" *) (* HW_HANDOFF = "des_encrypt_bd.hwdef" *) 
 module des_encrypt_bd
    (DDR_0_addr,
     DDR_0_ba,
@@ -76,10 +76,11 @@ module des_encrypt_bd
   wire FIXED_IO_0_ps_clk;
   wire FIXED_IO_0_ps_porb;
   wire FIXED_IO_0_ps_srstb;
-  wire [127:0]axi_dma_0_M_AXIS_MM2S_TDATA;
-  wire axi_dma_0_M_AXIS_MM2S_TLAST;
-  wire axi_dma_0_M_AXIS_MM2S_TREADY;
-  wire axi_dma_0_M_AXIS_MM2S_TVALID;
+  (* CONN_BUS_INFO = "axi_dma_0_M_AXIS_MM2S xilinx.com:interface:axis:1.0 None TDATA" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire [127:0]axi_dma_0_M_AXIS_MM2S_TDATA;
+  (* CONN_BUS_INFO = "axi_dma_0_M_AXIS_MM2S xilinx.com:interface:axis:1.0 None TKEEP" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire [15:0]axi_dma_0_M_AXIS_MM2S_TKEEP;
+  (* CONN_BUS_INFO = "axi_dma_0_M_AXIS_MM2S xilinx.com:interface:axis:1.0 None TLAST" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire axi_dma_0_M_AXIS_MM2S_TLAST;
+  (* CONN_BUS_INFO = "axi_dma_0_M_AXIS_MM2S xilinx.com:interface:axis:1.0 None TREADY" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire axi_dma_0_M_AXIS_MM2S_TREADY;
+  (* CONN_BUS_INFO = "axi_dma_0_M_AXIS_MM2S xilinx.com:interface:axis:1.0 None TVALID" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire axi_dma_0_M_AXIS_MM2S_TVALID;
   wire [63:0]axi_dma_0_M_AXI_MM2S_ARADDR;
   wire [1:0]axi_dma_0_M_AXI_MM2S_ARBURST;
   wire [3:0]axi_dma_0_M_AXI_MM2S_ARCACHE;
@@ -158,10 +159,10 @@ module des_encrypt_bd
   wire [31:0]axi_smc_M00_AXI_WDATA;
   wire axi_smc_M00_AXI_WREADY;
   wire axi_smc_M00_AXI_WVALID;
-  wire [63:0]custom_module_m_axis_TDATA;
-  wire custom_module_m_axis_TLAST;
-  wire custom_module_m_axis_TREADY;
-  wire custom_module_m_axis_TVALID;
+  (* CONN_BUS_INFO = "custom_module_m_axis xilinx.com:interface:axis:1.0 None TDATA" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire [63:0]custom_module_m_axis_TDATA;
+  (* CONN_BUS_INFO = "custom_module_m_axis xilinx.com:interface:axis:1.0 None TLAST" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire custom_module_m_axis_TLAST;
+  (* CONN_BUS_INFO = "custom_module_m_axis xilinx.com:interface:axis:1.0 None TREADY" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire custom_module_m_axis_TREADY;
+  (* CONN_BUS_INFO = "custom_module_m_axis xilinx.com:interface:axis:1.0 None TVALID" *) (* DEBUG = "true" *) (* MARK_DEBUG *) wire custom_module_m_axis_TVALID;
   wire processing_system7_0_FCLK_CLK0;
   wire processing_system7_0_FCLK_RESET0_N;
   wire [31:0]processing_system7_0_M_AXI_GP0_ARADDR;
@@ -238,6 +239,7 @@ module des_encrypt_bd
         .m_axi_s2mm_wstrb(axi_dma_0_M_AXI_S2MM_WSTRB),
         .m_axi_s2mm_wvalid(axi_dma_0_M_AXI_S2MM_WVALID),
         .m_axis_mm2s_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),
+        .m_axis_mm2s_tkeep(axi_dma_0_M_AXIS_MM2S_TKEEP),
         .m_axis_mm2s_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
         .m_axis_mm2s_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
         .m_axis_mm2s_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID),
@@ -414,6 +416,18 @@ module des_encrypt_bd
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_ps7_0_50M_peripheral_aresetn),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
+  des_encrypt_bd_system_ila_0_0 system_ila_0
+       (.SLOT_0_AXIS_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),
+        .SLOT_0_AXIS_tkeep(axi_dma_0_M_AXIS_MM2S_TKEEP),
+        .SLOT_0_AXIS_tlast(axi_dma_0_M_AXIS_MM2S_TLAST),
+        .SLOT_0_AXIS_tready(axi_dma_0_M_AXIS_MM2S_TREADY),
+        .SLOT_0_AXIS_tvalid(axi_dma_0_M_AXIS_MM2S_TVALID),
+        .SLOT_1_AXIS_tdata(custom_module_m_axis_TDATA),
+        .SLOT_1_AXIS_tlast(custom_module_m_axis_TLAST),
+        .SLOT_1_AXIS_tready(custom_module_m_axis_TREADY),
+        .SLOT_1_AXIS_tvalid(custom_module_m_axis_TVALID),
+        .clk(processing_system7_0_FCLK_CLK0),
+        .resetn(rst_ps7_0_50M_peripheral_aresetn));
   des_encrypt_bd_zynqcore_0 zynqcore
        (.DDR_Addr(DDR_0_addr),
         .DDR_BankAddr(DDR_0_ba),

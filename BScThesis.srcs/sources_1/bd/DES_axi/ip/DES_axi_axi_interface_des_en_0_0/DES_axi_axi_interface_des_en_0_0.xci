@@ -8,7 +8,11 @@
     "gen_directory": "../../../../../../BScThesis.gen/sources_1/bd/DES_axi/ip/DES_axi_axi_interface_des_en_0_0",
     "parameters": {
       "component_parameters": {
+        "LATENCY": [ { "value": "20", "resolve_type": "user", "format": "long", "usage": "all" } ],
         "Component_Name": [ { "value": "DES_axi_axi_interface_des_en_0_0", "resolve_type": "user", "usage": "all" } ]
+      },
+      "model_parameters": {
+        "LATENCY": [ { "value": "20", "resolve_type": "generated", "format": "long", "usage": "all" } ]
       },
       "project_parameters": {
         "ARCHITECTURE": [ { "value": "zynq" } ],
