@@ -2,13 +2,8 @@ name: Check AXI Wrappers
 
 on:
   push:
-    paths:
-      - 'BScThesis.srcs/sources_1/axi_wrappers/**'
-      - 'generate_axi_wrapper.py'
-  pull_request:
-    paths:
-      - 'BScThesis.srcs/sources_1/axi_wrappers/**'
-      - 'generate_axi_wrapper.py'
+    branches:
+      - main
 
 jobs:
   check-wrappers:
@@ -26,14 +21,13 @@ jobs:
         
       - name: Check for differences
         run: |
-          SUCCESS=1
           # Check if any files are different
           if git diff --quiet BScThesis.srcs/sources_1/axi_wrappers/; then
             echo "All AXI wrappers are up to date!"
+            exit 0
           else
             echo "::error::AXI wrappers are out of date! Please run generate_axi_wrapper.py and commit the changes."
             echo "Changed files:"
             git diff --name-only BScThesis.srcs/sources_1/axi_wrappers/
-            SUCCESS=0
-          fi 
-          exit $SUCCESS
+            exit 1
+          fi
