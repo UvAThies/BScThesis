@@ -5,7 +5,7 @@
 
 # List of supported algorithms and operations (mirroring generate_all_designs.tcl)
 # set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES" "DESX" "DESXL" "DESL"]
-set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
+set SUPPORTED_OPERATIONS [list "encrypt"]
 
 # set SUPPORTED_ALGORITHMS [list "DES"]
 
