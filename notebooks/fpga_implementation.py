@@ -1,6 +1,7 @@
 from pynq import Overlay, allocate
 import numpy as np
 import math
+import time
 
 from standard import Encryptor
 
@@ -88,7 +89,7 @@ class BaseFPGAEncryptor(Encryptor):
         self.dma_send.transfer(self.input_buffer)
         # Do AXI DMA S2MM transfer
         self.dma_recv.transfer(self.output_buffer)
-
+        
         self.dma_send.wait()
         self.dma_recv.wait()
 
