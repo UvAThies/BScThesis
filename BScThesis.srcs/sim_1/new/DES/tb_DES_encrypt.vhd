@@ -109,8 +109,6 @@ BEGIN
             SEVERITY failure;
             
         -- Add more test cases if needed
-        
-        REPORT "All tests passed successfully!" SEVERITY note;
-        wait;
+        ASSERT false REPORT "Test completed" SEVERITY note;
     END PROCESS;
 END Behavioral;

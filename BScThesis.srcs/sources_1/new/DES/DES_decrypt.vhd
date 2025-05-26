@@ -71,7 +71,6 @@ SIGNAL right : t_rounds;
 SIGNAL left_reg : t_rounds;
 SIGNAL right_reg : t_rounds;
 SIGNAL ip_inv_inp : STD_LOGIC_VECTOR(0 TO 63);
-SIGNAL ip_inv_inp_reg : STD_LOGIC_VECTOR(0 TO 63);
 SIGNAL ip_inv_outp : STD_LOGIC_VECTOR(0 TO 63);
 
 
@@ -145,19 +144,10 @@ BEGIN
 
     ip_inv_inp <= right_reg(16) & left_reg(16);
 
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            ip_inv_inp_reg <= (others => '0');
-        elsif rising_edge(clk) then
-            ip_inv_inp_reg <= ip_inv_inp;
-        end if;
-    end process;
-
     ip_inv_instance : DES_initial_permutation
     GENERIC MAP (IS_INVERSE => TRUE)
     PORT MAP (
-        inp => ip_inv_inp_reg,
+        inp => ip_inv_inp,
         outp => ip_inv_outp
     );
 

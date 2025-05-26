@@ -52,7 +52,7 @@ for tb_file in $TB_FILES; do
     ghdl -a --std=08 "${tb_file}"
     ghdl -e --std=08 "$TB_FILE_WITHOUT_EXT"
     echo "Running $TB_FILE_WITHOUT_EXT..."
-    ghdl -r --std=08 "$TB_FILE_WITHOUT_EXT"
+    ghdl -r --std=08 "$TB_FILE_WITHOUT_EXT" --stop-time=1000ns
     if [ $? -ne 0 ]; then
         echo "Test bench $TB_FILE_WITHOUT_EXT failed."
         SUCCESS=0

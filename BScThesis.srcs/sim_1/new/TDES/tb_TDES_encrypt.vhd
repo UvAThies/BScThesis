@@ -78,27 +78,21 @@ BEGIN
     -- Stimulus process
     stim_proc : PROCESS
     BEGIN
+        -- Reset for 2 clock cycles
+        rst <= '1';
+        WAIT FOR clk_period * 2;
+        rst <= '0';
+
         -- Initialize inputs
         inp <= "0100000101000001010000010100000101000001010000010100000101000001"; -- AAAAAAAA, hex: 4141414141414141
         key <= "0100001001000010010000100100001001000010010000100100001001000010"; -- BBBBBBBB, hex: 4242424242424242
         key1 <= "0100001101000011010000110100001101000011010000110100001101000011"; -- CCCCCCCC, hex: 4343434343434343  
         key2 <= "0100010001000100010001000100010001000100010001000100010001000100"; -- DDDDDDDD, hex: 4444444444444444
-
-        -- Reset for 2 clock cycles
-        rst <= '1';
-        WAIT FOR clk_period * 2;
-        rst <= '0';
         
-        -- Wait for 4 clock cycles (3 for TDES + 1 for output register)
-        WAIT FOR clk_period * 4;
-        
+        WAIT FOR clk_period * 64;
+       
         -- Check output
-        ASSERT outp = "0011110000001001010000011110010110101111010111011111111010111011" 
-            REPORT "Encrypt not working correctly" 
-            SEVERITY failure; -- 3c0941e5af5dfebb
-        
-        -- Add a few more clock cycles to observe the output
-        WAIT FOR clk_period * 2;
+        ASSERT outp = "0011110000001001010000011110010110101111010111011111111010111011" REPORT "Encrypt not working correctly" SEVERITY failure; -- 3c0941e5af5dfebb
         
         WAIT;
     END PROCESS;
