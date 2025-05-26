@@ -1,6 +1,6 @@
 module axi_interface_tdes_encrypt
     #(
-        parameter LATENCY = 63  // Number of clock cycles for encryption
+        parameter LATENCY = 51  // Number of clock cycles for encryption
     )
     (
         input wire         aclk,

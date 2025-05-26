@@ -1,6 +1,6 @@
 module axi_interface_sdes_encrypt
     #(
-        parameter LATENCY = 10  // Number of clock cycles for encryption
+        parameter LATENCY = 1  // Number of clock cycles for encryption
     )
     (
         input wire         aclk,

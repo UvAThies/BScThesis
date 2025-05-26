@@ -1,6 +1,6 @@
 module axi_interface_tdes_decrypt
     #(
-        parameter LATENCY = 63  // Number of clock cycles for decryption
+        parameter LATENCY = 51  // Number of clock cycles for decryption
     )
     (
         input wire         aclk,
