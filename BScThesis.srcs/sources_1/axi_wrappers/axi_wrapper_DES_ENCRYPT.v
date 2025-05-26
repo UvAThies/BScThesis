@@ -20,11 +20,11 @@ module axi_interface_des_encrypt
     
     wire [63:0] y_out;
     reg [63:0] input_reg;
-    reg [63:0] key_reg;
     reg [$clog2(LATENCY):0] counter;
     reg valid_reg;
     reg last_reg;
-    
+    reg [63:0] key_reg;
+
     // AXI-Stream control
     assign s_axis_tready = (counter == 0) && m_axis_tready;
     assign m_axis_tdata = y_out;

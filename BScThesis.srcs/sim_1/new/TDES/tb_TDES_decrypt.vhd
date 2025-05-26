@@ -27,6 +27,8 @@ END tb_TDES_decrypt;
 ARCHITECTURE Behavioral OF tb_TDES_decrypt IS
     COMPONENT TDES_decrypt
         PORT (
+            clk : IN STD_LOGIC;
+            rst : IN STD_LOGIC;
             inp : IN STD_LOGIC_VECTOR(0 TO 63);
             key : IN STD_LOGIC_VECTOR(0 TO 63);
             key1 : IN STD_LOGIC_VECTOR(0 TO 63);
@@ -34,6 +36,10 @@ ARCHITECTURE Behavioral OF tb_TDES_decrypt IS
             outp : OUT STD_LOGIC_VECTOR(0 TO 63)
         );
     END COMPONENT;
+
+    -- Clock and reset signals
+    SIGNAL clk : STD_LOGIC := '0';
+    SIGNAL rst : STD_LOGIC := '1';
 
     --inps
     SIGNAL inp : STD_LOGIC_VECTOR(0 TO 63);
@@ -43,9 +49,24 @@ ARCHITECTURE Behavioral OF tb_TDES_decrypt IS
 
     --outps
     SIGNAL outp : STD_LOGIC_VECTOR(0 TO 63);
+
+    -- Clock period definition
+    CONSTANT clk_period : TIME := 10 ns;
+
 BEGIN
+    -- Clock generation
+    clk_process : PROCESS
+    BEGIN
+        clk <= '0';
+        WAIT FOR clk_period/2;
+        clk <= '1';
+        WAIT FOR clk_period/2;
+    END PROCESS;
+
     ip_instance : TDES_decrypt
     PORT MAP(
+        clk => clk,
+        rst => rst,
         inp => inp,
         key => key,
         key1 => key1,
@@ -55,6 +76,11 @@ BEGIN
 
     stim_proc : PROCESS
     BEGIN
+        -- Reset
+        rst <= '1';
+        WAIT FOR clk_period * 2;
+        rst <= '0';
+
         -- http://tripledes.online-domain-tools.com/run/?inputType=frm-text&text=4141414141414141&text_type=hex&function=tripledes&mode=ecb&key=424242424242424243434343434343434444444444444444&key_type=hex&do=form-submit&encrypt=do
         inp <= "0011110000001001010000011110010110101111010111011111111010111011"; --3c0941e5af5dfebb	 
         key <= "0100001001000010010000100100001001000010010000100100001001000010"; -- BBBBBBBB, hex: 4242424242424242
@@ -64,6 +90,6 @@ BEGIN
         WAIT FOR 10 ns;
         ASSERT outp = "0100000101000001010000010100000101000001010000010100000101000001" REPORT "decrypt not working correctly" SEVERITY failure; -- AAAAAAAA, hex: 4141414141414141
         
-          wait;
+        wait;
     END PROCESS;
 END Behavioral;

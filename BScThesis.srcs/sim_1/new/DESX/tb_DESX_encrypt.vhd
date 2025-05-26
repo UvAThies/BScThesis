@@ -27,6 +27,8 @@ END tb_DESX_encrypt;
 ARCHITECTURE Behavioral OF tb_DESX_encrypt IS
     COMPONENT DESX_encrypt
         PORT (
+            clk : IN STD_LOGIC;
+            rst : IN STD_LOGIC;
             inp : IN STD_LOGIC_VECTOR(0 TO 63);
             key : IN STD_LOGIC_VECTOR(0 TO 63);
             key1 : IN STD_LOGIC_VECTOR(0 TO 63);
@@ -34,6 +36,10 @@ ARCHITECTURE Behavioral OF tb_DESX_encrypt IS
             outp : OUT STD_LOGIC_VECTOR(0 TO 63)
         );
     END COMPONENT;
+
+    -- Clock and reset signals
+    SIGNAL clk : STD_LOGIC := '0';
+    SIGNAL rst : STD_LOGIC := '1';
 
     --inps
     SIGNAL inp : STD_LOGIC_VECTOR(0 TO 63);
@@ -43,9 +49,24 @@ ARCHITECTURE Behavioral OF tb_DESX_encrypt IS
     
     --outps
     SIGNAL outp : STD_LOGIC_VECTOR(0 TO 63);
+
+    -- Clock period definition
+    CONSTANT clk_period : TIME := 10 ns;
+
 BEGIN
+    -- Clock generation
+    clk_process : PROCESS
+    BEGIN
+        clk <= '0';
+        WAIT FOR clk_period/2;
+        clk <= '1';
+        WAIT FOR clk_period/2;
+    END PROCESS;
+
     ip_instance : DESX_encrypt
     PORT MAP(
+        clk => clk,
+        rst => rst,
         inp => inp,
         key => key,
         key1 => key1,
@@ -55,6 +76,10 @@ BEGIN
 
     stim_proc : PROCESS
     BEGIN
+        -- Reset
+        rst <= '1';
+        WAIT FOR clk_period * 2;
+        rst <= '0';
 
     -- DEX should behave the same, when key1 and key2 are 0
         -- https://simewu.com/des/
