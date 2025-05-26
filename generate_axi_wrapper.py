@@ -16,14 +16,14 @@ def get_algorithm_config(algorithm_name):
             "message_width": 64,
             "output_width": 64,
             "key_bits": [64],
-            "latency": 21
+            "latency": 17
         },
         "TDES": {
             "input_width": 256,  # 64 bits data + 3*64 bits key
             "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64],
-            "latency": 63  # 3 * DES latency
+            "latency": 3 * 17  # 3 * DES latency
         },
         "DESX": {
             "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys

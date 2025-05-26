@@ -88,8 +88,8 @@ BEGIN
         inp <= "1101111010101101101111101110111111001010111111101011101010111110";
         key <= "0000000100100011010001010110011110001001101010111100110111101111";
 
-        -- Wait for pipeline to fill (20 clock cycles)
-        WAIT FOR clk_period * 20;
+        -- Wait for pipeline to fill (17 clock cycles)
+        WAIT FOR clk_period * 17;
         
         -- Check result
         ASSERT outp = expected_result1 
@@ -100,8 +100,8 @@ BEGIN
         inp <= "0100000101000010010000110100010001000101010001100100011101001000";
         key <= "0011000100110010001100110011010000110101001101100011011100111000";
         
-        -- Wait for pipeline to fill (20 clock cycles)
-        WAIT FOR clk_period * 20;
+        -- Wait for pipeline to fill (17 clock cycles)
+        WAIT FOR clk_period * 17;
         
         -- Check result
         ASSERT outp = expected_result2 

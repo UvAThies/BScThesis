@@ -52,7 +52,6 @@ PORT (
 END COMPONENT;
 
 SIGNAL keys_outp : t_keys;
-SIGNAL keys_outp_reg : t_keys;
 SIGNAL left : t_rounds;
 SIGNAL right : t_rounds;
 SIGNAL left_reg : t_rounds;
@@ -71,9 +70,11 @@ BEGIN
     process(clk, rst)
     begin
         if rst = '1' then
-            keys_outp_reg <= (others => (others => '0'));
+            left_reg(0) <= (others => '0');
+            right_reg(0) <= (others => '0');
         elsif rising_edge(clk) then
-            keys_outp_reg <= keys_outp;
+            left_reg(0) <= left(0);
+            right_reg(0) <= right(0);
         end if;
     end process;
 
@@ -82,7 +83,7 @@ BEGIN
         PORT MAP (
             inp_left => left_reg(i),
             inp_right => right_reg(i),
-            key => keys_outp_reg(i),
+            key => keys_outp(i),
             outp_left => left(i + 1),
             outp_right => right(i + 1)
         );
@@ -99,23 +100,5 @@ BEGIN
         end process;
     END GENERATE u0;
 
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            left_reg(0) <= (others => '0');
-            right_reg(0) <= (others => '0');
-        elsif rising_edge(clk) then
-            left_reg(0) <= left(0);
-            right_reg(0) <= right(0);
-        end if;
-    end process;
-
-    process(clk, rst)
-    begin
-        if rst = '1' then
-            outp <= (others => '0');
-        elsif rising_edge(clk) then
-            outp <= right_reg(16) & left_reg(16);
-        end if;
-    end process;
+    outp <= right_reg(16) & left_reg(16);
 END Behavioral;

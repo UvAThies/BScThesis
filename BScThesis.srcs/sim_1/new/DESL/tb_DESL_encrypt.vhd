@@ -75,12 +75,10 @@ BEGIN
         -- Reset for 2 clock cycles
         rst <= '1';
         WAIT FOR clk_period * 2;
-        
-        -- Release reset
         rst <= '0';
         
         -- Wait for enough clock cycles for the pipeline to fill
-        WAIT FOR clk_period * 20;
+        WAIT FOR clk_period * 17;
         
         -- Check output
         ASSERT outp = "1010010100011010100011000001001000110011111001010001010100101110" 
