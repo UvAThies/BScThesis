@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date         : Mon May 19 17:16:16 2025
+| Date         : Mon May 26 17:35:32 2025
 | Host         : DefconeONE running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -file C:/Users/Thies/xillinx/BScThesis/results/des_encrypt_timing.rpt -quiet
 | Design       : des_encrypt_bd_wrapper
@@ -41,10 +41,9 @@ Timing Summary Report
 | ------------------
 ------------------------------------------------------------------------------------------------
 
-Rule       Severity  Description                   Violations  
----------  --------  ----------------------------  ----------  
-LUTAR-1    Warning   LUT drives async reset alert  4           
-TIMING-16  Warning   Large setup violation         128         
+Rule     Severity  Description                   Violations  
+-------  --------  ----------------------------  ----------  
+LUTAR-1  Warning   LUT drives async reset alert  4           
 
 Note: This report is based on the most recent report_methodology run and may not be up-to-date. Run report_methodology on the current design for the latest report.
 
@@ -143,10 +142,10 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-    -11.410    -1341.655                    128                11356        0.035        0.000                      0                11356        8.750        0.000                       0                  4190  
+     10.489        0.000                      0                13911        0.031        0.000                      0                13911        8.750        0.000                       0                  5405  
 
 
-Timing constraints are not met.
+All user specified timing constraints are met.
 
 
 ------------------------------------------------------------------------------------------------
@@ -166,7 +165,7 @@ clk_fpga_0  {0.000 10.000}     20.000          50.000
 
 Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-clk_fpga_0        -11.410    -1341.655                    128                11228        0.035        0.000                      0                11228        8.750        0.000                       0                  4190  
+clk_fpga_0         10.916        0.000                      0                12568        0.031        0.000                      0                12568        8.750        0.000                       0                  5405  
 
 
 ------------------------------------------------------------------------------------------------
@@ -185,7 +184,7 @@ From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS
 
 Path Group         From Clock         To Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
 ----------         ----------         --------               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
-**async_default**  clk_fpga_0         clk_fpga_0              16.287        0.000                      0                  128        0.502        0.000                      0                  128  
+**async_default**  clk_fpga_0         clk_fpga_0              10.489        0.000                      0                 1343        0.585        0.000                      0                 1343  
 
 
 ------------------------------------------------------------------------------------------------
@@ -198,27 +197,27 @@ Path Group         From Clock         To Clock               WNS(ns)      TNS(ns
 From Clock:  clk_fpga_0
   To Clock:  clk_fpga_0
 
-Setup :          128  Failing Endpoints,  Worst Slack      -11.410ns,  Total Violation    -1341.655ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.035ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       10.916ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.031ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        8.750ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (VIOLATED) :        -11.410ns  (required time - arrival time)
-  Source:                 des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/ENABLE_AXIS_SKID.I_MM2S_SKID_BUF/sig_data_reg_out_reg[51]/C
-                            (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
-  Destination:            des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_data_skid_reg_reg[44]/D
+Slack (MET) :             10.916ns  (required time - arrival time)
+  Source:                 des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/first_word_reg/C
+                            (rising edge-triggered cell FDSE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/sig_next_strt_strb_reg_reg[10]/R
                             (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
   Path Group:             clk_fpga_0
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            20.000ns  (clk_fpga_0 rise@20.000ns - clk_fpga_0 rise@0.000ns)
-  Data Path Delay:        31.039ns  (logic 4.548ns (14.653%)  route 26.491ns (85.347%))
-  Logic Levels:           33  (LUT2=1 LUT3=4 LUT4=4 LUT5=5 LUT6=19)
-  Clock Path Skew:        -0.053ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    2.754ns = ( 22.754 - 20.000 ) 
-    Source Clock Delay      (SCD):    3.037ns
+  Data Path Delay:        8.190ns  (logic 1.582ns (19.317%)  route 6.608ns (80.683%))
+  Logic Levels:           7  (LUT4=1 LUT5=4 LUT6=2)
+  Clock Path Skew:        -0.068ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.750ns = ( 22.750 - 20.000 ) 
+    Source Clock Delay      (SCD):    3.048ns
     Clock Pessimism Removal (CPR):    0.230ns
   Clock Uncertainty:      0.302ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
@@ -233,78 +232,26 @@ Slack (VIOLATED) :        -11.410ns  (required time - arrival time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           1.193     1.193    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     1.294 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        1.743     3.037    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/ENABLE_AXIS_SKID.I_MM2S_SKID_BUF/m_axi_mm2s_aclk
-    SLICE_X15Y28         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/ENABLE_AXIS_SKID.I_MM2S_SKID_BUF/sig_data_reg_out_reg[51]/C
+                         net (fo=5407, routed)        1.754     3.048    des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/CLK
+    SLICE_X20Y42         FDSE                                         r  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/first_word_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X15Y28         FDRE (Prop_fdre_C_Q)         0.456     3.493 r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/ENABLE_AXIS_SKID.I_MM2S_SKID_BUF/sig_data_reg_out_reg[51]/Q
-                         net (fo=6, routed)           0.479     3.972    des_encrypt_bd_i/des_encrypt_0/s_axis_tdata[51]
-    SLICE_X15Y27         LUT2 (Prop_lut2_I1_O)        0.124     4.096 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[33]_INST_0_i_36/O
-                         net (fo=4, routed)           1.195     5.291    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[0].round_instance/inp[33]
-    SLICE_X17Y25         LUT6 (Prop_lut6_I2_O)        0.124     5.415 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[21]_INST_0_i_6/O
-                         net (fo=5, routed)           0.488     5.903    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[0].round_instance/substituted[22]
-    SLICE_X14Y25         LUT3 (Prop_lut3_I2_O)        0.124     6.027 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_37/O
-                         net (fo=4, routed)           1.149     7.176    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[1].round_instance/inp[15]
-    SLICE_X11Y16         LUT6 (Prop_lut6_I3_O)        0.124     7.300 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_12/O
-                         net (fo=9, routed)           0.465     7.765    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[1].round_instance/substituted[9]
-    SLICE_X10Y16         LUT3 (Prop_lut3_I2_O)        0.124     7.889 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[27]_INST_0_i_44/O
-                         net (fo=4, routed)           1.197     9.086    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[2].round_instance/inp[22]
-    SLICE_X18Y16         LUT6 (Prop_lut6_I3_O)        0.124     9.210 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[7]_INST_0_i_7/O
-                         net (fo=7, routed)           0.535     9.745    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[2].round_instance/substituted[15]
-    SLICE_X20Y17         LUT4 (Prop_lut4_I3_O)        0.124     9.869 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[52]_INST_0_i_43/O
-                         net (fo=4, routed)           1.024    10.893    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[3].round_instance/inp[47]
-    SLICE_X20Y20         LUT6 (Prop_lut6_I4_O)        0.124    11.017 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[34]_INST_0_i_7/O
-                         net (fo=7, routed)           0.765    11.782    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[3].round_instance/substituted[31]
-    SLICE_X21Y21         LUT4 (Prop_lut4_I3_O)        0.124    11.906 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[33]_INST_0_i_46/O
-                         net (fo=4, routed)           1.089    12.994    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[4].round_instance/inp[31]
-    SLICE_X15Y25         LUT6 (Prop_lut6_I0_O)        0.124    13.118 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[21]_INST_0_i_8/O
-                         net (fo=3, routed)           0.546    13.664    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[4].round_instance/substituted[22]
-    SLICE_X14Y25         LUT5 (Prop_lut5_I4_O)        0.124    13.788 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_49/O
-                         net (fo=4, routed)           1.187    14.975    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[5].round_instance/inp[15]
-    SLICE_X12Y17         LUT6 (Prop_lut6_I3_O)        0.124    15.099 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_14/O
-                         net (fo=5, routed)           0.810    15.910    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[5].round_instance/substituted[9]
-    SLICE_X20Y17         LUT5 (Prop_lut5_I4_O)        0.124    16.034 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[27]_INST_0_i_56/O
-                         net (fo=4, routed)           0.837    16.870    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].round_instance/inp[22]
-    SLICE_X20Y18         LUT6 (Prop_lut6_I4_O)        0.124    16.994 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[27]_INST_0_i_15/O
-                         net (fo=3, routed)           0.713    17.707    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].round_instance/substituted[13]
-    SLICE_X19Y26         LUT6 (Prop_lut6_I5_O)        0.124    17.831 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[32]_INST_0_i_56/O
-                         net (fo=4, routed)           0.828    18.660    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[7].round_instance/inp[30]
-    SLICE_X18Y27         LUT6 (Prop_lut6_I4_O)        0.124    18.784 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[32]_INST_0_i_15/O
-                         net (fo=3, routed)           0.488    19.271    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[7].round_instance/substituted[21]
-    SLICE_X22Y27         LUT6 (Prop_lut6_I5_O)        0.124    19.395 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[57]_INST_0_i_10/O
-                         net (fo=4, routed)           1.246    20.642    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[8].round_instance/inp[41]
-    SLICE_X24Y23         LUT6 (Prop_lut6_I5_O)        0.124    20.766 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[29]_INST_0_i_1/O
-                         net (fo=9, routed)           0.841    21.607    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[8].round_instance/substituted[25]
-    SLICE_X18Y28         LUT3 (Prop_lut3_I2_O)        0.124    21.731 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[26]_INST_0_i_11/O
-                         net (fo=4, routed)           0.745    22.476    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[9].round_instance/inp[18]
-    SLICE_X18Y29         LUT6 (Prop_lut6_I5_O)        0.124    22.600 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[6]_INST_0_i_1/O
-                         net (fo=8, routed)           0.613    23.213    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[9].round_instance/substituted[15]
-    SLICE_X17Y31         LUT3 (Prop_lut3_I2_O)        0.124    23.337 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[53]_INST_0_i_19/O
-                         net (fo=4, routed)           0.934    24.271    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[10].round_instance/inp[47]
-    SLICE_X22Y30         LUT6 (Prop_lut6_I4_O)        0.124    24.395 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[39]_INST_0_i_3/O
-                         net (fo=7, routed)           0.707    25.101    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[10].round_instance/substituted[28]
-    SLICE_X26Y30         LUT4 (Prop_lut4_I3_O)        0.124    25.225 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[36]_INST_0_i_16/O
-                         net (fo=4, routed)           0.838    26.063    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[11].round_instance/inp[7]
-    SLICE_X31Y30         LUT6 (Prop_lut6_I0_O)        0.124    26.187 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[24]_INST_0_i_3/O
-                         net (fo=6, routed)           0.510    26.697    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[11].round_instance/substituted[5]
-    SLICE_X29Y30         LUT4 (Prop_lut4_I3_O)        0.124    26.821 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[57]_INST_0_i_25/O
-                         net (fo=4, routed)           1.157    27.978    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[12].round_instance/inp[40]
-    SLICE_X20Y32         LUT6 (Prop_lut6_I3_O)        0.124    28.102 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[29]_INST_0_i_4/O
-                         net (fo=5, routed)           0.624    28.726    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[12].round_instance/substituted[25]
-    SLICE_X22Y33         LUT5 (Prop_lut5_I4_O)        0.124    28.850 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_24/O
-                         net (fo=4, routed)           1.042    29.893    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[13].round_instance/inp[16]
-    SLICE_X25Y35         LUT6 (Prop_lut6_I2_O)        0.124    30.017 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[60]_INST_0_i_4/O
-                         net (fo=3, routed)           0.416    30.432    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[13].round_instance/substituted[9]
-    SLICE_X27Y35         LUT5 (Prop_lut5_I4_O)        0.124    30.556 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[27]_INST_0_i_32/O
-                         net (fo=4, routed)           1.273    31.829    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[14].round_instance/inp[22]
-    SLICE_X20Y36         LUT6 (Prop_lut6_I4_O)        0.124    31.953 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[27]_INST_0_i_5/O
-                         net (fo=3, routed)           0.346    32.299    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[14].round_instance/substituted[13]
-    SLICE_X19Y36         LUT6 (Prop_lut6_I5_O)        0.124    32.423 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[62]_INST_0_i_32/O
-                         net (fo=4, routed)           0.758    33.181    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[15].round_instance/inp[28]
-    SLICE_X16Y34         LUT6 (Prop_lut6_I3_O)        0.124    33.305 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[44]_INST_0_i_5/O
-                         net (fo=1, routed)           0.171    33.476    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[15].round_instance/substituted[17]
-    SLICE_X16Y34         LUT5 (Prop_lut5_I4_O)        0.124    33.600 r  des_encrypt_bd_i/des_encrypt_0/m_axis_tdata[44]_INST_0/O
-                         net (fo=2, routed)           0.476    34.076    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/s_axis_s2mm_tdata[44]
-    SLICE_X18Y35         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_data_skid_reg_reg[44]/D
+    SLICE_X20Y42         FDSE (Prop_fdse_C_Q)         0.518     3.566 r  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/first_word_reg/Q
+                         net (fo=24, routed)          1.323     4.889    des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/first_mi_word
+    SLICE_X15Y40         LUT4 (Prop_lut4_I1_O)        0.124     5.013 r  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_data_inst/current_word_1[1]_i_3/O
+                         net (fo=7, routed)           0.630     5.643    des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/current_word_1_reg[1]
+    SLICE_X19Y41         LUT5 (Prop_lut5_I3_O)        0.118     5.761 f  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/s_axi_rvalid_INST_0_i_5/O
+                         net (fo=1, routed)           0.793     6.554    des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/s_axi_rvalid_INST_0_i_5_n_0
+    SLICE_X17Y41         LUT5 (Prop_lut5_I1_O)        0.326     6.880 r  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/s_axi_rvalid_INST_0_i_2/O
+                         net (fo=8, routed)           0.756     7.636    des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/s_axi_rvalid_INST_0_i_2_n_0
+    SLICE_X17Y43         LUT6 (Prop_lut6_I1_O)        0.124     7.760 f  des_encrypt_bd_i/axi_mem_intercon/s00_couplers/auto_ds/inst/gen_downsizer.gen_cascaded_downsizer.first_downsizer_inst/USE_READ.read_addr_inst/cmd_queue/inst/s_axi_rvalid_INST_0/O
+                         net (fo=4, routed)           0.761     8.520    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/m_axi_mm2s_rvalid
+    SLICE_X21Y42         LUT5 (Prop_lut5_I2_O)        0.124     8.644 f  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/sig_next_cmd_cmplt_reg_i_3/O
+                         net (fo=8, routed)           0.719     9.363    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/sig_halt_reg_reg
+    SLICE_X24Y43         LUT5 (Prop_lut5_I4_O)        0.124     9.487 f  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/sig_next_cmd_cmplt_reg_i_2/O
+                         net (fo=56, routed)          0.675    10.163    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/sig_dqual_reg_empty_reg
+    SLICE_X23Y43         LUT6 (Prop_lut6_I0_O)        0.124    10.287 r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/GEN_DATA_CNTL_FIFO.I_DATA_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/CNTR_INCR_DECR_ADDN_F_I/sig_next_cmd_cmplt_reg_i_1/O
+                         net (fo=38, routed)          0.951    11.238    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/sig_clr_dqual_reg
+    SLICE_X26Y41         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/sig_next_strt_strb_reg_reg[10]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_fpga_0 rise edge)
@@ -312,16 +259,16 @@ Slack (VIOLATED) :        -11.410ns  (required time - arrival time)
     PS7_X0Y0             PS7                          0.000    20.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           1.088    21.088    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    21.179 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        1.575    22.754    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/m_axi_s2mm_aclk
-    SLICE_X18Y35         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_data_skid_reg_reg[44]/C
-                         clock pessimism              0.230    22.984    
-                         clock uncertainty           -0.302    22.682    
-    SLICE_X18Y35         FDRE (Setup_fdre_C_D)       -0.016    22.666    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_data_skid_reg_reg[44]
+                         net (fo=5407, routed)        1.571    22.750    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/m_axi_mm2s_aclk
+    SLICE_X26Y41         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/sig_next_strt_strb_reg_reg[10]/C
+                         clock pessimism              0.230    22.980    
+                         clock uncertainty           -0.302    22.678    
+    SLICE_X26Y41         FDRE (Setup_fdre_C_R)       -0.524    22.154    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/I_RD_DATA_CNTL/sig_next_strt_strb_reg_reg[10]
   -------------------------------------------------------------------
-                         required time                         22.666    
-                         arrival time                         -34.076    
+                         required time                         22.154    
+                         arrival time                         -11.238    
   -------------------------------------------------------------------
-                         slack                                -11.410    
+                         slack                                 10.916    
 
 
 
@@ -329,20 +276,20 @@ Slack (VIOLATED) :        -11.410ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.035ns  (arrival time - required time)
-  Source:                 des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_skid_reg_reg[6]/C
+Slack (MET) :             0.031ns  (arrival time - required time)
+  Source:                 des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_IBTTCC.I_S2MM_MSTR_IBTTCC/sig_realign_cmd_cmplt_reg_reg/C
                             (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
-  Destination:            des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_reg_out_reg[6]/D
-                            (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/INFERRED_GEN.data_reg[3][2]_srl4/D
+                            (rising edge-triggered cell SRL16E clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
   Path Group:             clk_fpga_0
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_fpga_0 rise@0.000ns - clk_fpga_0 rise@0.000ns)
-  Data Path Delay:        0.390ns  (logic 0.226ns (58.000%)  route 0.164ns (42.000%))
-  Logic Levels:           1  (LUT2=1)
-  Clock Path Skew:        0.262ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.191ns
-    Source Clock Delay      (SCD):    0.899ns
-    Clock Pessimism Removal (CPR):    0.030ns
+  Data Path Delay:        0.347ns  (logic 0.128ns (36.886%)  route 0.219ns (63.114%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.267ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.189ns
+    Source Clock Delay      (SCD):    0.887ns
+    Clock Pessimism Removal (CPR):    0.035ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -351,14 +298,12 @@ Slack (MET) :             0.035ns  (arrival time - required time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           0.310     0.310    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.336 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        0.563     0.899    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/m_axi_s2mm_aclk
-    SLICE_X40Y49         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_skid_reg_reg[6]/C
+                         net (fo=5407, routed)        0.551     0.887    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_IBTTCC.I_S2MM_MSTR_IBTTCC/m_axi_s2mm_aclk
+    SLICE_X51Y58         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_IBTTCC.I_S2MM_MSTR_IBTTCC/sig_realign_cmd_cmplt_reg_reg/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X40Y49         FDRE (Prop_fdre_C_Q)         0.128     1.027 r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_skid_reg_reg[6]/Q
-                         net (fo=1, routed)           0.164     1.190    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_skid_reg[6]
-    SLICE_X40Y50         LUT2 (Prop_lut2_I1_O)        0.098     1.288 r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_reg_out[6]_i_1__0/O
-                         net (fo=1, routed)           0.000     1.288    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_skid_mux_out[6]
-    SLICE_X40Y50         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_reg_out_reg[6]/D
+    SLICE_X51Y58         FDRE (Prop_fdre_C_Q)         0.128     1.015 r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_IBTTCC.I_S2MM_MSTR_IBTTCC/sig_realign_cmd_cmplt_reg_reg/Q
+                         net (fo=1, routed)           0.219     1.234    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/in[27]
+    SLICE_X46Y57         SRL16E                                       r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/INFERRED_GEN.data_reg[3][2]_srl4/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_fpga_0 rise edge)
@@ -366,15 +311,16 @@ Slack (MET) :             0.035ns  (arrival time - required time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           0.337     0.337    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     0.366 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        0.825     1.191    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/m_axi_s2mm_aclk
-    SLICE_X40Y50         FDRE                                         r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_reg_out_reg[6]/C
-                         clock pessimism             -0.030     1.161    
-    SLICE_X40Y50         FDRE (Hold_fdre_C_D)         0.092     1.253    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/ENABLE_AXIS_SKID.I_S2MM_STRM_SKID_BUF/sig_strb_reg_out_reg[6]
+                         net (fo=5407, routed)        0.823     1.189    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/m_axi_s2mm_aclk
+    SLICE_X46Y57         SRL16E                                       r  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/INFERRED_GEN.data_reg[3][2]_srl4/CLK
+                         clock pessimism             -0.035     1.154    
+    SLICE_X46Y57         SRL16E (Hold_srl16e_CLK_D)
+                                                      0.049     1.203    des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_INCLUDE_REALIGNER.I_S2MM_REALIGNER/I_DRE_CNTL_FIFO/USE_SRL_FIFO.I_SYNC_FIFO/I_SRL_FIFO_RBU_F/DYNSHREG_F_I/INFERRED_GEN.data_reg[3][2]_srl4
   -------------------------------------------------------------------
-                         required time                         -1.253    
-                         arrival time                           1.288    
+                         required time                         -1.203    
+                         arrival time                           1.234    
   -------------------------------------------------------------------
-                         slack                                  0.035    
+                         slack                                  0.031    
 
 
 
@@ -388,9 +334,9 @@ Period(ns):         20.000
 Sources:            { des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0] }
 
 Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
-Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.576         20.000      17.424     RAMB36_X0Y5   des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0/CLKARDCLK
-Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         10.000      8.750      SLICE_X38Y57  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_XD_FIFO/NON_BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_15_0_5/RAMA/CLK
-High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         10.000      8.750      SLICE_X38Y57  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_XD_FIFO/NON_BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_15_0_5/RAMA/CLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.576         20.000      17.424     RAMB36_X1Y6   des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_MM2S_FULL.I_MM2S_FULL_WRAPPER/GEN_INCLUDE_MM2S_SF.I_RD_SF/I_DATA_FIFO/BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0/CLKARDCLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         10.000      8.750      SLICE_X42Y53  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_XD_FIFO/NON_BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_15_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         10.000      8.750      SLICE_X42Y53  des_encrypt_bd_i/axi_dma_0/U0/I_PRMRY_DATAMOVER/GEN_S2MM_FULL.I_S2MM_FULL_WRAPPER/GEN_ENABLE_INDET_BTT_SF.I_INDET_BTT/I_XD_FIFO/NON_BLK_MEM.I_SYNC_FIFOGEN_FIFO/xpm_fifo_instance.xpm_fifo_sync_inst/xpm_fifo_base_inst/gen_sdpram.xpm_memory_base_inst/gen_wr_a.gen_word_narrow.mem_reg_0_15_0_5/RAMA/CLK
 
 
 
@@ -399,26 +345,26 @@ Path Group:  **async_default**
 From Clock:  clk_fpga_0
   To Clock:  clk_fpga_0
 
-Setup :            0  Failing Endpoints,  Worst Slack       16.287ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.502ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack       10.489ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.585ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             16.287ns  (required time - arrival time)
-  Source:                 <hidden>
-                            (rising edge-triggered cell FDPE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
-  Destination:            <hidden>
+Slack (MET) :             10.489ns  (required time - arrival time)
+  Source:                 des_encrypt_bd_i/rst_ps7_0_50M/U0/ACTIVE_LOW_PR_OUT_DFF[0].FDRE_PER_N/C
+                            (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].left_reg_reg[7][15]/CLR
                             (recovery check against rising-edge clock clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
   Path Group:             **async_default**
   Path Type:              Recovery (Max at Slow Process Corner)
   Requirement:            20.000ns  (clk_fpga_0 rise@20.000ns - clk_fpga_0 rise@0.000ns)
-  Data Path Delay:        2.946ns  (logic 0.779ns (26.443%)  route 2.167ns (73.556%))
-  Logic Levels:           1  (LUT3=1)
-  Clock Path Skew:        -0.060ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    2.760ns = ( 22.760 - 20.000 ) 
-    Source Clock Delay      (SCD):    3.050ns
+  Data Path Delay:        8.577ns  (logic 0.580ns (6.762%)  route 7.997ns (93.238%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.227ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.662ns = ( 22.663 - 20.000 ) 
+    Source Clock Delay      (SCD):    3.119ns
     Clock Pessimism Removal (CPR):    0.230ns
   Clock Uncertainty:      0.302ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
@@ -433,14 +379,14 @@ Slack (MET) :             16.287ns  (required time - arrival time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           1.193     1.193    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.101     1.294 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        1.756     3.050    <hidden>
-    SLICE_X18Y46         FDPE                                         r  <hidden>
+                         net (fo=5407, routed)        1.825     3.119    des_encrypt_bd_i/rst_ps7_0_50M/U0/slowest_sync_clk
+    SLICE_X7Y30          FDRE                                         r  des_encrypt_bd_i/rst_ps7_0_50M/U0/ACTIVE_LOW_PR_OUT_DFF[0].FDRE_PER_N/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X18Y46         FDPE (Prop_fdpe_C_Q)         0.478     3.528 f  <hidden>
-                         net (fo=2, routed)           0.667     4.195    <hidden>
-    SLICE_X15Y46         LUT3 (Prop_lut3_I2_O)        0.301     4.496 f  <hidden>
-                         net (fo=33, routed)          1.500     5.996    <hidden>
-    SLICE_X9Y47          FDCE                                         f  <hidden>
+    SLICE_X7Y30          FDRE (Prop_fdre_C_Q)         0.456     3.575 r  des_encrypt_bd_i/rst_ps7_0_50M/U0/ACTIVE_LOW_PR_OUT_DFF[0].FDRE_PER_N/Q
+                         net (fo=13, routed)          1.800     5.375    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/aresetn
+    SLICE_X28Y35         LUT1 (Prop_lut1_I0_O)        0.124     5.499 f  des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[15].left_reg[16][7]_i_1/O
+                         net (fo=1215, routed)        6.198    11.696    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/aresetn_0
+    SLICE_X40Y21         FDCE                                         f  des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].left_reg_reg[7][15]/CLR
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_fpga_0 rise edge)
@@ -448,16 +394,16 @@ Slack (MET) :             16.287ns  (required time - arrival time)
     PS7_X0Y0             PS7                          0.000    20.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           1.088    21.088    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    21.179 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        1.581    22.760    <hidden>
-    SLICE_X9Y47          FDCE                                         r  <hidden>
-                         clock pessimism              0.230    22.990    
-                         clock uncertainty           -0.302    22.688    
-    SLICE_X9Y47          FDCE (Recov_fdce_C_CLR)     -0.405    22.283    <hidden>
+                         net (fo=5407, routed)        1.483    22.663    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/aclk
+    SLICE_X40Y21         FDCE                                         r  des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].left_reg_reg[7][15]/C
+                         clock pessimism              0.230    22.892    
+                         clock uncertainty           -0.302    22.590    
+    SLICE_X40Y21         FDCE (Recov_fdce_C_CLR)     -0.405    22.185    des_encrypt_bd_i/des_encrypt_0/inst/des_encrypt_instance/u0[6].left_reg_reg[7][15]
   -------------------------------------------------------------------
-                         required time                         22.283    
-                         arrival time                          -5.996    
+                         required time                         22.185    
+                         arrival time                         -11.696    
   -------------------------------------------------------------------
-                         slack                                 16.287    
+                         slack                                 10.489    
 
 
 
@@ -465,20 +411,20 @@ Slack (MET) :             16.287ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.502ns  (arrival time - required time)
+Slack (MET) :             0.585ns  (arrival time - required time)
   Source:                 <hidden>
-                            (rising edge-triggered cell FDRE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
+                            (rising edge-triggered cell FDPE clocked by clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
   Destination:            <hidden>
                             (removal check against rising-edge clock clk_fpga_0  {rise@0.000ns fall@10.000ns period=20.000ns})
   Path Group:             **async_default**
   Path Type:              Removal (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_fpga_0 rise@0.000ns - clk_fpga_0 rise@0.000ns)
-  Data Path Delay:        0.442ns  (logic 0.186ns (42.045%)  route 0.256ns (57.955%))
+  Data Path Delay:        0.534ns  (logic 0.246ns (46.088%)  route 0.288ns (53.912%))
   Logic Levels:           1  (LUT3=1)
-  Clock Path Skew:        0.032ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    1.178ns
-    Source Clock Delay      (SCD):    0.882ns
-    Clock Pessimism Removal (CPR):    0.264ns
+  Clock Path Skew:        0.016ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.230ns
+    Source Clock Delay      (SCD):    0.931ns
+    Clock Pessimism Removal (CPR):    0.283ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -487,14 +433,14 @@ Slack (MET) :             0.502ns  (arrival time - required time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           0.310     0.310    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.336 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        0.546     0.882    <hidden>
-    SLICE_X47Y78         FDRE                                         r  <hidden>
+                         net (fo=5407, routed)        0.595     0.931    <hidden>
+    SLICE_X12Y40         FDPE                                         r  <hidden>
   -------------------------------------------------------------------    -------------------
-    SLICE_X47Y78         FDRE (Prop_fdre_C_Q)         0.141     1.023 f  <hidden>
-                         net (fo=3, routed)           0.137     1.160    <hidden>
-    SLICE_X49Y78         LUT3 (Prop_lut3_I1_O)        0.045     1.205 f  <hidden>
-                         net (fo=32, routed)          0.119     1.324    <hidden>
-    SLICE_X49Y78         FDCE                                         f  <hidden>
+    SLICE_X12Y40         FDPE (Prop_fdpe_C_Q)         0.148     1.079 f  <hidden>
+                         net (fo=3, routed)           0.133     1.211    <hidden>
+    SLICE_X13Y41         LUT3 (Prop_lut3_I2_O)        0.098     1.309 f  <hidden>
+                         net (fo=32, routed)          0.155     1.464    <hidden>
+    SLICE_X12Y41         FDCE                                         f  <hidden>
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_fpga_0 rise edge)
@@ -502,15 +448,15 @@ Slack (MET) :             0.502ns  (arrival time - required time)
     PS7_X0Y0             PS7                          0.000     0.000 r  des_encrypt_bd_i/zynqcore/inst/PS7_i/FCLKCLK[0]
                          net (fo=1, routed)           0.337     0.337    des_encrypt_bd_i/zynqcore/inst/FCLK_CLK_unbuffered[0]
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     0.366 r  des_encrypt_bd_i/zynqcore/inst/buffer_fclk_clk_0.FCLK_CLK_0_BUFG/O
-                         net (fo=4192, routed)        0.812     1.178    <hidden>
-    SLICE_X49Y78         FDCE                                         r  <hidden>
-                         clock pessimism             -0.264     0.914    
-    SLICE_X49Y78         FDCE (Remov_fdce_C_CLR)     -0.092     0.822    <hidden>
+                         net (fo=5407, routed)        0.864     1.230    <hidden>
+    SLICE_X12Y41         FDCE                                         r  <hidden>
+                         clock pessimism             -0.283     0.947    
+    SLICE_X12Y41         FDCE (Remov_fdce_C_CLR)     -0.067     0.880    <hidden>
   -------------------------------------------------------------------
-                         required time                         -0.822    
-                         arrival time                           1.324    
+                         required time                         -0.879    
+                         arrival time                           1.464    
   -------------------------------------------------------------------
-                         slack                                  0.502    
+                         slack                                  0.585    
 
 
 

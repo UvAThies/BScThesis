@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xF9889C9CC3250B72",
+      "boundary_crc": "0xF9889C9CBFC739E0",
       "device": "xc7z020clg400-1",
       "gen_directory": "../../../../BScThesis.gen/sources_1/bd/des_encrypt_bd",
       "name": "des_encrypt_bd",
@@ -26,8 +26,7 @@
         }
       },
       "zynqcore": "",
-      "des_encrypt_0": "",
-      "system_ila_0": ""
+      "des_encrypt_0": ""
     },
     "interface_ports": {
       "DDR_0": {
@@ -204,7 +203,7 @@
         "vlnv": "xilinx.com:ip:axi_dma:7.1",
         "ip_revision": "34",
         "xci_name": "des_encrypt_bd_axi_dma_0_0",
-        "xci_path": "ip\\des_encrypt_bd_axi_dma_0_0_12\\des_encrypt_bd_axi_dma_0_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_axi_dma_0_0_13\\des_encrypt_bd_axi_dma_0_0.xci",
         "inst_hier_path": "axi_dma_0",
         "parameters": {
           "c_addr_width": {
@@ -268,7 +267,7 @@
         "vlnv": "xilinx.com:ip:smartconnect:1.0",
         "ip_revision": "25",
         "xci_name": "des_encrypt_bd_axi_smc_0",
-        "xci_path": "ip\\des_encrypt_bd_axi_smc_0_12\\des_encrypt_bd_axi_smc_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_axi_smc_0_13\\des_encrypt_bd_axi_smc_0.xci",
         "inst_hier_path": "axi_smc",
         "parameters": {
           "NUM_SI": {
@@ -323,12 +322,12 @@
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "ip_revision": "16",
         "xci_name": "des_encrypt_bd_rst_ps7_0_50M_0",
-        "xci_path": "ip\\des_encrypt_bd_rst_ps7_0_50M_0_12\\des_encrypt_bd_rst_ps7_0_50M_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_rst_ps7_0_50M_0_13\\des_encrypt_bd_rst_ps7_0_50M_0.xci",
         "inst_hier_path": "rst_ps7_0_50M"
       },
       "axi_mem_intercon": {
         "vlnv": "xilinx.com:ip:axi_interconnect:2.1",
-        "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_0_12\\des_encrypt_bd_axi_mem_intercon_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_0_13\\des_encrypt_bd_axi_mem_intercon_0.xci",
         "inst_hier_path": "axi_mem_intercon",
         "xci_name": "des_encrypt_bd_axi_mem_intercon_0",
         "parameters": {
@@ -448,7 +447,7 @@
                 "vlnv": "xilinx.com:ip:axi_dwidth_converter:2.1",
                 "ip_revision": "33",
                 "xci_name": "des_encrypt_bd_axi_mem_intercon_imp_auto_ds_0",
-                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_imp_auto_ds_0_12\\des_encrypt_bd_axi_mem_intercon_imp_auto_ds_0.xci",
+                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_imp_auto_ds_0_13\\des_encrypt_bd_axi_mem_intercon_imp_auto_ds_0.xci",
                 "inst_hier_path": "axi_mem_intercon/s00_couplers/auto_ds",
                 "parameters": {
                   "MAX_SPLIT_BEATS": {
@@ -475,7 +474,7 @@
                 "vlnv": "xilinx.com:ip:axi_protocol_converter:2.1",
                 "ip_revision": "33",
                 "xci_name": "des_encrypt_bd_axi_mem_intercon_imp_auto_pc_0",
-                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_imp_auto_pc_0_12\\des_encrypt_bd_axi_mem_intercon_imp_auto_pc_0.xci",
+                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_imp_auto_pc_0_13\\des_encrypt_bd_axi_mem_intercon_imp_auto_pc_0.xci",
                 "inst_hier_path": "axi_mem_intercon/s00_couplers/auto_pc",
                 "parameters": {
                   "MI_PROTOCOL": {
@@ -580,7 +579,7 @@
       },
       "axi_mem_intercon_1": {
         "vlnv": "xilinx.com:ip:axi_interconnect:2.1",
-        "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_1_0_12\\des_encrypt_bd_axi_mem_intercon_1_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_1_0_13\\des_encrypt_bd_axi_mem_intercon_1_0.xci",
         "inst_hier_path": "axi_mem_intercon_1",
         "xci_name": "des_encrypt_bd_axi_mem_intercon_1_0",
         "parameters": {
@@ -700,7 +699,7 @@
                 "vlnv": "xilinx.com:ip:axi_protocol_converter:2.1",
                 "ip_revision": "33",
                 "xci_name": "des_encrypt_bd_axi_mem_intercon_1_imp_auto_pc_0",
-                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_1_imp_auto_pc_0_12\\des_encrypt_bd_axi_mem_intercon_1_imp_auto_pc_0.xci",
+                "xci_path": "ip\\des_encrypt_bd_axi_mem_intercon_1_imp_auto_pc_0_13\\des_encrypt_bd_axi_mem_intercon_1_imp_auto_pc_0.xci",
                 "inst_hier_path": "axi_mem_intercon_1/s00_couplers/auto_pc",
                 "parameters": {
                   "MI_PROTOCOL": {
@@ -796,7 +795,7 @@
         "vlnv": "xilinx.com:ip:processing_system7:5.5",
         "ip_revision": "6",
         "xci_name": "des_encrypt_bd_zynqcore_0",
-        "xci_path": "ip\\des_encrypt_bd_zynqcore_0_12\\des_encrypt_bd_zynqcore_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_zynqcore_0_13\\des_encrypt_bd_zynqcore_0.xci",
         "inst_hier_path": "zynqcore",
         "parameters": {
           "PCW_FPGA_FCLK0_ENABLE": {
@@ -954,7 +953,7 @@
         "vlnv": "xilinx.com:module_ref:axi_interface_des_encrypt:1.0",
         "ip_revision": "1",
         "xci_name": "des_encrypt_bd_des_encrypt_0_0",
-        "xci_path": "ip\\des_encrypt_bd_des_encrypt_0_0_12\\des_encrypt_bd_des_encrypt_0_0.xci",
+        "xci_path": "ip\\des_encrypt_bd_des_encrypt_0_0_13\\des_encrypt_bd_des_encrypt_0_0.xci",
         "inst_hier_path": "des_encrypt_0",
         "reference_info": {
           "ref_type": "hdl",
@@ -1131,76 +1130,14 @@
             }
           }
         }
-      },
-      "system_ila_0": {
-        "vlnv": "xilinx.com:ip:system_ila:1.1",
-        "ip_revision": "19",
-        "xci_name": "des_encrypt_bd_system_ila_0_0",
-        "xci_path": "ip\\des_encrypt_bd_system_ila_0_0\\des_encrypt_bd_system_ila_0_0.xci",
-        "inst_hier_path": "system_ila_0",
-        "parameters": {
-          "C_MON_TYPE": {
-            "value": "INTERFACE"
-          },
-          "C_NUM_MONITOR_SLOTS": {
-            "value": "2"
-          },
-          "C_SLOT_0_APC_EN": {
-            "value": "0"
-          },
-          "C_SLOT_0_AXI_DATA_SEL": {
-            "value": "1"
-          },
-          "C_SLOT_0_AXI_TRIG_SEL": {
-            "value": "1"
-          },
-          "C_SLOT_0_INTF_TYPE": {
-            "value": "xilinx.com:interface:axis_rtl:1.0"
-          },
-          "C_SLOT_1_APC_EN": {
-            "value": "0"
-          },
-          "C_SLOT_1_AXI_DATA_SEL": {
-            "value": "1"
-          },
-          "C_SLOT_1_AXI_TRIG_SEL": {
-            "value": "1"
-          },
-          "C_SLOT_1_INTF_TYPE": {
-            "value": "xilinx.com:interface:axis_rtl:1.0"
-          }
-        },
-        "interface_ports": {
-          "SLOT_0_AXIS": {
-            "mode": "Monitor",
-            "monitor_type": "SlaveType",
-            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-            "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-          },
-          "SLOT_1_AXIS": {
-            "mode": "Monitor",
-            "monitor_type": "SlaveType",
-            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
-            "vlnv": "xilinx.com:interface:axis_rtl:1.0"
-          }
-        }
       }
     },
     "interface_nets": {
       "axi_dma_0_M_AXIS_MM2S": {
         "interface_ports": [
           "des_encrypt_0/s_axis",
-          "axi_dma_0/M_AXIS_MM2S",
-          "system_ila_0/SLOT_0_AXIS"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "axi_dma_0/M_AXIS_MM2S"
+        ]
       },
       "axi_dma_0_M_AXI_MM2S": {
         "interface_ports": [
@@ -1235,17 +1172,8 @@
       "custom_module_m_axis": {
         "interface_ports": [
           "des_encrypt_0/m_axis",
-          "axi_dma_0/S_AXIS_S2MM",
-          "system_ila_0/SLOT_1_AXIS"
-        ],
-        "hdl_attributes": {
-          "DEBUG": {
-            "value": "true"
-          },
-          "MARK_DEBUG": {
-            "value": "true"
-          }
-        }
+          "axi_dma_0/S_AXIS_S2MM"
+        ]
       },
       "processing_system7_0_DDR": {
         "interface_ports": [
@@ -1284,8 +1212,7 @@
           "zynqcore/M_AXI_GP0_ACLK",
           "zynqcore/S_AXI_HP0_ACLK",
           "zynqcore/S_AXI_HP2_ACLK",
-          "des_encrypt_0/aclk",
-          "system_ila_0/clk"
+          "des_encrypt_0/aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -1305,8 +1232,7 @@
           "axi_mem_intercon_1/S00_ARESETN",
           "axi_mem_intercon_1/M00_ARESETN",
           "axi_mem_intercon_1/ARESETN",
-          "des_encrypt_0/aresetn",
-          "system_ila_0/resetn"
+          "des_encrypt_0/aresetn"
         ]
       }
     },
