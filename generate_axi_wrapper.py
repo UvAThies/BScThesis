@@ -9,7 +9,7 @@ def get_algorithm_config(algorithm_name):
             "message_width": 8,
             "output_width": 32, # Min axi width is 32
             "key_bits": [10],
-            "latency": 10  # Adjust based on SDES implementation
+            "latency": 1  # Adjust based on SDES implementation
         },
         "DES": {
             "input_width": 128,  # 64 bits data + 64 bits key
@@ -30,21 +30,21 @@ def get_algorithm_config(algorithm_name):
             "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64],
-            "latency": 21  # Same as DES
+            "latency": 17  # Same as DES
         },
         "DESXL": {
             "input_width": 256,  # 64 bits data + 64 bits main key + 2*64 bits additional keys
             "message_width": 64,
             "output_width": 64,
             "key_bits": [64, 64, 64],
-            "latency": 21  # Same as DES
+            "latency": 17  # Same as DES
         },
         "DESL": {
             "input_width": 128,  # 64 bits data + 64 bits key
             "message_width": 64,
             "output_width": 64,
             "key_bits": [64],
-            "latency": 21  # Same as DES
+            "latency": 17  # Same as DES
         }
     }
     

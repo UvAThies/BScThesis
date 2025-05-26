@@ -122,8 +122,6 @@ BEGIN
         end process;
     END GENERATE u0;
 
-
-
     ip_inv_inp <= right_reg(16) & left_reg(16);
 
     ip_inv_instance : DES_initial_permutation

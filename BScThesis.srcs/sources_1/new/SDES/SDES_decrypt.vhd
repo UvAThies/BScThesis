@@ -24,7 +24,9 @@ ENTITY SDES_decrypt IS
     PORT (
         inp : IN STD_LOGIC_VECTOR(0 TO 7);
         key : IN STD_LOGIC_VECTOR(0 TO 9);
-        outp : OUT STD_LOGIC_VECTOR(0 TO 7)
+        outp : OUT STD_LOGIC_VECTOR(0 TO 7);
+        clk : IN STD_LOGIC;
+        rst : IN STD_LOGIC
     );
 END SDES_decrypt;
 
@@ -69,6 +71,7 @@ SIGNAL key2 : STD_LOGIC_VECTOR(0 TO 7);
 SIGNAL pi1_outp : STD_LOGIC_VECTOR(0 TO 7);
 SIGNAL swap_outp : STD_LOGIC_VECTOR(0 TO 7);
 SIGNAL pi2_outp : STD_LOGIC_VECTOR(0 TO 7);
+SIGNAL ip_inv_outp : STD_LOGIC_VECTOR(0 TO 7);
 
 BEGIN
     -- IP
@@ -115,7 +118,15 @@ BEGIN
     GENERIC MAP (IS_INVERSE => TRUE)
     PORT MAP (
         inp => pi2_outp,
-        outp => outp
+        outp => ip_inv_outp
     );
 
+    process(clk, rst)
+    begin
+        if rst = '1' then
+            outp <= (others => '0');
+        elsif rising_edge(clk) then
+            outp <= ip_inv_outp;
+        end if;
+    end process;
 END Behavioral;
