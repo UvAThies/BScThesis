@@ -45,8 +45,13 @@ def fpga(test_vectors):
 #     (pydes, fpga, "des-encrypt - Using FPGA instead of PyDES")
 # ]
 
+# __benchmarks_thies__ = [
+#     (setup, (2**4, ), pydes, fpga, global_test_vectors, "tdes-encrypt"),
+#     (setup, (2**8, ), pydes, fpga, global_test_vectors, "tdes-encrypt"),
+#     (setup, (2**16, ), pydes, fpga, global_test_vectors,"tdes-encrypt"),
+# ]
+
 __benchmarks_thies__ = [
-    (setup, (2**4, ), pydes, fpga, global_test_vectors, "tdes-encrypt"),
-    (setup, (2**8, ), pydes, fpga, global_test_vectors, "tdes-encrypt"),
-    (setup, (2**16, ), pydes, fpga, global_test_vectors,"tdes-encrypt"),
+     (setup, (x, ), pydes, fpga, [*global_test_vectors, {
+         "message": "A" * 8 * x, "key": "12345678" * 3}], "tdes-encrypt") for x in [2**4, 2**6, 2**8, 2**10]
 ]

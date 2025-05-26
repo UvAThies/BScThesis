@@ -5,6 +5,7 @@ import argparse
 import timeit
 import pathlib
 import sys
+import time
 import csv
 from types import FunctionType
 try:
@@ -93,6 +94,8 @@ def main():
     table.add_column("Max (+)", style="blue", width=15)
     table.add_column("Mean (+)", style="blue", width=15)
 
+    start = time.time()
+    
     results = []  # Store results for CSV export
     n = 0
     for target in args.target:
@@ -151,5 +154,7 @@ def main():
         export_to_csv(results, args.csv)
         console.print(f"\nResults exported to {args.csv}")
 
+    print(f"Completed in {(time.time() - start):.2f} seconds.")
+        
 if __name__ == "__main__":
     main()
