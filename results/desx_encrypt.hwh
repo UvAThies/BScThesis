@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 19 16:27:16 2025" VIVADOVERSION="2024.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon May 26 18:19:38 2025" VIVADOVERSION="2024.2">
 
   <SYSTEMINFO ARCH="zynq" BOARD="www.digilentinc.com:pynq-z1:part0:1.0" DEVICE="7z020" NAME="desx_encrypt_bd" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -3263,6 +3263,7 @@
     <MODULE COREREVISION="1" FULLNAME="/desx_encrypt_0" HWVERSION="1.0" INSTANCE="desx_encrypt_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi_interface_desx_encrypt" VLNV="xilinx.com:module_ref:axi_interface_desx_encrypt:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
+        <PARAMETER NAME="LATENCY" VALUE="18"/>
         <PARAMETER NAME="Component_Name" VALUE="desx_encrypt_bd_desx_encrypt_0_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>

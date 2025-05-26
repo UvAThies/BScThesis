@@ -7,7 +7,7 @@
 # set SUPPORTED_ALGORITHMS [list "SDES" "DES" "TDES" "DESX" "DESXL" "DESL"]
 set SUPPORTED_OPERATIONS [list "encrypt" "decrypt"]
 
-set SUPPORTED_ALGORITHMS [list "DES"]
+set SUPPORTED_ALGORITHMS [list "TDES" "DESX" "DESXL" "DESL" "SDES"]
 # set SUPPORTED_ALGORITHMS [list "TDES"]
 
 # --- Configuration ---
