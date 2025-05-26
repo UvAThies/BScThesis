@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date             : Mon May 26 17:35:34 2025
+| Date             : Mon May 26 17:55:30 2025
 | Host             : DefconeONE running 64-bit major release  (build 9200)
 | Command          : report_power -file C:/Users/Thies/xillinx/BScThesis/results/des_encrypt_power.rpt -quiet
 | Design           : des_encrypt_bd_wrapper
@@ -52,15 +52,15 @@ Table of Contents
 +--------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
-| Clocks                   |     0.010 |        3 |       --- |             --- |
+| Clocks                   |     0.011 |        3 |       --- |             --- |
 | Slice Logic              |     0.009 |    10887 |       --- |             --- |
-|   LUT as Logic           |     0.008 |     3977 |     53200 |            7.48 |
+|   LUT as Logic           |     0.008 |     3975 |     53200 |            7.47 |
 |   Register               |    <0.001 |     5115 |    106400 |            4.81 |
 |   CARRY4                 |    <0.001 |       90 |     13300 |            0.68 |
 |   LUT as Distributed RAM |    <0.001 |       38 |     17400 |            0.22 |
 |   LUT as Shift Register  |    <0.001 |      122 |     17400 |            0.70 |
 |   Others                 |     0.000 |      437 |       --- |             --- |
-| Signals                  |     0.008 |     8281 |       --- |             --- |
+| Signals                  |     0.008 |     8277 |       --- |             --- |
 | Block RAM                |    <0.001 |        4 |       140 |            2.86 |
 | PS7                      |     1.529 |        1 |       --- |             --- |
 | Static Power             |     0.137 |          |           |                 |
@@ -152,8 +152,8 @@ Table of Contents
 +------------------------+-----------+
 | des_encrypt_bd_wrapper |     1.557 |
 |   des_encrypt_bd_i     |     1.557 |
-|     axi_dma_0          |     0.006 |
-|       U0               |     0.006 |
+|     axi_dma_0          |     0.007 |
+|       U0               |     0.007 |
 |     axi_mem_intercon   |     0.001 |
 |       s00_couplers     |     0.001 |
 |     axi_smc            |     0.002 |

@@ -59,10 +59,12 @@ def generate_axi_wrapper(algorithm_name, operation="encrypt"):
     
     config = get_algorithm_config(algorithm_name)
     
+    # The latency is the number of clock cycles for the operation, add 1, because the counter starts at 1
+
     # Generate the module code
     code = f"""module axi_interface_{algorithm_name.lower()}_{operation}
     #(
-        parameter LATENCY = {config['latency']}  // Number of clock cycles for {operation}ion
+        parameter LATENCY = {config['latency'] + 1}  // Number of clock cycles for {operation}ion
     )
     (
         input wire         aclk,
