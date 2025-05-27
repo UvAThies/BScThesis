@@ -176,14 +176,13 @@ class SDESEncryptor(BaseFPGAEncryptor):
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
         super().__init__(1, 3, 4, "./sdes_encrypt.bit", "./sdes_decrypt.bit", logging, max_parallel_send)
-    
 
 class DESEncryptor(BaseFPGAEncryptor):
     """
     Implementation of DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, 8, 8, "./des_encrypt.bit", "./des_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, 8, 8, "/home/xilinx/jupyter_notebooks/thies/results/des_encrypt.bit", "/home/xilinx/jupyter_notebooks/thies/results/des_decrypt.bit", logging, max_parallel_send)
 
 
 class TDESEncryptor(BaseFPGAEncryptor):
@@ -191,7 +190,7 @@ class TDESEncryptor(BaseFPGAEncryptor):
     Implementation of Triple DES encryption using FPGA.
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
-        super().__init__(8, 24, 8, "./tdes_encrypt.bit", "./tdes_decrypt.bit", logging, max_parallel_send)
+        super().__init__(8, 24, 8, "../results/tdes_encrypt.bit", "../results/tdes_decrypt.bit", logging, max_parallel_send)
 
 
 class DESLEncryptor(BaseFPGAEncryptor):
