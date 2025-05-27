@@ -106,7 +106,7 @@ def parse_reports(base_dir: str) -> Dict[str, AlgorithmStats]:
             match = re.match(r'(\w+)_(encrypt|decrypt)_(utilization|timing)\.rpt', file)
             if match:
                 algo_name, algo_type, report_type = match.groups()
-                key = f"{algo_name}_{algo_type}"
+                key = f"{algo_name.lower()}_{algo_type.lower()}"
                 
                 if key not in stats:
                     stats[key] = AlgorithmStats(

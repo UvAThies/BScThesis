@@ -176,8 +176,7 @@ class SDESEncryptor(BaseFPGAEncryptor):
     """
     def __init__(self, logging=True, max_parallel_send=2**4):
         super().__init__(1, 3, 4, "./sdes_encrypt.bit", "./sdes_decrypt.bit", logging, max_parallel_send)
-
-
+    
 
 class DESEncryptor(BaseFPGAEncryptor):
     """
@@ -194,4 +193,25 @@ class TDESEncryptor(BaseFPGAEncryptor):
     def __init__(self, logging=True, max_parallel_send=2**4):
         super().__init__(8, 24, 8, "./tdes_encrypt.bit", "./tdes_decrypt.bit", logging, max_parallel_send)
 
+
+class DESLEncryptor(BaseFPGAEncryptor):
+    """
+    Implementation of DES-like encryption using FPGA.
+    """
+    def __init__(self, logging=True, max_parallel_send=2**4):
+        super().__init__(8, 8, 8, "./desl_encrypt.bit", "./desl_decrypt.bit", logging, max_parallel_send)
+
+class DESXEncryptor(BaseFPGAEncryptor):
+    """
+    Implementation of DES-like encryption using FPGA.
+    """
+    def __init__(self, logging=True, max_parallel_send=2**4):
+        super().__init__(8, 8, 8, "./desx_encrypt.bit", "./desx_decrypt.bit", logging, max_parallel_send)   
+
+class DESXLEncryptor(BaseFPGAEncryptor):
+    """
+    Implementation of DES-like encryption using FPGA.
+    """
+    def __init__(self, logging=True, max_parallel_send=2**4):
+        super().__init__(8, 8, 8, "./desxl_encrypt.bit", "./desxl_decrypt.bit", logging, max_parallel_send)
 
