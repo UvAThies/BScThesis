@@ -44,20 +44,22 @@ def format_delta(a: float, b: float, d: float, perc: bool = False) -> Text:
             return Text(f"{a:.3f} (-{x:.1f}x)", style="red")
 
 
-def benchmark_function(setup_func, setup_args, func1, func2, desc, repeat: int, times: int):
+def benchmark_function(setup_func, setup_args, breakdown, func1, func2,test_vectors, desc, repeat: int, times: int):
     # Call setup function once with the provided arguments
     setup_result = setup_func(*setup_args)
     
     # Create wrapper functions that include the test vectors
     def wrapper1():
-        return func1()
+        return func1(test_vectors)
     
     def wrapper2():
-        return func2()
+        return func2(test_vectors)
     
     # Run the benchmarks
     result1 = timeit.repeat(wrapper1, repeat=repeat, number=times)
     result2 = timeit.repeat(wrapper2, repeat=repeat, number=times)
+    
+    breakdown()
     
     return result1, result2
 
@@ -108,10 +110,10 @@ def main():
             if hasattr(i, "__benchmarks_thies__"):
                 for benchmark in i.__benchmarks_thies__:
                     n += 1
-                    setup_func, setup_args, func1, func2, test_vectors, desc = benchmark
-                    
+                    setup_func, setup_args, breakdown, func1, func2, test_vectors, desc = benchmark
+                    print("starting", desc, setup_args)
                     without_result, with_result = benchmark_function(
-                        setup_func, setup_args, func1, func2, test_vectors, desc,
+                        setup_func, setup_args, breakdown, func1, func2, test_vectors,desc,
                         args.repeat, args.times
                     )
 
