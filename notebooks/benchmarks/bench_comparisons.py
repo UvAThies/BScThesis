@@ -46,21 +46,24 @@ max_test_vectors = [
     # (x, {"message": "A" * 8 * x, "key": "12345678"}) for x in [2**4, 2**6, 2**8, 2**10]
 ]
 
+def noop():
+    pass
+
 __benchmarks_thies__ = [
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(des_encryptor, test_vectors, True), "des-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(des_encryptor, test_vectors, False), "des-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(desl_encryptor, test_vectors, True), "desl-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(desl_encryptor, test_vectors, False), "desl-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(desx_encryptor, test_vectors, True), "desx-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(desx_encryptor, test_vectors, False), "desx-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(desxl_encryptor, test_vectors, True), "desxl-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(desxl_encryptor, test_vectors, False), "desxl-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(sdes_encryptor, test_vectors, True), "sdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(sdes_encryptor, test_vectors, False), "sdes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), algo(tdes_encryptor, test_vectors, True), "tdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), algo(tdes_encryptor, test_vectors, False), "tdes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(pydes_encryptor, test_vectors, True), algo(des_encryptor, test_vectors, True), "pydes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(pydes_encryptor, test_vectors, False), algo(des_encryptor, test_vectors, False), "pydes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(pytdes_encryptor, test_vectors, True), algo(tdes_encryptor, test_vectors, True), "pytdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup, (amt, ), algo(pytdes_encryptor, test_vectors, False), algo(tdes_encryptor, test_vectors, False), "pytdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(des_encryptor, test_vectors, True), noop, "des-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(des_encryptor, test_vectors, False), noop, "des-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(desl_encryptor, test_vectors, True), noop, "desl-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(desl_encryptor, test_vectors, False), noop, "desl-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ),  algo(desx_encryptor, test_vectors, True), noop, "desx-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ),  algo(desx_encryptor, test_vectors, False), noop, "desx-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ),  algo(desxl_encryptor, test_vectors, True), noop, "desxl-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(desxl_encryptor, test_vectors, False), noop, "desxl-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(sdes_encryptor, test_vectors, True), noop, "sdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(sdes_encryptor, test_vectors, False), noop, "sdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(tdes_encryptor, test_vectors, True), noop, "tdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(tdes_encryptor, test_vectors, False), noop, "tdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(pydes_encryptor, test_vectors, True), noop, "pydes-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(pydes_encryptor, test_vectors, False), noop, "pydes-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(pytdes_encryptor, test_vectors, True), noop, "pytdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup, (amt, ), algo(pytdes_encryptor, test_vectors, False), noop, "pytdes-decrypt") for (amt, test_vectors) in max_test_vectors],
 ]
