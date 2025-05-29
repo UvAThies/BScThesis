@@ -22,10 +22,24 @@ class ResourceStats:
     io: int
 
 @dataclass
+class PowerStats:
+    total_power: float  # W
+    dynamic_power: float  # W
+    static_power: float  # W
+    junction_temp: float  # C
+    confidence_level: str
+    clock_power: float  # W
+    slice_logic_power: float  # W
+    signals_power: float  # W
+    block_ram_power: float  # W
+    ps7_power: float  # W
+
+@dataclass
 class AlgorithmStats:
     name: str
-    timing: TimingStats
-    resources: ResourceStats
+    timing: Optional[TimingStats]
+    resources: Optional[ResourceStats]
+    power: Optional[PowerStats]
 
 def parse_timing_report(file_path: str) -> TimingStats:
     with open(file_path, 'r') as f:
@@ -96,14 +110,45 @@ def parse_utilization_report(file_path: str) -> ResourceStats:
         io=io
     )
 
+def parse_power_report(file_path: str) -> PowerStats:
+    with open(file_path, 'r') as f:
+        content = f.read()
+    
+    # Find total power information
+    total_power_match = re.search(r'Total On-Chip Power \(W\)\s+\|\s+(\d+\.\d+)', content)
+    dynamic_power_match = re.search(r'Dynamic \(W\)\s+\|\s+(\d+\.\d+)', content)
+    static_power_match = re.search(r'Device Static \(W\)\s+\|\s+(\d+\.\d+)', content)
+    junction_temp_match = re.search(r'Junction Temperature \(C\)\s+\|\s+(\d+\.\d+)', content)
+    confidence_match = re.search(r'Confidence Level\s+\|\s+(\w+)', content)
+    
+    # Find component power information
+    clock_power_match = re.search(r'Clocks\s+\|\s+(\d+\.\d+)', content)
+    slice_logic_power_match = re.search(r'Slice Logic\s+\|\s+(\d+\.\d+)', content)
+    signals_power_match = re.search(r'Signals\s+\|\s+(\d+\.\d+)', content)
+    block_ram_power_match = re.search(r'Block RAM\s+\|\s+(\d+\.\d+)', content)
+    ps7_power_match = re.search(r'PS7\s+\|\s+(\d+\.\d+)', content)
+    
+    return PowerStats(
+        total_power=float(total_power_match.group(1)) if total_power_match else 0.0,
+        dynamic_power=float(dynamic_power_match.group(1)) if dynamic_power_match else 0.0,
+        static_power=float(static_power_match.group(1)) if static_power_match else 0.0,
+        junction_temp=float(junction_temp_match.group(1)) if junction_temp_match else 0.0,
+        confidence_level=confidence_match.group(1) if confidence_match else "Unknown",
+        clock_power=float(clock_power_match.group(1)) if clock_power_match else 0.0,
+        slice_logic_power=float(slice_logic_power_match.group(1)) if slice_logic_power_match else 0.0,
+        signals_power=float(signals_power_match.group(1)) if signals_power_match else 0.0,
+        block_ram_power=float(block_ram_power_match.group(1)) if block_ram_power_match else 0.0,
+        ps7_power=float(ps7_power_match.group(1)) if ps7_power_match else 0.0
+    )
+
 def parse_reports(base_dir: str) -> Dict[str, AlgorithmStats]:
     stats = {}
     
     # Find all report files
     for file in os.listdir(base_dir):
-        if file.endswith('_utilization.rpt') or file.endswith('_timing.rpt'):
+        if file.endswith('_utilization.rpt') or file.endswith('_timing.rpt') or file.endswith('_power.rpt'):
             # Extract algorithm name and type (encrypt/decrypt)
-            match = re.match(r'(\w+)_(encrypt|decrypt)_(utilization|timing)\.rpt', file)
+            match = re.match(r'(\w+)_(encrypt|decrypt)_(utilization|timing|power)\.rpt', file)
             if match:
                 algo_name, algo_type, report_type = match.groups()
                 key = f"{algo_name.lower()}_{algo_type.lower()}"
@@ -112,13 +157,16 @@ def parse_reports(base_dir: str) -> Dict[str, AlgorithmStats]:
                     stats[key] = AlgorithmStats(
                         name=key,
                         timing=None,
-                        resources=None
+                        resources=None,
+                        power=None
                     )
                 
                 if report_type == 'timing':
                     stats[key].timing = parse_timing_report(os.path.join(base_dir, file))
-                else:
+                elif report_type == 'utilization':
                     stats[key].resources = parse_utilization_report(os.path.join(base_dir, file))
+                else:  # power
+                    stats[key].power = parse_power_report(os.path.join(base_dir, file))
     
     return stats
 
@@ -146,6 +194,20 @@ def print_summary(stats: Dict[str, AlgorithmStats]):
             print(f"  Block RAM: {algo_stats.resources.block_ram}")
             print(f"  DSP: {algo_stats.resources.dsp}")
             print(f"  IO: {algo_stats.resources.io}")
+            
+        if algo_stats.power:
+            print("\nPower:")
+            print(f"  Total Power: {algo_stats.power.total_power:.3f} W")
+            print(f"  Dynamic Power: {algo_stats.power.dynamic_power:.3f} W")
+            print(f"  Static Power: {algo_stats.power.static_power:.3f} W")
+            print(f"  Junction Temperature: {algo_stats.power.junction_temp:.1f} °C")
+            print(f"  Confidence Level: {algo_stats.power.confidence_level}")
+            print("\n  Component Power:")
+            print(f"    Clock: {algo_stats.power.clock_power:.3f} W")
+            print(f"    Slice Logic: {algo_stats.power.slice_logic_power:.3f} W")
+            print(f"    Signals: {algo_stats.power.signals_power:.3f} W")
+            print(f"    Block RAM: {algo_stats.power.block_ram_power:.3f} W")
+            print(f"    PS7: {algo_stats.power.ps7_power:.3f} W")
 
 def export_to_csv(stats: Dict[str, AlgorithmStats], output_file: str):
     # Define CSV headers
@@ -161,7 +223,17 @@ def export_to_csv(stats: Dict[str, AlgorithmStats], output_file: str):
         'Registers',
         'Block RAM',
         'DSP',
-        'IO'
+        'IO',
+        'Total Power (W)',
+        'Dynamic Power (W)',
+        'Static Power (W)',
+        'Junction Temperature (°C)',
+        'Confidence Level',
+        'Clock Power (W)',
+        'Slice Logic Power (W)',
+        'Signals Power (W)',
+        'Block RAM Power (W)',
+        'PS7 Power (W)'
     ]
     
     # Write to CSV
@@ -182,7 +254,17 @@ def export_to_csv(stats: Dict[str, AlgorithmStats], output_file: str):
                 algo_stats.resources.registers if algo_stats.resources else "N/A",
                 algo_stats.resources.block_ram if algo_stats.resources else "N/A",
                 algo_stats.resources.dsp if algo_stats.resources else "N/A",
-                algo_stats.resources.io if algo_stats.resources else "N/A"
+                algo_stats.resources.io if algo_stats.resources else "N/A",
+                f"{algo_stats.power.total_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.dynamic_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.static_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.junction_temp:.1f}" if algo_stats.power else "N/A",
+                algo_stats.power.confidence_level if algo_stats.power else "N/A",
+                f"{algo_stats.power.clock_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.slice_logic_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.signals_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.block_ram_power:.3f}" if algo_stats.power else "N/A",
+                f"{algo_stats.power.ps7_power:.3f}" if algo_stats.power else "N/A"
             ]
             writer.writerow(row)
 
