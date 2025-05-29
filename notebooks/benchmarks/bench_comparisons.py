@@ -84,28 +84,37 @@ def pytdes(test_vectors, encrypt=True):
     return [pytdes_encryptor.encrypt(test_vector["message"], test_vector["key"]) if encrypt else pytdes_encryptor.decrypt(test_vector["message"], test_vector["key"]) for test_vector in test_vectors]
 
 max_test_vectors = [
-    (x, [*global_test_vectors, {"message": "A" * 8 * x, "key": "12345678"}]) for x in [2**12]
-    # (x, {"message": "A" * 8 * x, "key": "12345678"}) for x in [2**4, 2**6, 2**8, 2**10]
+#     (x, [*global_test_vectors, {"message": "A" * 8 * x, "key": "12345678"}]) for x in [2 ** 4, 2**12]
+    (x, [{"message": "A" * 8 * x, "key": "12345678"}]) for x in [2 ** 4, 2**12]
+]
+
+
+max_test_vectors_SDES = [
+#     (x, [*global_test_vectors, {"message": "A" * 8 * x, "key": "12345678"}]) for x in [2 ** 4, 2**12]
+    (x, [{"message": "A" * 1 * x, "key": "12345678"}]) for x in [2 ** 4, 2**12]
 ]
 
 def noop(tmp):
     pass
-
 __benchmarks_thies__ = [
-     *[(setup_des, (amt, ), breakdown, des, noop, test_vectors, "des-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_des, (amt, ), breakdown, des, noop, test_vectors, "des-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desl, (amt, ), breakdown, desl, noop, test_vectors, "desl-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desl, (amt, ), breakdown, desl, noop, test_vectors, "desl-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desx, (amt, ), breakdown, desx, noop, test_vectors, "desx-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desx, (amt, ), breakdown, desx, noop, test_vectors, "desx-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desxl, (amt, ), breakdown, desxl, noop, test_vectors, "desxl-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_desxl, (amt, ), breakdown, desxl, noop, test_vectors, "desxl-decrypt") for (amt, test_vectors) in max_test_vectors],
-    #  *[(setup_sdes, (amt, ),  breakdown,sdes, noop, test_vectors, "sdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-    #  *[(setup_sdes, (amt, ), breakdown, sdes, noop, test_vectors, "sdes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_tdes, (amt, ), breakdown, tdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "tdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(setup_tdes, (amt, ), breakdown, tdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "tdes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(noop, (amt, ), breakdown, pydes, noop, test_vectors, "pydes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(noop, (amt, ), breakdown, pydes, noop, test_vectors, "pydes-decrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(noop, (amt, ), breakdown, pytdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "pytdes-encrypt") for (amt, test_vectors) in max_test_vectors],
-     *[(noop, (amt, ), breakdown, pytdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "pytdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+     *[(setup_sdes, (amt, ),  breakdown,sdes, noop,  [{"message": vector["message"], "key": "123"} for vector in test_vectors], "sdes-encrypt") for (amt, test_vectors) in max_test_vectors_SDES],
+     *[(setup_sdes, (amt, ), breakdown, sdes, noop, [{"message": vector["message"], "key": "123"} for vector in test_vectors], "sdes-decrypt") for (amt, test_vectors) in max_test_vectors_SDES],
 ]
+# __benchmarks_thies__ = [
+#      *[(setup_des, (amt, ), breakdown, des, noop, test_vectors, "des-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_des, (amt, ), breakdown, des, noop, test_vectors, "des-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desl, (amt, ), breakdown, desl, noop, test_vectors, "desl-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desl, (amt, ), breakdown, desl, noop, test_vectors, "desl-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desx, (amt, ), breakdown, desx, noop, test_vectors, "desx-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desx, (amt, ), breakdown, desx, noop, test_vectors, "desx-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desxl, (amt, ), breakdown, desxl, noop, test_vectors, "desxl-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_desxl, (amt, ), breakdown, desxl, noop, test_vectors, "desxl-decrypt") for (amt, test_vectors) in max_test_vectors],
+#     #  *[(setup_sdes, (amt, ),  breakdown,sdes, noop, test_vectors, "sdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+#     #  *[(setup_sdes, (amt, ), breakdown, sdes, noop, test_vectors, "sdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_tdes, (amt, ), breakdown, tdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "tdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(setup_tdes, (amt, ), breakdown, tdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "tdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(noop, (amt, ), breakdown, pydes, noop, test_vectors, "pydes-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(noop, (amt, ), breakdown, pydes, noop, test_vectors, "pydes-decrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(noop, (amt, ), breakdown, pytdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "pytdes-encrypt") for (amt, test_vectors) in max_test_vectors],
+#      *[(noop, (amt, ), breakdown, pytdes, noop, [{"message": vector["message"], "key": vector["key"] * 3} for vector in test_vectors], "pytdes-decrypt") for (amt, test_vectors) in max_test_vectors],
+# ]
