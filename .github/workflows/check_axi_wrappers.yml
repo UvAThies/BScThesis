@@ -17,7 +17,7 @@ jobs:
           python-version: '3.x'
           
       - name: Generate wrappers
-        run: python generate_axi_wrapper.py
+        run: python scripts/generate_axi_wrapper.py
         
       - name: Check for differences
         run: |
