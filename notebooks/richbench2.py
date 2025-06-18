@@ -9,9 +9,9 @@ import time
 import csv
 from types import FunctionType
 try:
-    from statistics import fmean
+    from statistics import fmean, stdev
 except ImportError: # Python 3.6-3.7 doesn't have fmean
-    from statistics import mean as fmean # YOLO
+    from statistics import mean as fmean, stdev 
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
@@ -68,7 +68,7 @@ def export_to_csv(results, filename):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         # Write header
-        writer.writerow(['Benchmark', 'Args','Min', 'Max', 'Mean', 'Min (+)', 'Max (+)', 'Mean (+)'])
+        writer.writerow(['Benchmark', 'Args', 'Min', 'Max', 'Mean', 'Stdev', 'Min (+)', 'Max (+)', 'Mean (+)', 'Stdev (+)'])
         # Write data
         for row in results:
             writer.writerow(row)
@@ -92,9 +92,11 @@ def main():
     table.add_column("Min", width=7)
     table.add_column("Max", width=7)
     table.add_column("Mean", width=7)
+    table.add_column("Stdev", width=7)
     table.add_column("Min (+)", style="blue", width=15)
     table.add_column("Max (+)", style="blue", width=15)
     table.add_column("Mean (+)", style="blue", width=15)
+    table.add_column("Stdev (+)", style="blue", width=15)
 
     start = time.time()
     
@@ -132,9 +134,11 @@ def main():
                         f"{min(without_result):.3f}",
                         f"{max(without_result):.3f}",
                         f"{fmean(without_result):.3f}",
+                        f"{stdev(without_result):.3f}",
                         f"{min(with_result):.3f}",
                         f"{max(with_result):.3f}",
-                        f"{fmean(with_result):.3f}"
+                        f"{fmean(with_result):.3f}",
+                        f"{stdev(with_result):.3f}"
                     ])
 
                     table.add_row(
@@ -143,9 +147,11 @@ def main():
                         "{:.3f}".format(min(without_result)),
                         "{:.3f}".format(max(without_result)),
                         "{:.3f}".format(fmean(without_result)),
+                        "{:.3f}".format(stdev(without_result)),
                         fdelta_min,
                         fdelta_max,
                         fdelta_mean,
+                        "{:.3f}".format(stdev(with_result)),
                                 )
 
     console = Console(width=150)
